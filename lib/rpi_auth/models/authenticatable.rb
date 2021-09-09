@@ -5,6 +5,7 @@ module RpiAuth
 
       included do
         include ActiveModel::Model
+        include ActiveModel::Serialization
       end
 
       PROFILE_KEYS = %w[
@@ -14,6 +15,7 @@ module RpiAuth
         nickname
         picture
         profile
+        roles
       ].freeze
       attr_accessor :id, *PROFILE_KEYS
 

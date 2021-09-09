@@ -20,7 +20,8 @@ RSpec.describe RpiAuth::AuthenticationHelper do
           'nickname' => 'John',
           'picture' => 'http://picture.com',
           'profile' => 'http://profile.com',
-          'id' => 'userid' }
+          'id' => 'userid',
+          'roles' => nil }
       end
 
       before do
@@ -39,9 +40,7 @@ RSpec.describe RpiAuth::AuthenticationHelper do
 
       it 'returns correct values for user' do
         user = helper.current_user
-        user_info.each do |key, val|
-          expect(user.send(key)).to eq(val)
-        end
+        expect(user.serializable_hash).to match(user_info)
       end
     end
   end
