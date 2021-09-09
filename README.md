@@ -6,6 +6,8 @@ A gem to handle authenticating via Hydra for Raspberry Pi Foundation Rails appli
 
 How to use my plugin.
 
+The Engine includes the [Rails CSRF protection gem](https://github.com/cookpad/omniauth-rails_csrf_protection), so this does not need to be included in the parent application
+
 ## Installation
 Add this line to your application's Gemfile:
 
