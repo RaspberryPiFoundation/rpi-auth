@@ -24,11 +24,12 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'omniauth-rpi'
   spec.add_dependency 'rails', '~> 6.1.4', '>= 6.1.4.1'
 
+  spec.add_development_dependency 'listen'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'sqlite3'
-  spec.add_development_dependency 'listen'
-  spec.add_development_dependency 'webpacker', '~> 5.0'
   spec.add_development_dependency 'turbolinks', '~> 5'
+  spec.add_development_dependency 'webpacker', '~> 5.0'
 end
