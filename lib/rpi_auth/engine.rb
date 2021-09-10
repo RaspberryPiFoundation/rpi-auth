@@ -42,16 +42,13 @@ module RpiAuth
           OmniAuth::Strategies::Rpi,
           RpiAuth.configuration.auth_client_id,
           RpiAuth.configuration.auth_client_secret,
-          scope: 'openid email profile force-consent',
+          scope: 'openid email profile force-consent roles',
           callback_path: '/rpi_auth/auth/callback',
           client_options: {
             site: RpiAuth.configuration.auth_url,
             authorize_url: "#{RpiAuth.configuration.auth_url}/oauth2/auth",
             token_url: "#{RpiAuth.configuration.auth_url}/oauth2/token"
           },
-          authorize_params: {
-            brand: 'd2l'
-          }
         )
 
         OmniAuth.config.on_failure = RpiAuth::AuthController.action(:failure)
