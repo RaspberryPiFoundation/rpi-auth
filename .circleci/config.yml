@@ -13,6 +13,7 @@ jobs:
           command: bundle -v
       - ruby/install-deps:
           with-cache: false
+          bundler-version: 2.1.4
 
   test:
     docker:
