@@ -20,7 +20,7 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - ruby/bundle-install
+      - ruby/install-deps
       - ruby/rspec-test
 
 workflows:
