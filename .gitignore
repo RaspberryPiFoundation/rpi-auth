@@ -5,7 +5,6 @@
 /tmp/
 .byebug_history
 
-Gemfile.lock
 node_modules/
 server.pid
 examples.txt
