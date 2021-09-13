@@ -11,7 +11,8 @@ jobs:
       - run:
           name: Which bundler?
           command: bundle -v
-      - ruby/install-deps
+      - ruby/install-deps:
+          with_gemfile_lock: false
 
   test:
     docker:
