@@ -237,7 +237,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
     thor (1.1.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
@@ -265,7 +264,6 @@ DEPENDENCIES
   rspec-rails (~> 4.1.2)
   rubocop (~> 1.20.0)
   simplecov (~> 0.21.2)
-  sqlite3 (~> 1.4.2)
   turbolinks (~> 5)
   webpacker (~> 5.0)
 
