@@ -16,31 +16,6 @@ RSpec.describe 'Authentication', type: :request do
   let(:identity_url) { 'https://my.fakepi.com' }
   let(:host_url) { 'https://fakepi.com' }
 
-  before do
-
-  end
-
-  # let(:env) do
-  #   {
-  #     BYPASS_OAUTH: bypass_oauth,
-  #     HOST_URL: host_url,
-  #     IDENTITY_URL: identity_url
-  #   }
-  # end
-
-  # around do |example|
-  #   ClimateControl.modify(env) do
-  #     example.run
-  #   end
-  # end
-
-  # describe 'GET /login' do
-  #   it 'redirects to /auth/rpi' do
-  #     get '/login'
-  #     expect(response).to redirect_to('/auth/rpi')
-  #   end
-  # end
-
   describe 'GET /rpi_auth/logout' do
     before do
       RpiAuth.configuration.bypass_auth = false
