@@ -15,7 +15,7 @@ jobs:
       - ruby/rspec-test
   test-ruby-3:
     docker:
-      - image: cimg/ruby:3
+      - image: cimg/ruby:3.0
     steps:
       - checkout
       - run:
