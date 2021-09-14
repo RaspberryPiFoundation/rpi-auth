@@ -20,9 +20,57 @@ And then execute:
 $ bundle
 ```
 
-Or install it yourself as:
-```bash
-$ gem install rpi_auth
+Add an initializer file to configure rpi_auth e.g. in `config/initializers/rpi_auth.rb` containing the following information:
+
+```ruby
+RpiAuth.configure do |config|
+  config.auth_url = 'http://localhost:9000'         # The url of hydra being used
+  config.auth_client_id = 'gem-dev'                 # The hydra client ID
+  config.auth_client_secret = 'secret'              # The hydra client secret
+  config.host_url = 'http://localhost:3009'         # The url of the host site used (needed for redirects)
+  config.identity_url = 'http://localhost:3002'     # The url for the profile instance being used for auth
+  config.user_model = 'User'                        # The name of the user model in the host app being used, use the name as a string, not the model itself
+  config.success_redirect = '/'                     # After succesful login the route the user should be redirected to
+  config.bypass_auth = false                        # Should auth be bypassed and a default user logged in
+end
+```
+
+The values above will allow you to login using the `gem-dev` client seeded in Hydra provided you run the host application on port `3009`.
+You will need to change the values to match your application.
+
+Add the helper class to the host application's ApplicationController:
+
+```ruby
+class ApplicationController < ActionController::Base
+  include RpiAuth::AuthenticationHelper
+
+end
+```
+
+This provides access to the `current_user` method in controllers.
+
+Add the `authenticatable` concern to the host application's User model:
+
+```ruby
+class User < ApplicationRecord
+  include RpiAuth::Models::Authenticatable
+end
+```
+
+This model needs to be the same one defined in the initializer, an instance will be created on login.
+
+To login via Hydra your app needs to send the user to `/auth/rpi` via a POST request:
+
+```ruby
+<%= link_to 'Log in', '/auth/rpi', method: :post %>
+```
+
+A GET request will be blocked by the CSRF protection gem.
+
+There is a helper for the logout route:
+
+```ruby
+<%= link_to 'Log out', rpi_auth_logout_path  %>
 ```
 
 ## Contributing
@@ -56,4 +104,4 @@ If running Hydra locally you will need to configure a new client with the follow
   redirect_urls: 'http://localhost:3009/rpi_auth/auth/callback'
 }
 ```
-Follow the instructions in the Profile repository to do this.
+There is a seed in the profile repo to set this client up correctly, running the v1 setup tasks will create this client.

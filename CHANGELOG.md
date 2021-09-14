@@ -10,3 +10,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - omniauth-rpi strategy to auth via Hydra1
 - include omniauth rails csrf protection
 - configuration to allow setting endpoints and credentials for auth
+- rails model concern to allow host app to add auth behaviour to a model
+- callback, logout and failure routes to handle auth
