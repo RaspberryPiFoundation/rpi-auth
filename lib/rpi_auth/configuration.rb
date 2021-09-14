@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RpiAuth
   class Configuration
     attr_accessor :auth_client_id,

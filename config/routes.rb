@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   namespace 'rpi_auth' do
     get '/auth/callback', to: 'auth#callback', as: 'callback'

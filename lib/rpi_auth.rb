@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rpi_auth/version'
 require 'rpi_auth/engine'
 require 'rpi_auth/configuration'

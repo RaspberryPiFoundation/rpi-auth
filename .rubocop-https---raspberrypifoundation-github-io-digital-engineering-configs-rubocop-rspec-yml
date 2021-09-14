@@ -1,0 +1,11 @@
+---
+require:
+  - rubocop-rspec
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Layout/LineLength:
+  Exclude:
+    - spec/**/*

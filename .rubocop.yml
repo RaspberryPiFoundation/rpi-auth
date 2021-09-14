@@ -1,0 +1,19 @@
+---
+inherit_from:
+  - .rubocop_todo.yml
+  - https://raspberrypifoundation.github.io/digital-engineering/configs/rubocop-base.yml
+  - https://raspberrypifoundation.github.io/digital-engineering/configs/rubocop-performance.yml
+  - https://raspberrypifoundation.github.io/digital-engineering/configs/rubocop-rspec.yml
+
+
+  # - .rubocop_todo.yml
+
+
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  Exclude:
+    - 'spec/dummy/**/*'
+    - 'bin/{rails,rake}'
