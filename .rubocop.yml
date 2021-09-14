@@ -13,4 +13,5 @@ AllCops:
   TargetRubyVersion: 2.7
   Exclude:
     - 'spec/dummy/**/*'
-    - 'bin/{rails,rake}'
+    - 'vendor/**/*'
+    - 'bin/rails'

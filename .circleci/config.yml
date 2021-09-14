@@ -8,9 +8,6 @@ jobs:
       - image: cimg/ruby:2.7
     steps:
       - checkout
-      - run:
-          name: Which bundler?
-          command: bundle -v
       - ruby/install-deps
       - ruby/rspec-test
 
@@ -19,9 +16,6 @@ jobs:
       - image: cimg/ruby:3.0
     steps:
       - checkout
-      - run:
-          name: Which bundler?
-          command: bundle -v
       - ruby/install-deps
       - ruby/rspec-test
 
