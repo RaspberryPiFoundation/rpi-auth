@@ -3,23 +3,25 @@ orbs:
   ruby: circleci/ruby@1.1.4
 
 jobs:
-  test-ruby-2:
+  test:
     docker:
       - image: cimg/ruby:2.7.4
     steps:
       - checkout
+      - run:
+          name: Which bundler?
+          command: bundle -v
       - ruby/install-deps
       - ruby/rspec-test
-  test-ruby-3:
-    docker:
-      - image: cimg/ruby:3.0.2
-    steps:
-      - checkout
-      - ruby/install-deps
-      - ruby/rspec-test
+  # test-ruby-3:
+  #   docker:
+  #     - image: cimg/ruby:3.0.2
+  #   steps:
+  #     - checkout
+  #     - ruby/install-deps
+  #     - ruby/rspec-test
 
 workflows:
-  tests:
+  build_and_test:
     jobs:
-      - test-ruby-2
-      - test-ruby-3
+      - test
