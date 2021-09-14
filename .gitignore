@@ -8,3 +8,4 @@
 node_modules/
 server.pid
 examples.txt
+.rubocop-https*
