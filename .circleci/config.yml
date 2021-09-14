@@ -5,14 +5,14 @@ orbs:
 jobs:
   test-ruby-2:
     docker:
-      - image: cimg/ruby:2.7
+      - image: cimg/ruby:2.7.4
     steps:
       - checkout
       - ruby/install-deps
       - ruby/rspec-test
   test-ruby-3:
     docker:
-      - image: cimg/ruby:3
+      - image: cimg/ruby:3.0.2
     steps:
       - checkout
       - ruby/install-deps
