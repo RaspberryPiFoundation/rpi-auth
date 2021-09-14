@@ -13,6 +13,7 @@ jobs:
           command: bundle -v
       - ruby/install-deps
       - ruby/rspec-test
+
   test-ruby-3:
     docker:
       - image: cimg/ruby:3.0
@@ -24,8 +25,26 @@ jobs:
       - ruby/install-deps
       - ruby/rspec-test
 
+  rubocop:
+    docker:
+      - image: 'cimg/ruby:2.7'
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rubocop-check:
+          format: progress
+          label: Inspecting with Rubocop
+
 workflows:
   tests:
     jobs:
       - test-ruby-2
       - test-ruby-3
+  code_quality:
+    jobs:
+      - rubocop:
+          filters:
+            branches:
+              ignore:
+                - master
+                - main
