@@ -27,9 +27,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'listen', '~> 3.7.0'
   spec.add_development_dependency 'pry-byebug', '~> 3.9.0'
   spec.add_development_dependency 'rspec-rails', '~> 4.1.2'
+  spec.add_development_dependency 'rspec_junit_formatter', '~> 0.4.1'
   spec.add_development_dependency 'rubocop', '~> 1.20.0'
   spec.add_development_dependency 'simplecov', '~> 0.21.2'
-  spec.add_development_dependency 'sqlite3', '~> 1.4.2'
   spec.add_development_dependency 'turbolinks', '~> 5'
   spec.add_development_dependency 'webpacker', '~> 5.0'
 end

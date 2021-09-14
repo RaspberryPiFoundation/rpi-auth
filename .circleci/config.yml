@@ -1,0 +1,30 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@1.1.4
+
+jobs:
+  build:
+    docker:
+      - image: cimg/ruby:2.7.2-node
+    steps:
+      - checkout
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - ruby/install-deps
+
+  test:
+    docker:
+      - image: cimg/ruby:2.7.2-node
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rspec-test
+
+workflows:
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
