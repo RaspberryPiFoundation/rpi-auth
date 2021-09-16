@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'omniauth-rpi'
 
 module RpiAuth
@@ -48,7 +50,7 @@ module RpiAuth
             site: RpiAuth.configuration.auth_url,
             authorize_url: "#{RpiAuth.configuration.auth_url}/oauth2/auth",
             token_url: "#{RpiAuth.configuration.auth_url}/oauth2/token"
-          },
+          }
         )
 
         OmniAuth.config.on_failure = RpiAuth::AuthController.action(:failure)

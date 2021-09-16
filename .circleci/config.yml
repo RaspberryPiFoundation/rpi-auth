@@ -3,28 +3,42 @@ orbs:
   ruby: circleci/ruby@1.1.4
 
 jobs:
-  build:
+  test-ruby-2:
     docker:
-      - image: cimg/ruby:2.7.2-node
-    steps:
-      - checkout
-      - run:
-          name: Which bundler?
-          command: bundle -v
-      - ruby/install-deps
-
-  test:
-    docker:
-      - image: cimg/ruby:2.7.2-node
+      - image: cimg/ruby:2.7
     steps:
       - checkout
       - ruby/install-deps
       - ruby/rspec-test
 
+  test-ruby-3:
+    docker:
+      - image: cimg/ruby:3.0
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rspec-test
+
+  rubocop:
+    docker:
+      - image: 'cimg/ruby:2.7'
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rubocop-check:
+          format: progress
+          label: Inspecting with Rubocop
+
 workflows:
-  build_and_test:
+  tests:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - test-ruby-2
+      - test-ruby-3
+  code_quality:
+    jobs:
+      - rubocop:
+          filters:
+            branches:
+              ignore:
+                - master
+                - main

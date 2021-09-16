@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 class DummyUser
@@ -5,7 +7,7 @@ class DummyUser
 end
 
 RSpec.describe DummyUser, type: :model do
-  subject { DummyUser.new }
+  subject { described_class.new }
 
   it { is_expected.to respond_to(:id) }
   it { is_expected.to respond_to(:country_code) }

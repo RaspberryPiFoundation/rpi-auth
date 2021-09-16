@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RpiAuth
   class AuthController < ApplicationController
     def callback
