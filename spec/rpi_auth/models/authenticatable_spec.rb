@@ -36,7 +36,9 @@ RSpec.describe DummyUser, type: :model do
         {
           provider: 'rpi',
           uid: 'testuserid',
-          info: info
+          extra: {
+            raw_info: info
+          }
         }
       )
     end

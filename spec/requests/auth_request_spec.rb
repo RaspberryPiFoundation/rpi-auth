@@ -94,7 +94,7 @@ RSpec.describe 'Authentication', type: :request do
       before do
         OmniAuth.config.add_mock(:rpi,
                                  uid: user[:id],
-                                 info: user.except(:id))
+                                 extra: {raw_info: user.except(:id)})
       end
 
       it 'sets the user in the session and redirects to root path' do

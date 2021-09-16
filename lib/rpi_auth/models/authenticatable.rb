@@ -30,7 +30,7 @@ module RpiAuth
         def from_omniauth(auth)
           return nil unless auth
 
-          args = auth.info.to_h.slice(*PROFILE_KEYS)
+          args = auth.extra.raw_info.to_h.slice(*PROFILE_KEYS)
           args['id'] = auth.uid
 
           new(args)
