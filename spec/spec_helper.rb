@@ -10,7 +10,6 @@ require 'pry-byebug'
 require_relative './support/request_helpers'
 
 ENV['RAILS_ENV'] = 'test'
-
 require File.expand_path('dummy/config/environment', __dir__)
 
 require 'rspec/rails'

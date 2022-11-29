@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'omniauth-rails_csrf_protection', '~> 1.0.0'
   spec.add_dependency 'omniauth-rpi', '~> 1.1'
-  spec.add_dependency 'rails', '~> 6.1.4', '>= 6.1.4.1'
+  spec.add_dependency 'rails', '~> 7.0'
 
   spec.add_development_dependency 'listen', '~> 3.7.0'
   spec.add_development_dependency 'pry-byebug', '~> 3.9.0'
@@ -30,8 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec-rails', '~> 4.1.2'
   spec.add_development_dependency 'rubocop', '~> 1.20.0'
   spec.add_development_dependency 'rubocop-performance', '~> 1.11.5'
+  spec.add_development_dependency 'rubocop-rails', '~> 2.15.2'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.4.0'
   spec.add_development_dependency 'simplecov', '~> 0.21.2'
-  spec.add_development_dependency 'turbolinks', '~> 5'
-  spec.add_development_dependency 'webpacker', '~> 5.0'
 end

@@ -19,11 +19,12 @@ module RpiAuth
         profile
         roles
       ].freeze
+
       attr_accessor :id, *PROFILE_KEYS
 
       # Allow serialization
       def attributes
-        (['id'] + PROFILE_KEYS).index_with { |_k| nil }
+        (%w[id access_token] + PROFILE_KEYS).index_with { |_k| nil }
       end
 
       class_methods do
@@ -32,6 +33,7 @@ module RpiAuth
 
           args = auth.extra.raw_info.to_h.slice(*PROFILE_KEYS)
           args['id'] = auth.uid
+          args['access_token'] = auth.credentials&.token
 
           new(args)
         end
