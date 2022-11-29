@@ -10,7 +10,7 @@ RSpec.describe RpiAuth::AuthenticationHelper do
   describe '.current_user' do
     context 'when session user is empty' do
       it 'returns nil' do
-        expect(helper.current_user).to eq(nil)
+        expect(helper.current_user).to be_nil
       end
     end
 

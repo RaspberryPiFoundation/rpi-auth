@@ -9,3 +9,9 @@ node_modules/
 server.pid
 examples.txt
 .rubocop-https*
+
+/spec/dummy/log/test.log
+/.DS_Store
+/coverage/
+/spec/dummy/log/test.log
+/vendor/

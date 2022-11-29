@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe 'Authentication', type: :request do
+RSpec.describe 'Authentication' do
   let(:user) do
     {
       email: 'person@example.com',
