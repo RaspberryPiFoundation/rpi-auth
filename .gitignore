@@ -15,3 +15,5 @@ examples.txt
 /coverage/
 /spec/dummy/log/test.log
 /vendor/
+/spec/dummy/tmp/
+/spec/dummy/vendor/
