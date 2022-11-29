@@ -24,7 +24,7 @@ module RpiAuth
       end
 
       redirect_to "#{RpiAuth.configuration.identity_url}/logout?returnTo=#{RpiAuth.configuration.host_url}",
-        allow_other_host: true
+                  allow_other_host: true
     end
 
     def failure
