@@ -6,7 +6,7 @@ gem 'rails', '~> 7.0'
 
 # Specify your gem's dependencies in rpi_auth.gemspec.
 if File.dirname(__FILE__).end_with?('gemfiles')
-	gemspec path: "../"
+  gemspec path: '../'
 else
-	gemspec
+  gemspec
 end
