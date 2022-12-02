@@ -35,7 +35,7 @@ RSpec.describe 'Authentication' do
       expect(session['current_user']).to be_nil
     end
 
-    context 'when BYPASS_OAUTH is set' do
+    context 'when bypass_auth is set' do
       before do
         RpiAuth.configuration.bypass_auth = true
       end

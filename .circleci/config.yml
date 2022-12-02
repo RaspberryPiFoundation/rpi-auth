@@ -18,7 +18,7 @@ jobs:
       - checkout
       - ruby/install:
           version: << parameters.ruby-version >>
-      - rm Gemfile.lock
+      - run: rm Gemfile.lock
       - ruby/install-deps:
           key: gems-v2-<< parameters.ruby-version >>-<< parameters.rails-version >>
       - ruby/rspec-test
