@@ -2,9 +2,11 @@
 
 source 'https://rubygems.org'
 
-rails_version = ENV.fetch('RAILS_VERSION', nil)
-
-gem 'rails', "~> #{rails_version}" if rails_version
+gem 'rails', '~> 7.0'
 
 # Specify your gem's dependencies in rpi_auth.gemspec.
-gemspec
+if File.dirname(__FILE__).end_with?('gemfiles')
+	gemspec path: "../"
+else
+	gemspec
+end

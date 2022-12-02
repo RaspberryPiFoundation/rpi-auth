@@ -17,6 +17,7 @@ jobs:
       - checkout
       - ruby/install-deps:
           key: gems-v2-<< parameters.ruby-version >>-<< parameters.rails-version >>-
+          gemfile: gemfiles/rails_<< parameters.rails-version >>.gemfile
       - ruby/rspec-test
 
   rubocop:
