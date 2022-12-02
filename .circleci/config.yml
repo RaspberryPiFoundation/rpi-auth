@@ -10,17 +10,13 @@ jobs:
       rails-version:
         type: string
     docker:
-      - image: cimg/base:stable
+      - image: cimg/ruby:<< parameters.ruby-version >>
     environment:
-      - RUBY_VERSION:  << parameters.ruby-version >>
       - RAILS_VERSION: << parameters.rails-version >>
     steps:
       - checkout
-      - ruby/install:
-          version: << parameters.ruby-version >>
-      - run: rm Gemfile.lock
-      - ruby/install-deps:
-          key: gems-v2-<< parameters.ruby-version >>-<< parameters.rails-version >>
+      - ruby/install-deps
+          key: gems-v2-<< parameters.ruby-version >>-<< parameters.rails-version >>-
       - ruby/rspec-test
 
   rubocop:
