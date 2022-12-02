@@ -104,4 +104,14 @@ If running Hydra locally you will need to configure a new client with the follow
   redirect_urls: 'http://localhost:3009/rpi_auth/auth/callback'
 }
 ```
-There is a seed in the profile repo to set this client up correctly, running the v1 setup tasks will create this client.
+There is a seed in the profile repo to set this client up correctly, running the v1 setup tasks will create this client
+
+### Testing with different versions of rails
+
+This Gem should work with Rails 6.1+, but the `Gemfile.lock` is tracking rails 7 at the moment.  To test rails 6.1, you'll want to use `gemfiles/rails_6.1.gemfile` as your gemfile, and then run rspec using that.
+
+```
+bundle install --gemfile gemfiles/rails_6.1.gemfile
+bundle exec --gemfile gemfiles/rails_6.1.gemfile rspec
+```
+
