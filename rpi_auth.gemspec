@@ -19,11 +19,11 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  spec.required_ruby_version = '>= 3.1.0'
+  spec.required_ruby_version = '>= 2.7.8'
 
   spec.add_dependency 'omniauth-rails_csrf_protection', '~> 1.0.0'
   spec.add_dependency 'omniauth-rpi', '~> 1.1'
-  spec.add_dependency 'rails', '~> 7.0.4'
+  spec.add_dependency 'rails', '>= 6.1.4'
 
   spec.add_development_dependency 'listen'
   spec.add_development_dependency 'pry-byebug'
@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-performance'
+  spec.add_development_dependency 'rubocop-rails'
   spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'simplecov'
 end

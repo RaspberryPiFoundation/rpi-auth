@@ -1,19 +1,26 @@
 version: 2.1
 orbs:
-  ruby: circleci/ruby@1.1.4
+  ruby: circleci/ruby@2.0.0
 
 jobs:
   test:
     docker:
-      - image: cimg/ruby:3.1
+      - image: cimg/base:stable
+    environment:
+      - RUBY_VERSION:  << parameters.ruby-version >>
+      - RAILS_VERSION: << parameters.rails-version >>
     steps:
       - checkout
-      - ruby/install-deps
+      - ruby/install:
+          version: << parameters.ruby-version >>
+      - rm Gemfile.lock
+      - ruby/install-deps:
+          key: gems-v2-<< parameters.ruby-version >>-<< parameters.rails-version >>
       - ruby/rspec-test
 
   rubocop:
     docker:
-      - image: 'cimg/ruby:3.1'
+      - image: 'cimg/ruby:2.7'
     steps:
       - checkout
       - ruby/install-deps
@@ -24,7 +31,12 @@ jobs:
 workflows:
   tests:
     jobs:
-      - test
+      - test:
+          matrix:
+            parameters:
+              rails-version: ["6.1", "7.0"]
+              ruby-version: ["2.7", "3.0", "3.1"]
+
   code_quality:
     jobs:
       - rubocop:
