@@ -4,6 +4,11 @@ orbs:
 
 jobs:
   test:
+    parameters:
+      ruby-version:
+        type: string
+      rails-version:
+        type: string
     docker:
       - image: cimg/base:stable
     environment:
