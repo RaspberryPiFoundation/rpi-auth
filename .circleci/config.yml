@@ -19,9 +19,6 @@ jobs:
       - ruby/rspec-test
 
   rubocop:
-    parameters:
-      ruby-version:
-        type: string
     docker:
       - image: cimg/ruby:2.7.7
     steps:
