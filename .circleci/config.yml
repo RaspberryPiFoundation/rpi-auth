@@ -11,21 +11,23 @@ jobs:
         type: string
     docker:
       - image: cimg/ruby:<< parameters.ruby-version >>
-    environment:
-      - RAILS_VERSION: << parameters.rails-version >>
     steps:
       - checkout
       - ruby/install-deps:
-          key: gems-v2-<< parameters.ruby-version >>-<< parameters.rails-version >>-
+          key: gems-v2-ruby-<< parameters.ruby-version >>+rails-<< parameters.rails-version >>-
           gemfile: gemfiles/rails_<< parameters.rails-version >>.gemfile
       - ruby/rspec-test
 
   rubocop:
+    parameters:
+      ruby-version:
+        type: string
     docker:
-      - image: 'cimg/ruby:2.7'
+      - image: cimg/ruby:2.7.7
     steps:
       - checkout
-      - ruby/install-deps
+      - ruby/install-deps:
+          key: gems-v2-ruby-2.7.7+rails-7.0
       - ruby/rubocop-check:
           format: progress
           label: Inspecting with Rubocop
