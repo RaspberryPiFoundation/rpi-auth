@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe 'Authentication', type: :request do
+RSpec.describe 'Authentication' do
   let(:user) do
     {
       email: 'person@example.com',
@@ -35,7 +35,7 @@ RSpec.describe 'Authentication', type: :request do
       expect(session['current_user']).to be_nil
     end
 
-    context 'when BYPASS_OAUTH is set' do
+    context 'when bypass_auth is set' do
       before do
         RpiAuth.configuration.bypass_auth = true
       end
