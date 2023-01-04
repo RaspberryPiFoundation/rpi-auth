@@ -61,9 +61,28 @@ To login via Hydra your app needs to send the user to `/auth/rpi` via a POST req
 
 ```ruby
 <%= link_to 'Log in', '/auth/rpi', method: :post %>
+# or:
+<%= button_to 'Log in', '/auth/rpi' %>
 ```
 
 A GET request will be blocked by the CSRF protection gem.
+
+Alternatively, create a dummy route to allow its use in helpers, eg.
+
+```ruby
+  # Dummy route. This route is never reached in the app, as RPiAuth / Omniauth gets it
+  # before it reaches Rails, however adding this route allows us to use
+  # login_path helpers etc.
+  post '/auth/rpi', as: 'login'
+```
+
+Followed by:
+
+```ruby
+<%= link_to 'Log in', login_path, method: :post %>
+# or:
+<%= button_to 'Log in', login_path %>
+```
 
 There is a helper for the logout route:
 
