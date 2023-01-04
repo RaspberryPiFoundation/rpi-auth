@@ -4,15 +4,13 @@ A gem to handle authenticating via Hydra for Raspberry Pi Foundation Rails appli
 
 ## Usage
 
-How to use my plugin.
-
 The Engine includes the [Rails CSRF protection gem](https://github.com/cookpad/omniauth-rails_csrf_protection), so this does not need to be included in the parent application
 
 ## Installation
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rpi_auth'
+gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v1.0.0'
 ```
 
 And then execute:
@@ -72,9 +70,6 @@ There is a helper for the logout route:
 ```ruby
 <%= link_to 'Log out', rpi_auth_logout_path  %>
 ```
-
-## Contributing
-Contribution directions go here.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
