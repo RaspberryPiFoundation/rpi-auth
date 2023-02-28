@@ -10,7 +10,7 @@ The Engine includes the [Rails CSRF protection gem](https://github.com/cookpad/o
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v1.0.0'
+gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v1.0.1'
 ```
 
 And then execute:
