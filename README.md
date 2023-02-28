@@ -137,7 +137,9 @@ If running Hydra locally you will need to configure a new client with the follow
 ```
 There is a seed in the Profile repo to set this client up correctly, running the v1 setup tasks will create this client
 
-### Testing with different versions of rails
+Ensure to update `lib/rpi_auth/version.rb` when publishing a new version.
+
+### Testing with different versions of Rails
 
 This Gem should work with Rails 6.1+, but the `Gemfile.lock` is tracking Rails 7 at the moment. To test Rails 6.1, you'll want to use `gemfiles/rails_6.1.gemfile` as your gemfile, and then run rspec using that.
 
