@@ -22,26 +22,43 @@ Add an initializer file to configure rpi_auth e.g. in `config/initializers/rpi_a
 
 ```ruby
 RpiAuth.configure do |config|
-  config.auth_url = 'http://localhost:9000'         # The url of hydra being used
-  config.auth_client_id = 'gem-dev'                 # The hydra client ID
-  config.auth_client_secret = 'secret'              # The hydra client secret
-  config.host_url = 'http://localhost:3009'         # The url of the host site used (needed for redirects)
-  config.identity_url = 'http://localhost:3002'     # The url for the profile instance being used for auth
-  config.user_model = 'User'                        # The name of the user model in the host app being used, use the name as a string, not the model itself
-  config.success_redirect = '/'                     # After succesful login the route the user should be redirected to
-  config.bypass_auth = false                        # Should auth be bypassed and a default user logged in
+  config.auth_url = 'http://localhost:9000'            # The url of Hydra being used
+  config.auth_token_url = nil                          # Normally this would be unset, defaulting to AUTH_URL above. When running locally under Docker, set to http://host.docker.internal:9001 
+  config.auth_client_id = 'gem-dev'                    # The Hydra client ID
+  config.auth_client_secret = 'secret'                 # The Hydra client secret
+  config.host_url = 'http://localhost:3009'            # The url of the host site used (needed for redirects)
+  config.identity_url = 'http://localhost:3002'        # The url for the profile instance being used for auth
+  config.user_model = 'User'                           # The name of the user model in the host app being used, use the name as a string, not the model itself
+  config.scope = 'openid email profile force-consent'  # The required OIDC scopes
+  config.success_redirect = '/'                        # After succesful login the route the user should be redirected to; this will override redirecting the user back to where they were when they started the log in / sign up flow (via `omniauth.origin`), so should be used rarely / with caution
+  config.bypass_auth = false                           # Should auth be bypassed and a default user logged in
 end
 ```
 
 The values above will allow you to login using the `gem-dev` client seeded in Hydra provided you run the host application on port `3009`.
-You will need to change the values to match your application.
+
+You will need to change the values to match your application, ideally through ENV vars eg.
+
+```ruby
+RpiAuth.configure do |config|
+  config.auth_url = ENV.fetch('AUTH_URL', nil)
+  config.auth_token_url = ENV.fetch('AUTH_TOKEN_URL', nil)
+  config.auth_client_id = ENV.fetch('AUTH_CLIENT_ID', nil)
+  config.auth_client_secret = ENV.fetch('AUTH_CLIENT_SECRET', nil)
+  config.host_url = ENV.fetch('HOST_URL', nil)
+  config.identity_url = ENV.fetch('IDENTITY_URL', nil)
+  config.user_model = 'User'
+  config.scopes = 'openid email profile force-consent'
+  config.success_redirect = ENV.fetch('OAUTH_SUCCESS_REDIRECT_URL', nil)
+  config.bypass_auth = ENV.fetch('BYPASS_OAUTH', false)
+end
+```
 
 Add the helper class to the host application's ApplicationController:
 
 ```ruby
 class ApplicationController < ActionController::Base
   include RpiAuth::AuthenticationHelper
-
 end
 ```
 
@@ -118,11 +135,11 @@ If running Hydra locally you will need to configure a new client with the follow
   redirect_urls: 'http://localhost:3009/rpi_auth/auth/callback'
 }
 ```
-There is a seed in the profile repo to set this client up correctly, running the v1 setup tasks will create this client
+There is a seed in the Profile repo to set this client up correctly, running the v1 setup tasks will create this client
 
 ### Testing with different versions of rails
 
-This Gem should work with Rails 6.1+, but the `Gemfile.lock` is tracking rails 7 at the moment.  To test rails 6.1, you'll want to use `gemfiles/rails_6.1.gemfile` as your gemfile, and then run rspec using that.
+This Gem should work with Rails 6.1+, but the `Gemfile.lock` is tracking Rails 7 at the moment. To test Rails 6.1, you'll want to use `gemfiles/rails_6.1.gemfile` as your gemfile, and then run rspec using that.
 
 ```
 bundle install --gemfile gemfiles/rails_6.1.gemfile
