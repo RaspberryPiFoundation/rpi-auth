@@ -11,7 +11,15 @@ module RpiAuth
       user = RpiAuth.user_model.from_omniauth(auth)
       session[:current_user] = user
 
-      redirect_to RpiAuth.configuration.success_redirect
+      if RpiAuth.configuration.success_redirect
+        return redirect_to RpiAuth.configuration.success_redirect
+      end
+
+      if request.env.key?('omniauth.origin') && request.env['omniauth.origin'].present?
+        return redirect_to(request.env['omniauth.origin'], allow_other_host: false) 
+      end
+
+      redirect_to '/'
     end
 
     def destroy

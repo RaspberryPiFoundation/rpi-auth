@@ -44,12 +44,12 @@ module RpiAuth
           OmniAuth::Strategies::Rpi,
           RpiAuth.configuration.auth_client_id,
           RpiAuth.configuration.auth_client_secret,
-          scope: 'openid email profile force-consent roles',
+          scope: RpiAuth.configuration.scope,
           callback_path: '/rpi_auth/auth/callback',
           client_options: {
             site: RpiAuth.configuration.auth_url,
             authorize_url: "#{RpiAuth.configuration.auth_url}/oauth2/auth",
-            token_url: "#{RpiAuth.configuration.auth_url}/oauth2/token"
+            token_url: "#{RpiAuth.configuration.auth_token_url || RpiAuth.configuration.auth_url}/oauth2/token"
           }
         )
 
