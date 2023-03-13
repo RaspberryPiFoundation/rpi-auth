@@ -9,7 +9,7 @@ end
 RSpec.describe DummyUser, type: :model do
   subject { described_class.new }
 
-  it { is_expected.to respond_to(:id) }
+  it { is_expected.to respond_to(:user_id) }
   it { is_expected.to respond_to(:country_code) }
   it { is_expected.to respond_to(:email) }
   it { is_expected.to respond_to(:name) }
@@ -45,7 +45,7 @@ RSpec.describe DummyUser, type: :model do
 
     it 'returns a user with the correct attributes' do
       expect(omniauth_user).to be_a described_class
-      expect(omniauth_user.id).to eq('testuserid')
+      expect(omniauth_user.user_id).to eq('testuserid')
       expect(omniauth_user.name).to eq('Bodkin Van Horn')
       expect(omniauth_user.nickname).to eq('Hoos-Foos')
       expect(omniauth_user.email).to eq('test@example.com')

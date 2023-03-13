@@ -19,11 +19,11 @@ module RpiAuth
         profile
         roles
       ].freeze
-      attr_accessor :id, *PROFILE_KEYS
+      attr_accessor :user_id, *PROFILE_KEYS
 
       # Allow serialization
       def attributes
-        (['id'] + PROFILE_KEYS).index_with { |_k| nil }
+        (['user_id'] + PROFILE_KEYS).index_with { |_k| nil }
       end
 
       class_methods do
@@ -31,7 +31,7 @@ module RpiAuth
           return nil unless auth
 
           args = auth.extra.raw_info.to_h.slice(*PROFILE_KEYS)
-          args['id'] = auth.uid
+          args['user_id'] = auth.uid
 
           new(args)
         end

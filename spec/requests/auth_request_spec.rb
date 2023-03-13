@@ -93,8 +93,8 @@ RSpec.describe 'Authentication' do
     describe 'On successful authentication' do
       before do
         OmniAuth.config.add_mock(:rpi,
-                                 uid: user[:id],
-                                 extra: { raw_info: user.except(:id) })
+                                 uid: user[:user_id],
+                                 extra: { raw_info: user.except(:user_id) })
       end
 
       it 'sets the user in the session and redirects to root path' do
@@ -103,7 +103,7 @@ RSpec.describe 'Authentication' do
         follow_redirect!
 
         expect(response).to redirect_to('/')
-        expect(session[:current_user].id).to eq user[:id]
+        expect(session[:current_user].user_id).to eq user[:user_id]
         expect(session[:current_user].email).to eq user[:email]
       end
 

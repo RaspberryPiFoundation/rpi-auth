@@ -22,7 +22,7 @@ RSpec.describe RpiAuth::AuthenticationHelper do
           'nickname' => 'John',
           'picture' => 'http://picture.com',
           'profile' => 'http://profile.com',
-          'id' => 'userid',
+          'user_id' => 'userid',
           'roles' => nil }
       end
 
