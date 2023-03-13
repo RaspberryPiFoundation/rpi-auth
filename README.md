@@ -48,7 +48,7 @@ RpiAuth.configure do |config|
   config.host_url = ENV.fetch('HOST_URL', nil)
   config.identity_url = ENV.fetch('IDENTITY_URL', nil)
   config.user_model = 'User'
-  config.scopes = 'openid email profile force-consent'
+  config.scope = 'openid email profile force-consent'
   config.success_redirect = ENV.fetch('OAUTH_SUCCESS_REDIRECT_URL', nil)
   config.bypass_auth = ENV.fetch('BYPASS_OAUTH', false)
 end
