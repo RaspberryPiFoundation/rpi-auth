@@ -50,7 +50,7 @@ RpiAuth.configure do |config|
   config.user_model = 'User'
   config.scope = 'openid email profile force-consent'
   config.success_redirect = ENV.fetch('OAUTH_SUCCESS_REDIRECT_URL', nil)
-  config.bypass_auth = ENV.fetch('BYPASS_OAUTH', false)
+  config.bypass_auth = ActiveModel::Type::Boolean.new.cast(ENV.fetch('BYPASS_OAUTH', false))
 end
 ```
 
