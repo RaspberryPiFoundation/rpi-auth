@@ -6,7 +6,6 @@ if Rails.env.development?
     config.host_url = 'http://localhost:3009'
     config.identity_url = 'http://localhost:3002'
     config.user_model = 'User'
-    config.success_redirect = '/'
     config.bypass_auth = false
   end
 end
@@ -19,7 +18,6 @@ if Rails.env.test?
     config.host_url = 'https://fakepi.com'
     config.identity_url = 'https://my.fakepi.com'
     config.user_model = 'User'
-    config.success_redirect = '/'
     config.bypass_auth = true
   end
 end
