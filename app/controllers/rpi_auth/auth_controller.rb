@@ -2,6 +2,7 @@
 
 module RpiAuth
   class AuthController < ApplicationController
+    # rubocop:disable Metrics/AbcSize
     def callback
       # Prevent session fixation. If the session has been initialized before
       # this, and we need to keep the data, then we should copy values over.
@@ -11,15 +12,14 @@ module RpiAuth
       user = RpiAuth.user_model.from_omniauth(auth)
       session[:current_user] = user
 
-      if RpiAuth.configuration.success_redirect
-        return redirect_to RpiAuth.configuration.success_redirect
-      end
+      return redirect_to RpiAuth.configuration.success_redirect if RpiAuth.configuration.success_redirect
 
       if request.env.key?('omniauth.origin') && request.env['omniauth.origin'].present?
-        return redirect_to(request.env['omniauth.origin'], allow_other_host: false) 
+        return redirect_to(request.env['omniauth.origin'], allow_other_host: false)
       end
 
       redirect_to '/'
+      # rubocop:enable Metrics/AbcSize
     end
 
     def destroy

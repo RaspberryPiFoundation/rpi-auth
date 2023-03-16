@@ -14,7 +14,6 @@ module RpiAuth
                   :user_model
 
     def initialize
-      @success_redirect = '/'
       @bypass_auth = false
     end
   end
