@@ -2,6 +2,7 @@
 
 module RpiAuth
   class AuthController < ApplicationController
+    # rubocop:disable Metrics/AbcSize
     def callback
       # Prevent session fixation. If the session has been initialized before
       # this, and we need to keep the data, then we should copy values over.
@@ -18,6 +19,7 @@ module RpiAuth
       end
 
       redirect_to '/'
+      # rubocop:enable Metrics/AbcSize
     end
 
     def destroy
