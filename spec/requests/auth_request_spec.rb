@@ -2,6 +2,10 @@
 
 require 'spec_helper'
 
+class DummyUser
+  extend RpiAuth::Models::Authenticatable
+end
+
 RSpec.describe 'Authentication' do
   let(:user) do
     {
@@ -17,6 +21,15 @@ RSpec.describe 'Authentication' do
   let(:bypass_oauth) { '' }
   let(:identity_url) { 'https://my.fakepi.com' }
   let(:host_url) { 'https://fakepi.com' }
+
+  before do
+    RpiAuth.configuration.user_model = 'DummyUser'
+  end
+
+  after do
+    # Reset value or it affects other tests :(
+    RpiAuth.configuration.user_model = 'User'
+  end
 
   describe 'GET /rpi_auth/logout' do
     before do
