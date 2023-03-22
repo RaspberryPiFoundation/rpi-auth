@@ -148,3 +148,19 @@ bundle install --gemfile gemfiles/rails_6.1.gemfile
 bundle exec --gemfile gemfiles/rails_6.1.gemfile rspec
 ```
 
+## Releasing
+
+Ensure that the version number has been updated in: https://github.com/RaspberryPiFoundation/rpi-auth/blob/main/lib/rpi_auth/version.rb
+
+Ensure that the changelog has been updated in: https://github.com/RaspberryPiFoundation/rpi-auth/blob/main/CHANGELOG.md
+
+Create and push a new tag from `main`:
+```
+git tag v1.2.2
+git push --tags
+```
+
+Create a new release at: https://github.com/RaspberryPiFoundation/rpi-auth/releases/new
+
+Select the newly created tag, the target should be `main`, and the release name should be the same as the tag name eg. `v1.2.2`. Enter a short description of the release (generally best to copy / paste the changelog entry).
+
