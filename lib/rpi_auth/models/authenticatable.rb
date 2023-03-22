@@ -26,15 +26,13 @@ module RpiAuth
         (['user_id'] + PROFILE_KEYS).index_with { |_k| nil }
       end
 
-      class_methods do
-        def from_omniauth(auth)
-          return nil unless auth
+      def from_omniauth(auth)
+        return nil unless auth
 
-          args = auth.extra.raw_info.to_h.slice(*PROFILE_KEYS)
-          args['user_id'] = auth.uid
+        args = auth.extra.raw_info.to_h.slice(*PROFILE_KEYS)
+        args['user_id'] = auth.uid
 
-          new(args)
-        end
+        new(args)
       end
     end
   end
