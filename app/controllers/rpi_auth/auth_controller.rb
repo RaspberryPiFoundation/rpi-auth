@@ -2,6 +2,8 @@
 
 module RpiAuth
   class AuthController < ApplicationController
+    protect_from_forgery with: :null_session
+
     # rubocop:disable Metrics/AbcSize
     def callback
       # Prevent session fixation. If the session has been initialized before

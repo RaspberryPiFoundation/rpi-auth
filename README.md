@@ -7,13 +7,15 @@ A gem to handle authenticating via Hydra for Raspberry Pi Foundation Rails appli
 The Engine includes the [Rails CSRF protection gem](https://github.com/cookpad/omniauth-rails_csrf_protection), so this does not need to be included in the parent application
 
 ## Installation
+
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v1.0.1'
+gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v1.3.0'
 ```
 
 And then execute:
+
 ```bash
 $ bundle
 ```
@@ -23,7 +25,7 @@ Add an initializer file to configure rpi_auth e.g. in `config/initializers/rpi_a
 ```ruby
 RpiAuth.configure do |config|
   config.auth_url = 'http://localhost:9000'            # The url of Hydra being used
-  config.auth_token_url = nil                          # Normally this would be unset, defaulting to AUTH_URL above. When running locally under Docker, set to http://host.docker.internal:9001 
+  config.auth_token_url = nil                          # Normally this would be unset, defaulting to AUTH_URL above. When running locally under Docker, set to http://host.docker.internal:9001
   config.auth_client_id = 'gem-dev'                    # The Hydra client ID
   config.auth_client_secret = 'secret'                 # The Hydra client secret
   config.host_url = 'http://localhost:3009'            # The url of the host site used (needed for redirects)
@@ -68,7 +70,7 @@ Add the `authenticatable` concern to the host application's User model:
 
 ```ruby
 class User < ApplicationRecord
-  include RpiAuth::Models::Authenticatable
+  extend RpiAuth::Models::Authenticatable
 end
 ```
 
@@ -108,14 +110,17 @@ There is a helper for the logout route:
 ```
 
 ## License
+
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 ## Local Development
 
 Run:
+
 ```bash
 $ bundle
 ```
+
 from the root directory. This will also install the gems required by the dummy application found at `spec/dummy`.
 
 The dummy app can be interacted with in the same way as any Rails application. Go into `spec/dummy` and run commands as normal.
@@ -128,6 +133,7 @@ This port matches that set in `spec/dummy/config/initializers/rpi_auth.rb` and w
 There is a simple page at the dummy app root that has a login link and will show a logout link once logged in via Hydra.
 
 If running Hydra locally you will need to configure a new client with the following values:
+
 ```ruby
 {
   id: 'gem-dev',
@@ -135,6 +141,7 @@ If running Hydra locally you will need to configure a new client with the follow
   redirect_urls: 'http://localhost:3009/rpi_auth/auth/callback'
 }
 ```
+
 There is a seed in the Profile repo to set this client up correctly, running the v1 setup tasks will create this client
 
 Ensure to update `lib/rpi_auth/version.rb` when publishing a new version.
@@ -155,6 +162,7 @@ Ensure that the version number has been updated in: https://github.com/Raspberry
 Ensure that the changelog has been updated in: https://github.com/RaspberryPiFoundation/rpi-auth/blob/main/CHANGELOG.md
 
 Create and push a new tag from `main`:
+
 ```
 git tag v1.2.2
 git push --tags
@@ -163,4 +171,3 @@ git push --tags
 Create a new release at: https://github.com/RaspberryPiFoundation/rpi-auth/releases/new
 
 Select the newly created tag, the target should be `main`, and the release name should be the same as the tag name eg. `v1.2.2`. Enter a short description of the release (generally best to copy / paste the changelog entry).
-
