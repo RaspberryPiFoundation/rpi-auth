@@ -6,6 +6,7 @@ module RpiAuth
                   :auth_client_secret,
                   :auth_url,
                   :auth_token_url,
+                  :brand,
                   :bypass_auth,
                   :host_url,
                   :identity_url,
