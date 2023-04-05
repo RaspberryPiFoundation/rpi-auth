@@ -28,6 +28,7 @@ RpiAuth.configure do |config|
   config.auth_token_url = nil                          # Normally this would be unset, defaulting to AUTH_URL above. When running locally under Docker, set to http://host.docker.internal:9001
   config.auth_client_id = 'gem-dev'                    # The Hydra client ID
   config.auth_client_secret = 'secret'                 # The Hydra client secret
+  config.brand = 'brand-name'                          # The brand of the application (see allowed brands in Profile application: app/middleware/brand.js)
   config.host_url = 'http://localhost:3009'            # The url of the host site used (needed for redirects)
   config.identity_url = 'http://localhost:3002'        # The url for the profile instance being used for auth
   config.user_model = 'User'                           # The name of the user model in the host app being used, use the name as a string, not the model itself
@@ -47,6 +48,7 @@ RpiAuth.configure do |config|
   config.auth_token_url = ENV.fetch('AUTH_TOKEN_URL', nil)
   config.auth_client_id = ENV.fetch('AUTH_CLIENT_ID', nil)
   config.auth_client_secret = ENV.fetch('AUTH_CLIENT_SECRET', nil)
+  config.brand = ENV.fetch('AUTH_BRAND', nil)
   config.host_url = ENV.fetch('HOST_URL', nil)
   config.identity_url = ENV.fetch('IDENTITY_URL', nil)
   config.user_model = 'User'
