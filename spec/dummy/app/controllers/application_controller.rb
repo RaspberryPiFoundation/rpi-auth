@@ -1,3 +1,3 @@
 class ApplicationController < ActionController::Base
-  include RpiAuth::AuthenticationHelper
+  include RpiAuth::Controllers::CurrentUser
 end

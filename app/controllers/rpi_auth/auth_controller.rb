@@ -11,8 +11,7 @@ module RpiAuth
       reset_session
 
       auth = request.env['omniauth.auth']
-      user = RpiAuth.user_model.from_omniauth(auth)
-      session[:current_user] = user
+      self.current_user = RpiAuth.user_model.from_omniauth(auth)
 
       return redirect_to RpiAuth.configuration.success_redirect if RpiAuth.configuration.success_redirect
 

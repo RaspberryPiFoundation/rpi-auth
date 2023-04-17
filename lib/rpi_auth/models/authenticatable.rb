@@ -5,34 +5,39 @@ module RpiAuth
     module Authenticatable
       extend ActiveSupport::Concern
 
-      included do
-        include ActiveModel::Model
-        include ActiveModel::Serialization
-      end
-
       PROFILE_KEYS = %w[
         country_code
         email
+        email_verified
         name
         nickname
         picture
+        postcode
         profile
         roles
       ].freeze
-      attr_accessor :user_id, *PROFILE_KEYS
 
-      # Allow serialization
-      def attributes
-        (['user_id'] + PROFILE_KEYS).index_with { |_k| nil }
+      included do
+        include ActiveModel::Model
+        include ActiveModel::Serialization
+
+        attr_accessor :user_id, *PROFILE_KEYS
+
+        # Allow serialization
+        def attributes
+          (['user_id'] + PROFILE_KEYS).index_with { |_k| nil }
+        end
       end
 
-      def from_omniauth(auth)
-        return nil unless auth
+      class_methods do
+        def from_omniauth(auth)
+          return nil unless auth
 
-        args = auth.extra.raw_info.to_h.slice(*PROFILE_KEYS)
-        args['user_id'] = auth.uid
+          args = auth.extra.raw_info.to_h.slice(*PROFILE_KEYS)
+          args['user_id'] = auth.uid
 
-        new(args)
+          new(args)
+        end
       end
     end
   end

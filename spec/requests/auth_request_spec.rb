@@ -3,37 +3,38 @@
 require 'spec_helper'
 
 class DummyUser
-  extend RpiAuth::Models::Authenticatable
+  include RpiAuth::Models::Authenticatable
 end
 
 RSpec.describe 'Authentication' do
   let(:user) do
-    {
+    DummyUser.new(
       email: 'person@example.com',
-      id: '3ed9b57a-1eb9-42e1-ae54-9a11c930f035',
+      user_id: '3ed9b57a-1eb9-42e1-ae54-9a11c930f035',
       country_code: 'GB',
       name: 'Sylvester McBean',
       nickname: 'Sylvie',
       picture: 'https://placecage.com/100/100',
       profile: 'https://my.raspberry.pi/profile/edit'
-    }
+    )
   end
-  let(:bypass_oauth) { '' }
+  let(:bypass_auth) { false }
   let(:identity_url) { 'https://my.fakepi.com' }
   let(:host_url) { 'https://fakepi.com' }
 
-  before do
+  around do |example|
+    RpiAuth.configuration.bypass_auth = bypass_auth
     RpiAuth.configuration.user_model = 'DummyUser'
-  end
 
-  after do
+    example.run
+
     # Reset value or it affects other tests :(
     RpiAuth.configuration.user_model = 'User'
+    RpiAuth.configuration.bypass_auth = false
   end
 
   describe 'GET /rpi_auth/logout' do
     before do
-      RpiAuth.configuration.bypass_auth = false
       sign_in(user)
     end
 
@@ -49,9 +50,7 @@ RSpec.describe 'Authentication' do
     end
 
     context 'when bypass_auth is set' do
-      before do
-        RpiAuth.configuration.bypass_auth = true
-      end
+      let(:bypass_auth) { true }
 
       it 'clears the current session and redirects to root' do
         expect(session['current_user']).not_to be_nil
@@ -106,8 +105,8 @@ RSpec.describe 'Authentication' do
     describe 'On successful authentication' do
       before do
         OmniAuth.config.add_mock(:rpi,
-                                 uid: user[:user_id],
-                                 extra: { raw_info: user.except(:user_id) })
+                                 uid: user.user_id,
+                                 extra: { raw_info: user.serializable_hash.except(:user_id) })
       end
 
       it 'sets the user in the session and redirects to root path' do
@@ -116,8 +115,8 @@ RSpec.describe 'Authentication' do
         follow_redirect!
 
         expect(response).to redirect_to('/')
-        expect(session[:current_user].user_id).to eq user[:user_id]
-        expect(session[:current_user].email).to eq user[:email]
+        expect(session[:current_user]['user_id']).to eq user.user_id
+        expect(session[:current_user]['email']).to eq user.email
       end
 
       it 'resets the session ID on login' do

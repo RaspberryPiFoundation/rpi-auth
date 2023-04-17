@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 class DummyUser
-  extend RpiAuth::Models::Authenticatable
+  include RpiAuth::Models::Authenticatable
 end
 
 RSpec.describe DummyUser, type: :model do
@@ -16,6 +16,13 @@ RSpec.describe DummyUser, type: :model do
   it { is_expected.to respond_to(:nickname) }
   it { is_expected.to respond_to(:picture) }
   it { is_expected.to respond_to(:profile) }
+
+  # from_omniauth is a class method.
+  it { is_expected.not_to respond_to(:from_omniauth) }
+
+  describe 'PROFILE_KEYS' do
+    it { expect(described_class::PROFILE_KEYS).to be_an(Array) }
+  end
 
   describe '#from_omniauth' do
     subject(:omniauth_user) { described_class.from_omniauth(auth) }

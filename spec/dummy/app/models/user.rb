@@ -1,3 +1,3 @@
 class User
-  extend RpiAuth::Models::Authenticatable
+  include RpiAuth::Models::Authenticatable
 end

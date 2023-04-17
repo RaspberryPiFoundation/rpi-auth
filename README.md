@@ -72,7 +72,7 @@ Add the `authenticatable` concern to the host application's User model:
 
 ```ruby
 class User < ApplicationRecord
-  extend RpiAuth::Models::Authenticatable
+  include RpiAuth::Models::Authenticatable
 end
 ```
 

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 class DummyUser
-  extend RpiAuth::Models::Authenticatable
+  include RpiAuth::Models::Authenticatable
 end
 
 RSpec.describe RpiAuth do
