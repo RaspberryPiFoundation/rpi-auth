@@ -24,17 +24,18 @@ Add an initializer file to configure rpi_auth e.g. in `config/initializers/rpi_a
 
 ```ruby
 RpiAuth.configure do |config|
-  config.auth_url = 'http://localhost:9000'            # The url of Hydra being used
-  config.auth_token_url = nil                          # Normally this would be unset, defaulting to AUTH_URL above. When running locally under Docker, set to http://host.docker.internal:9001
-  config.auth_client_id = 'gem-dev'                    # The Hydra client ID
-  config.auth_client_secret = 'secret'                 # The Hydra client secret
-  config.brand = 'brand-name'                          # The brand of the application (see allowed brands in Profile application: app/middleware/brand.js)
-  config.host_url = 'http://localhost:3009'            # The url of the host site used (needed for redirects)
-  config.identity_url = 'http://localhost:3002'        # The url for the profile instance being used for auth
-  config.user_model = 'User'                           # The name of the user model in the host app being used, use the name as a string, not the model itself
-  config.scope = 'openid email profile force-consent'  # The required OIDC scopes
-  config.success_redirect = '/'                        # After succesful login the route the user should be redirected to; this will override redirecting the user back to where they were when they started the log in / sign up flow (via `omniauth.origin`), so should be used rarely / with caution
-  config.bypass_auth = false                           # Should auth be bypassed and a default user logged in
+  config.auth_url = 'http://localhost:9000'                           # The url of Hydra being used
+  config.auth_token_url = nil                                         # Normally this would be unset, defaulting to AUTH_URL above. When running locally under Docker, set to http://host.docker.internal:9001
+  config.auth_client_id = 'gem-dev'                                   # The Hydra client ID
+  config.auth_client_secret = 'secret'                                # The Hydra client secret
+  config.brand = 'brand-name'                                         # The brand of the application (see allowed brands in Profile application: app/middleware/brand.js)
+  config.host_url = 'http://localhost:3009'                           # The url of the host site used (needed for redirects)
+  config.identity_url = 'http://localhost:3002'                       # The url for the profile instance being used for auth
+  config.log_out_url = 'http://localhost:9001/oauth2/sessions/logout' # The url for the log out path (usually the /oauth2/sessions/logout path of the OAuth provider)
+  config.user_model = 'User'                                          # The name of the user model in the host app being used, use the name as a string, not the model itself
+  config.scope = 'openid email profile force-consent'                 # The required OIDC scopes
+  config.success_redirect = '/'                                       # After succesful login the route the user should be redirected to; this will override redirecting the user back to where they were when they started the log in / sign up flow (via `omniauth.origin`), so should be used rarely / with caution
+  config.bypass_auth = false                                          # Should auth be bypassed and a default user logged in
 end
 ```
 
@@ -51,6 +52,7 @@ RpiAuth.configure do |config|
   config.brand = 'brand-name'
   config.host_url = ENV.fetch('HOST_URL', nil)
   config.identity_url = ENV.fetch('IDENTITY_URL', nil)
+  config.log_out_url = ENV.fetch('LOG_OUT_URL', nil)
   config.user_model = 'User'
   config.scope = 'openid email profile force-consent'
   config.success_redirect = ENV.fetch('OAUTH_SUCCESS_REDIRECT_URL', nil)
@@ -147,6 +149,12 @@ If running Hydra locally you will need to configure a new client with the follow
 There is a seed in the Profile repo to set this client up correctly, running the v1 setup tasks will create this client
 
 Ensure to update `lib/rpi_auth/version.rb` when publishing a new version.
+
+### Testing
+
+```bash
+$ bundle exec rspec
+```
 
 ### Testing with different versions of Rails
 
