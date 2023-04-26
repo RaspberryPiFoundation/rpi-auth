@@ -34,6 +34,7 @@ RSpec.describe 'Authentication' do
   describe 'GET /rpi_auth/logout' do
     before do
       RpiAuth.configuration.bypass_auth = false
+      RpiAuth.configuration.log_out_url = nil
       sign_in(user)
     end
 
@@ -48,7 +49,7 @@ RSpec.describe 'Authentication' do
       expect(session['current_user']).to be_nil
     end
 
-    it 'clears the current session and redirects to specified log out endpoint' do
+    it 'clears the current session and redirects to a specified log out endpoint' do
       RpiAuth.configuration.log_out_url = 'https://auth.example.com/oauth2/sessions/logout'
       expect(session['current_user']).not_to be_nil
       previous_id = session.id
