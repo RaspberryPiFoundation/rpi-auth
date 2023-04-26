@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.5.0]
+
+### Added
+
+- The `log_out_url` config var can now optionally be set (eg. to the appropriate /oauth2/sessions/logout endpoint once the app's session has been destroyed)
+
+Reference notes: https://github.com/RaspberryPiFoundation/documentation/blob/main/accounts/hydra-v1/logging-out.md
+
 ## [v1.4.0]
 
 ### Added
