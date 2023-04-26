@@ -33,6 +33,11 @@ module RpiAuth
         return
       end
 
+      if RpiAuth.configuration.log_out_url
+        redirect_to RpiAuth.configuration.log_out_url, allow_other_host: true
+        return
+      end
+
       redirect_to "#{RpiAuth.configuration.identity_url}/logout?returnTo=#{RpiAuth.configuration.host_url}",
                   allow_other_host: true
     end

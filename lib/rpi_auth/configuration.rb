@@ -10,6 +10,7 @@ module RpiAuth
                   :bypass_auth,
                   :host_url,
                   :identity_url,
+                  :log_out_url,
                   :scope,
                   :success_redirect,
                   :user_model

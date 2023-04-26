@@ -19,8 +19,8 @@ RSpec.describe 'Authentication' do
     }
   end
   let(:bypass_oauth) { '' }
-  let(:identity_url) { 'https://my.fakepi.com' }
-  let(:host_url) { 'https://fakepi.com' }
+  let(:identity_url) { 'https://my.example.com' }
+  let(:host_url) { 'https://example.com' }
 
   before do
     RpiAuth.configuration.user_model = 'DummyUser'
@@ -44,6 +44,18 @@ RSpec.describe 'Authentication' do
       get '/rpi_auth/logout'
 
       expect(response).to redirect_to("#{identity_url}/logout?returnTo=#{host_url}")
+      expect(session.id).not_to eq previous_id
+      expect(session['current_user']).to be_nil
+    end
+
+    it 'clears the current session and redirects to specified log out endpoint' do
+      RpiAuth.configuration.log_out_url = 'https://auth.example.com/oauth2/sessions/logout'
+      expect(session['current_user']).not_to be_nil
+      previous_id = session.id
+
+      get '/rpi_auth/logout'
+
+      expect(response).to redirect_to('https://auth.example.com/oauth2/sessions/logout')
       expect(session.id).not_to eq previous_id
       expect(session['current_user']).to be_nil
     end
