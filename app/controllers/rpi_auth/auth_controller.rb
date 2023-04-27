@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
+require 'rpi_auth/controllers/current_user'
+
+
 module RpiAuth
-  class AuthController < ApplicationController
+  class AuthController < ActionController::Base
+    include RpiAuth::Controllers::CurrentUser
+
     protect_from_forgery with: :null_session
 
     def callback
