@@ -24,7 +24,7 @@ Add an initializer file to configure rpi_auth e.g. in `config/initializers/rpi_a
 
 ```ruby
 RpiAuth.configure do |config|
-  config.auth_url = 'http://localhost:9000'                           # The url of Hydra being used
+  config.auth_url = 'http://localhost:9001'                           # The url of Hydra being used
   config.auth_token_url = nil                                         # Normally this would be unset, defaulting to AUTH_URL above. When running locally under Docker, set to http://host.docker.internal:9001
   config.auth_client_id = 'gem-dev'                                   # The Hydra client ID
   config.auth_client_secret = 'secret'                                # The Hydra client secret
