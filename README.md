@@ -29,7 +29,7 @@ RpiAuth.configure do |config|
   config.auth_client_id = 'gem-dev'                                   # The Hydra client ID
   config.auth_client_secret = 'secret'                                # The Hydra client secret
   config.brand = 'brand-name'                                         # The brand of the application (see allowed brands in Profile application: app/middleware/brand.js)
-  config.host_url = 'http://localhost:3009'                           # The url of the host site used (needed for redirects)
+  config.host_url = 'http://localhost:3000'                           # The url of the host site used (needed for redirects)
   config.identity_url = 'http://localhost:3002'                       # The url for the profile instance being used for auth
   config.log_out_url = 'http://localhost:9001/oauth2/sessions/logout' # The url for the log out path (usually the /oauth2/sessions/logout path of the OAuth provider)
   config.user_model = 'User'                                          # The name of the user model in the host app being used, use the name as a string, not the model itself
