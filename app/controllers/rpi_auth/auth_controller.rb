@@ -4,7 +4,6 @@ module RpiAuth
   class AuthController < ApplicationController
     protect_from_forgery with: :null_session
 
-    # rubocop:disable Metrics/AbcSize
     def callback
       # Prevent session fixation. If the session has been initialized before
       # this, and we need to keep the data, then we should copy values over.
@@ -13,14 +12,9 @@ module RpiAuth
       auth = request.env['omniauth.auth']
       self.current_user = RpiAuth.user_model.from_omniauth(auth)
 
-      return redirect_to RpiAuth.configuration.success_redirect if RpiAuth.configuration.success_redirect
-
-      if request.env.fetch('omniauth.origin', nil).present?
-        return redirect_to(request.env['omniauth.origin'], allow_other_host: false)
-      end
-
-      redirect_to '/'
-      # rubocop:enable Metrics/AbcSize
+      redirect_to RpiAuth.configuration.success_redirect.presence ||
+                  request.env.fetch('omniauth.origin', nil).presence ||
+                  '/'
     end
 
     def destroy

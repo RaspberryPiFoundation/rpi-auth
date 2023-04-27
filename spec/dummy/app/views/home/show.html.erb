@@ -3,10 +3,10 @@
 <p>
   <% if current_user.present? %>
     Logged in as <%= current_user.user_id %>
-    <%= link_to 'Log out', '/rpi_auth/logout', class: 'button' %>
+    <%= link_to 'Log out', rpi_auth_logout_path, class: 'button' %>
   <% else %>
-    <%= link_to 'Log in', '/auth/rpi', method: :post %>
+    <%= link_to 'Log in', rpi_auth_login_path, method: :post %>
 
-    <%= link_to 'Log in GET', '/auth/rpi' %>
+    <%= link_to 'Log in GET', rpi_auth_login_path %>
   <% end %>
 </p>

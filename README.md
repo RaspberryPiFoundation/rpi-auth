@@ -58,15 +58,15 @@ RpiAuth.configure do |config|
 end
 ```
 
-Add the helper class to the host application's ApplicationController:
+Add the `CurrentUser` concern to the host application's ApplicationController:
 
 ```ruby
 class ApplicationController < ActionController::Base
-  include RpiAuth::AuthenticationHelper
+  include RpiAuth::Controllers::CurrentUser
 end
 ```
 
-This provides access to the `current_user` method in controllers.
+This provides access to the `current_user` method in controllers and helpers.
 
 Add the `authenticatable` concern to the host application's User model:
 
@@ -88,27 +88,35 @@ To login via Hydra your app needs to send the user to `/auth/rpi` via a POST req
 
 A GET request will be blocked by the CSRF protection gem.
 
-Alternatively, create a dummy route to allow its use in helpers, eg.
+Alternatively you can use the path helpers:
 
 ```ruby
-  # Dummy route. This route is never reached in the app, as RPiAuth / Omniauth gets it
-  # before it reaches Rails, however adding this route allows us to use
-  # login_path helpers etc.
-  post '/auth/rpi', as: 'login'
-```
-
-Followed by:
-
-```ruby
-<%= link_to 'Log in', login_path, method: :post %>
+<%= link_to 'Log in', rpi_auth_login_path, method: :post %>
 # or:
-<%= button_to 'Log in', login_path %>
+<%= button_to 'Log in', rpi_auth_login_path %>
 ```
 
-There is a helper for the logout route:
+There is also a helper for the logout route:
 
 ```ruby
 <%= link_to 'Log out', rpi_auth_logout_path  %>
+```
+
+### Globbed/catch-all routes
+
+If your app has a catch-all route at the end of the routing table, you must
+shuffle Rails Engine loading order, putting `RpiAuth::Engine` above the default
+engines.  To do this add a `config.railties_order` line in the Application
+class in `config/application.rb`.
+
+```ruby
+# If there is a globbed route in the route file, (e.g. `get /*slug, ...`)
+# we need to make sure that the RpiAuth routes take precedence over that
+# route, otherwise the globbed route will catch all the routes defined in
+# the engine.
+#
+# See https://api.rubyonrails.org/classes/Rails/Engine.html#class-Rails::Engine-label-Loading+priority
+config.railties_order = [RpiAuth::Engine, :main_app, :all]
 ```
 
 ## License

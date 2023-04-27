@@ -28,6 +28,14 @@ module Dummy
     # For compatibility with applications that use this config
     config.action_controller.include_all_helpers = false
 
+    # If there is a globbed route in the route file, (e.g. `get /*slug, ...`)
+    # we need to make sure that the RpiAuth routes take precedence over that
+    # route, otherwise the globbed route will catch all the routes defined in
+    # the engine.
+    #
+    # See https://api.rubyonrails.org/classes/Rails/Engine.html#class-Rails::Engine-label-Loading+priority
+    config.railties_order = [RpiAuth::Engine, :main_app, :all]
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
