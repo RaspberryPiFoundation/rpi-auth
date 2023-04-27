@@ -2,7 +2,6 @@
 
 require 'rpi_auth/controllers/current_user'
 
-
 module RpiAuth
   class AuthController < ActionController::Base
     include RpiAuth::Controllers::CurrentUser
