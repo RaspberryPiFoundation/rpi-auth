@@ -2,13 +2,9 @@
 
 require 'spec_helper'
 
-class DummyUser
-  include RpiAuth::Models::Authenticatable
-end
-
 RSpec.describe 'Authentication' do
   let(:user) do
-    DummyUser.new(
+    User.new(
       email: 'person@example.com',
       user_id: '3ed9b57a-1eb9-42e1-ae54-9a11c930f035',
       country_code: 'GB',
@@ -18,27 +14,24 @@ RSpec.describe 'Authentication' do
       profile: 'https://my.raspberry.pi/profile/edit'
     )
   end
+
   let(:bypass_auth) { false }
   let(:identity_url) { 'https://my.fakepi.com' }
   let(:host_url) { 'https://fakepi.com' }
 
-  around do |example|
-    RpiAuth.configuration.bypass_auth = bypass_auth
-    RpiAuth.configuration.user_model = 'DummyUser'
-
-    example.run
-
-    # Reset value or it affects other tests :(
+  before do
     RpiAuth.configuration.user_model = 'User'
-    RpiAuth.configuration.bypass_auth = false
+    RpiAuth.configuration.identity_url = identity_url
+    RpiAuth.configuration.host_url = host_url
+    RpiAuth.configuration.bypass_auth = bypass_auth
+    # This would normally be in the initializer, but because we're toggling the
+    # option on or off, we need to explicitly call it here.
+    RpiAuth.configuration.enable_auth_bypass if bypass_auth
   end
 
   describe 'GET /rpi_auth/logout' do
-    before do
-      sign_in(user)
-    end
-
     it 'clears the current session and redirects to profile' do
+      sign_in(user)
       expect(session['current_user']).not_to be_nil
       previous_id = session.id
 
@@ -53,7 +46,10 @@ RSpec.describe 'Authentication' do
       let(:bypass_auth) { true }
 
       it 'clears the current session and redirects to root' do
-        expect(session['current_user']).not_to be_nil
+        post '/auth/rpi'
+        follow_redirect!
+
+        expect(session['current_user']['user_id']).to be 'b6301f34-b970-4d4f-8314-f877bad8b150'
         previous_id = session.id
 
         get '/rpi_auth/logout'
@@ -66,10 +62,6 @@ RSpec.describe 'Authentication' do
   end
 
   describe 'POST /auth/rpi' do
-    before do
-      OmniAuth.config.mock_auth[:rpi] = nil
-    end
-
     describe 'On failed authentication' do
       let(:error) { :invalid_credentials }
 
@@ -102,11 +94,24 @@ RSpec.describe 'Authentication' do
       end
     end
 
+    context 'when bypass_auth is set' do
+      let(:bypass_auth) { true }
+
+      it 'clears the current session and redirects to root' do
+        post '/auth/rpi'
+        expect(response).to redirect_to('/rpi_auth/auth/callback')
+        follow_redirect!
+
+        expect(response).to redirect_to('/')
+        follow_redirect!
+
+        expect(session['current_user']['user_id']).to eq 'b6301f34-b970-4d4f-8314-f877bad8b150'
+      end
+    end
+
     describe 'On successful authentication' do
       before do
-        OmniAuth.config.add_mock(:rpi,
-                                 uid: user.user_id,
-                                 extra: { raw_info: user.serializable_hash.except(:user_id) })
+        stub_auth_for(user)
       end
 
       it 'sets the user in the session and redirects to root path' do
@@ -114,9 +119,19 @@ RSpec.describe 'Authentication' do
         expect(response).to redirect_to('/rpi_auth/auth/callback')
         follow_redirect!
 
-        expect(response).to redirect_to('/')
         expect(session[:current_user]['user_id']).to eq user.user_id
         expect(session[:current_user]['email']).to eq user.email
+      end
+
+      it 'redirects to root path and makes current_user available in the view' do
+        post '/auth/rpi'
+        expect(response).to redirect_to('/rpi_auth/auth/callback')
+        follow_redirect!
+
+        expect(response).to redirect_to('/')
+        follow_redirect!
+
+        expect(response.body).to include user.user_id
       end
 
       it 'resets the session ID on login' do
@@ -127,6 +142,30 @@ RSpec.describe 'Authentication' do
         follow_redirect!
 
         expect(session.id).not_to eq previous_id
+      end
+
+      context 'when having visited a page first' do
+        it 'redirects back to the original page' do
+          post '/auth/rpi', headers: { Referer: 'http://www.example.com/foo' }
+          expect(response).to redirect_to('/rpi_auth/auth/callback')
+          follow_redirect!
+
+          expect(response).to redirect_to('/foo')
+        end
+      end
+
+      context 'when success_redirect is set in config' do
+        before do
+          RpiAuth.configuration.success_redirect = 'http://www.example.com/success'
+        end
+
+        it 'redirects back to the success page' do
+          post '/auth/rpi'
+          expect(response).to redirect_to('/rpi_auth/auth/callback')
+          follow_redirect!
+
+          expect(response).to redirect_to('/success')
+        end
       end
     end
   end

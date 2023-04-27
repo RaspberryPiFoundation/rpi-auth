@@ -12,11 +12,6 @@ RSpec.describe RpiAuth do
       described_class.configuration.user_model = 'DummyUser'
     end
 
-    after do
-      # Reset value or it affects other tests :(
-      described_class.configuration.user_model = 'User'
-    end
-
     it 'returns the constantized class defined by config' do
       expect(described_class.user_model).to eq(DummyUser)
     end

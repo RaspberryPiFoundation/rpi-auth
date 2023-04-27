@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
 module RequestHelpers
+  def stub_auth_for(user)
+    OmniAuth.config.add_mock(:rpi, uid: user.user_id, extra: { raw_info: user.serializable_hash(except: :id) })
+  end
+
+  # In request specs, we just post directly to `/auth/rpi`, so this can be
+  # called without any prep.
   def sign_in(user)
-    OmniAuth.config.add_mock(:rpi, uid: user.user_id, extra: { raw_info: user.serializable_hash.except(:user_id) })
+    stub_auth_for(user)
     post '/auth/rpi'
     follow_redirect!
   end

@@ -1,7 +1,8 @@
 <h1>Home#show</h1>
 <p>Find me in app/views/home/show.html.erb</p>
 <p>
-  <% if @current_user.present? %>
+  <% if current_user.present? %>
+    Logged in as <%= current_user.user_id %>
     <%= link_to 'Log out', '/rpi_auth/logout', class: 'button' %>
   <% else %>
     <%= link_to 'Log in', '/auth/rpi', method: :post %>

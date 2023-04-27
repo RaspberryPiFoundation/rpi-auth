@@ -15,7 +15,7 @@ module RpiAuth
 
       return redirect_to RpiAuth.configuration.success_redirect if RpiAuth.configuration.success_redirect
 
-      if request.env.key?('omniauth.origin') && request.env['omniauth.origin'].present?
+      if request.env.fetch('omniauth.origin', nil).present?
         return redirect_to(request.env['omniauth.origin'], allow_other_host: false)
       end
 

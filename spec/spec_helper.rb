@@ -8,6 +8,7 @@ end
 
 require 'pry-byebug'
 
+require_relative './support/omniauth'
 require_relative './support/request_helpers'
 
 ENV['RAILS_ENV'] = 'test'
@@ -118,4 +119,10 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
+
+  # Reset the RpiAuth config after each test
+  config.after do
+    RpiAuth.configuration = RpiAuth::Configuration.new
+    OmniAuth.config.mock_auth.delete(:rpi)
+  end
 end

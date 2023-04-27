@@ -5,6 +5,7 @@ require 'omniauth-rpi'
 module RpiAuth
   class Engine < ::Rails::Engine
     isolate_namespace RpiAuth
+
     using ::RpiAuthBypass
 
     initializer 'RpiAuth.set_logger' do
@@ -12,30 +13,7 @@ module RpiAuth
     end
 
     initializer 'RpiAuth.bypass_auth' do
-      if RpiAuth.configuration.bypass_auth == true
-        OmniAuth.config.add_rpi_mock(
-          uid: 'b6301f34-b970-4d4f-8314-f877bad8b150',
-          info: {
-            email: 'web@raspberrypi.org',
-            name: 'Digital Products Team',
-            nickname: 'DP',
-            image: 'https://static.raspberrypi.org/files/accounts/default-avatar.jpg'
-          },
-          extra: {
-            raw_info: {
-              name: 'Digital Products Team',
-              nickname: 'DP',
-              email: 'web@raspberrypi.org',
-              country: 'United Kingdom',
-              country_code: 'GB',
-              postcode: 'SW1A 1AA',
-              picture: 'https://static.raspberrypi.org/files/accounts/default-avatar.jpg',
-              profile: 'https://my.raspberrypi.org/not/a/real/path'
-            }
-          }
-        )
-        OmniAuth.config.enable_rpi_auth_bypass
-      end
+      RpiAuth.configuration.enable_auth_bypass
     end
 
     initializer 'RpiAuth.add_middleware' do |app|
