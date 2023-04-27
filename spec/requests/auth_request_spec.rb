@@ -19,8 +19,8 @@ RSpec.describe 'Authentication' do
     }
   end
   let(:bypass_oauth) { '' }
-  let(:identity_url) { 'https://my.fakepi.com' }
-  let(:host_url) { 'https://fakepi.com' }
+  let(:identity_url) { 'https://my.example.com' }
+  let(:host_url) { 'https://example.com' }
 
   before do
     RpiAuth.configuration.user_model = 'DummyUser'

@@ -24,12 +24,12 @@ Add an initializer file to configure rpi_auth e.g. in `config/initializers/rpi_a
 
 ```ruby
 RpiAuth.configure do |config|
-  config.auth_url = 'http://localhost:9000'            # The url of Hydra being used
+  config.auth_url = 'http://localhost:9001'            # The url of Hydra being used
   config.auth_token_url = nil                          # Normally this would be unset, defaulting to AUTH_URL above. When running locally under Docker, set to http://host.docker.internal:9001
   config.auth_client_id = 'gem-dev'                    # The Hydra client ID
   config.auth_client_secret = 'secret'                 # The Hydra client secret
   config.brand = 'brand-name'                          # The brand of the application (see allowed brands in Profile application: app/middleware/brand.js)
-  config.host_url = 'http://localhost:3009'            # The url of the host site used (needed for redirects)
+  config.host_url = 'http://localhost:3000'            # The url of the host site used (needed for redirects)
   config.identity_url = 'http://localhost:3002'        # The url for the profile instance being used for auth
   config.user_model = 'User'                           # The name of the user model in the host app being used, use the name as a string, not the model itself
   config.scope = 'openid email profile force-consent'  # The required OIDC scopes
@@ -148,7 +148,13 @@ There is a seed in the Profile repo to set this client up correctly, running the
 
 Ensure to update `lib/rpi_auth/version.rb` when publishing a new version.
 
-### Testing with different versions of Rails
+### Testing
+
+```bash
+$ bundle exec rspec
+```
+
+#### Testing with different versions of Rails
 
 This Gem should work with Rails 6.1+, but the `Gemfile.lock` is tracking Rails 7 at the moment. To test Rails 6.1, you'll want to use `gemfiles/rails_6.1.gemfile` as your gemfile, and then run rspec using that.
 
