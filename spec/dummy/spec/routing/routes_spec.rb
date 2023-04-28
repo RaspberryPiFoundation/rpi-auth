@@ -8,20 +8,20 @@ RSpec.describe 'Authentication routing' do
   # puts inspector.format(ActionDispatch::Routing::ConsoleFormatter::Sheet.new)
 
   describe 'a random page' do
-    subject { { get: '/foo'  } }
+    subject { { get: '/foo' } }
 
-    it { is_expected.to route_to({controller: "home", action: "show", slug: "foo"}) }
+    it { is_expected.to route_to({ controller: 'home', action: 'show', slug: 'foo' }) }
   end
 
   describe 'log out' do
     subject { { get: '/rpi_auth/logout' } }
 
-    it { is_expected.to route_to({controller: 'rpi_auth/auth', action: "destroy"}) }
+    it { is_expected.to route_to({ controller: 'rpi_auth/auth', action: 'destroy' }) }
   end
 
   describe 'auth callback' do
     subject { { get: '/rpi_auth/auth/callback' } }
 
-    it { is_expected.to route_to({controller: 'rpi_auth/auth', action: "callback"}) }
+    it { is_expected.to route_to({ controller: 'rpi_auth/auth', action: 'callback' }) }
   end
 end

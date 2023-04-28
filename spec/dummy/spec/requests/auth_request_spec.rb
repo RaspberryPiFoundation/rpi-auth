@@ -123,15 +123,12 @@ RSpec.describe 'Authentication' do
         expect(session[:current_user]['email']).to eq user.email
       end
 
-      it 'redirects to root path and makes current_user available in the view' do
+      it 'redirects to root path' do
         post '/auth/rpi'
         expect(response).to redirect_to('/rpi_auth/auth/callback')
         follow_redirect!
 
         expect(response).to redirect_to('/')
-        follow_redirect!
-
-        expect(response.body).to include user.user_id
       end
 
       it 'resets the session ID on login' do

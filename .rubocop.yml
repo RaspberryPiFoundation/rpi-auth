@@ -12,6 +12,8 @@ inherit_mode:
 AllCops:
   TargetRubyVersion: 2.7
   Exclude:
-    - 'spec/dummy/**/*'
+    - 'spec/dummy/config/**/*'
+    - 'spec/dummy/app/**/*'
+    - 'spec/dummy/bin/**/*'
     - 'vendor/**/*'
     - 'bin/rails'
