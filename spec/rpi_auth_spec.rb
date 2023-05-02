@@ -3,18 +3,13 @@
 require 'spec_helper'
 
 class DummyUser
-  extend RpiAuth::Models::Authenticatable
+  include RpiAuth::Models::Authenticatable
 end
 
 RSpec.describe RpiAuth do
   describe '.user_model' do
     before do
       described_class.configuration.user_model = 'DummyUser'
-    end
-
-    after do
-      # Reset value or it affects other tests :(
-      described_class.configuration.user_model = 'User'
     end
 
     it 'returns the constantized class defined by config' do

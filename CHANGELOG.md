@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Added
+- Added dummy route for `/auth/rpi` to add path helper `rpi_auth_login` (#44)
+- Request and routing specs inside the "dummy" testing app (#44)
+
+### Changed
+- Refactored `RpiAuth::AuthenticationHelper` into a concern RpiAuth::Controllers::CurrentUser (#44)
+- Refactored `RpiAuth::Models::Authenticatable` to fix "include"/"extend" issues (#44)
+- Refactored `RpiAuth::AuthController#callback` to reduce its complexity (#44)
+- Refactored how auth bypass is enabled (#44)
+
 ## [v1.4.0]
 
 ### Added

@@ -2,6 +2,8 @@
 
 module RpiAuth
   class Configuration
+    using ::RpiAuthBypass
+
     attr_accessor :auth_client_id,
                   :auth_client_secret,
                   :auth_url,
@@ -16,6 +18,12 @@ module RpiAuth
 
     def initialize
       @bypass_auth = false
+    end
+
+    def enable_auth_bypass
+      return unless bypass_auth
+
+      OmniAuth.config.enable_rpi_auth_bypass
     end
   end
 end
