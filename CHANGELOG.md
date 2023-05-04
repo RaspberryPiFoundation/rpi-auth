@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactored `RpiAuth::Models::Authenticatable` to fix "include"/"extend" issues (#44)
 - Refactored `RpiAuth::AuthController#callback` to reduce its complexity (#44)
 - Refactored how auth bypass is enabled (#44)
+- OmniAuth origin parameter name set as `returnTo`
 
 ## [v1.4.0]
 
