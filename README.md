@@ -81,9 +81,9 @@ This model needs to be the same one defined in the initializer, an instance will
 To login via Hydra your app needs to send the user to `/auth/rpi` via a POST request:
 
 ```ruby
-<%= link_to 'Log in', '/auth/rpi', method: :post %>
+link_to 'Log in', '/auth/rpi', method: :post
 # or:
-<%= button_to 'Log in', '/auth/rpi' %>
+button_to 'Log in', '/auth/rpi'
 ```
 
 A GET request will be blocked by the CSRF protection gem.
@@ -91,16 +91,45 @@ A GET request will be blocked by the CSRF protection gem.
 Alternatively you can use the path helpers:
 
 ```ruby
-<%= link_to 'Log in', rpi_auth_login_path, method: :post %>
+link_to 'Log in', rpi_auth_login_path, method: :post
 # or:
-<%= button_to 'Log in', rpi_auth_login_path %>
+button_to 'Log in', rpi_auth_login_path
 ```
 
 There is also a helper for the logout route:
 
 ```ruby
-<%= link_to 'Log out', rpi_auth_logout_path  %>
+link_to 'Log out', rpi_auth_logout_path
 ```
+
+### Redirecting users to the "next step"
+
+There are a three possible places the user will end up at following logging in, in the following order:
+
+1. The `success_redirect` URL.
+2. The specified `returnTo` URL.
+3. The page the user was on (if the Referer header is sent in).
+4. The root path of the application.
+
+Note that none of these places can be on a different host, i.e. they have to be inside your application.
+
+The `success_url` set in the RpiAuth configuration block will trump everything,
+so only use this configuration option if you always want your users to end up
+at the same place.
+
+If you wish to redirect users to the next step in the process, e.g. to a
+registration form, then you should supply a parameter called `returnTo` which
+is then used to redirect after log in/sign up are successful.
+
+```ruby
+button_to 'Log in to start registraion', rpi_auth_login_path, params: { returnTo: '/registration_form' }
+```
+
+If this parameter is missing [Omniauth uses the HTTP Referer
+header](https://github.com/omniauth/omniauth/blob/d2fd0fc80b0342046484b99102fa00ec5b5392ff/lib/omniauth/strategy.rb#L252-L256)
+meaning (most) users will end up back on the page where they started.
+
+Finally, if none of these things are set, we end up back at the application root.
 
 ### Globbed/catch-all routes
 
