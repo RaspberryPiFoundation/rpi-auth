@@ -102,20 +102,24 @@ There is also a helper for the logout route:
 link_to 'Log out', rpi_auth_logout_path
 ```
 
+### Sin
+
 ### Redirecting users to the "next step"
 
-There are a three possible places the user will end up at following logging in, in the following order:
+There are a three possible places the user will end up at following logging in,
+in the following order:
 
 1. The `success_redirect` URL.
 2. The specified `returnTo` URL.
 3. The page the user was on (if the Referer header is sent in).
 4. The root path of the application.
 
-Note that none of these places can be on a different host, i.e. they have to be inside your application.
+Note that none of these places can be on a different host, i.e. they have to be
+inside your application.
 
-The `success_url` set in the RpiAuth configuration block will trump everything,
-so only use this configuration option if you always want your users to end up
-at the same place.
+The `success_redirect` set in the RpiAuth configuration block will trump
+everything, so only use this configuration option if you always want your users
+to end up at the same place.
 
 If you wish to redirect users to the next step in the process, e.g. to a
 registration form, then you should supply a parameter called `returnTo` which
