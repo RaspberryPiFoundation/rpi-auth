@@ -18,7 +18,7 @@ module RpiAuth
 
       redirect_to RpiAuth.configuration.success_redirect.presence ||
                   request.env.fetch('omniauth.origin', nil).presence ||
-                  root_path
+                  '/'
     end
 
     def destroy
