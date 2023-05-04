@@ -29,7 +29,8 @@ module RpiAuth
             authorize_url: "#{RpiAuth.configuration.auth_url}/oauth2/auth",
             token_url: "#{RpiAuth.configuration.auth_token_url || RpiAuth.configuration.auth_url}/oauth2/token"
           },
-          authorize_params: { brand: RpiAuth.configuration.brand }
+          authorize_params: { brand: RpiAuth.configuration.brand },
+          origin_param: 'returnTo'
         )
 
         OmniAuth.config.on_failure = RpiAuth::AuthController.action(:failure)

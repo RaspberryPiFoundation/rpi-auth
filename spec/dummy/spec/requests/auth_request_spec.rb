@@ -151,6 +151,16 @@ RSpec.describe 'Authentication' do
         end
       end
 
+      context 'when returnTo param is set' do
+        it 'redirects back to the original page' do
+          post '/auth/rpi', params: { returnTo: 'http://www.example.com/bar' }
+          expect(response).to redirect_to('/rpi_auth/auth/callback')
+          follow_redirect!
+
+          expect(response).to redirect_to('/bar')
+        end
+      end
+
       context 'when success_redirect is set in config' do
         before do
           RpiAuth.configuration.success_redirect = 'http://www.example.com/success'
