@@ -47,6 +47,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - omniauth-rpi gem updated to fix nil user ID in returned user object
 
+## [v1.1.0]
+
+- Defaults to setting the `user_id` param on the model rather than id (so that the application can use an internal ID structure for the user model).
+
+## [v1.0.1]
+
+- Updates Omniauth-rpi to latest version (fixing a bug where the returbed uid was empty)
+
 ## [v1.0.0]
 
 ### Added
@@ -63,4 +71,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [v1.3.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.3.0
 [v1.2.1]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.2.1
 [v1.2.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.2.0
+[v1.1.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.1.0
+[v1.0.1]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.0.1
 [v1.0.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.0.0
