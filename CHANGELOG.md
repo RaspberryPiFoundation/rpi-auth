@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactored `RpiAuth::AuthController#callback` to reduce its complexity (#44)
 - Refactored how auth bypass is enabled (#44)
 
+## Updated
+
+- Bump rack from 2.2.4 to 2.2.7 (#49)
+
 ## [v1.4.0]
 
 ### Added
