@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Updated
 
 - Bump rack from 2.2.4 to 2.2.7 (#49)
+- Bump globalid from 1.0.0 to 1.1.0 (#48)
 
 ## [v1.4.0]
 
