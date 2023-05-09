@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [Unreleased]
 
 ### Added
 - Added dummy route for `/auth/rpi` to add path helper `rpi_auth_login` (#44)
@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Refactored `RpiAuth::Models::Authenticatable` to fix "include"/"extend" issues (#44)
 - Refactored `RpiAuth::AuthController#callback` to reduce its complexity (#44)
 - Refactored how auth bypass is enabled (#44)
+- OmniAuth origin parameter name set as `returnTo` (#47)
 
 ## Updated
 
@@ -46,18 +47,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - omniauth-rpi gem updated to fix nil user ID in returned user object
 
+## [v1.1.0]
+
+- Defaults to setting the `user_id` param on the model rather than id (so that the application can use an internal ID structure for the user model).
+
+## [v1.0.1]
+
+- Updates Omniauth-rpi to latest version (fixing a bug where the returbed uid was empty)
+
 ## [v1.0.0]
 
 ### Added
 
 - Rails 7 / Ruby 3.1 support (these are the only officially supported versions)
-
-## [Unreleased]
-
-### Added
-
 - omniauth-rpi strategy to auth via Hydra1
 - include omniauth rails csrf protection
 - configuration to allow setting endpoints and credentials for auth
 - rails model concern to allow host app to add auth behaviour to a model
 - callback, logout and failure routes to handle auth
+
+[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v1.4.0...HEAD
+[v1.4.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.4.0
+[v1.3.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.3.0
+[v1.2.1]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.2.1
+[v1.2.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.2.0
+[v1.1.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.1.0
+[v1.0.1]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.0.1
+[v1.0.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.0.0
