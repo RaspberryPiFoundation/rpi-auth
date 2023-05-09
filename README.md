@@ -131,7 +131,7 @@ button_to 'Log in to start registraion', rpi_auth_login_path, params: { returnTo
 
 If this parameter is missing [Omniauth uses the HTTP Referer
 header](https://github.com/omniauth/omniauth/blob/d2fd0fc80b0342046484b99102fa00ec5b5392ff/lib/omniauth/strategy.rb#L252-L256)
-meaning (most) users will end up back on the page where they started.
+meaning (most) users will end up back on the page where they started the auth flow (this is often the most preferable situation).
 
 Finally, if none of these things are set, we end up back at the application root.
 
