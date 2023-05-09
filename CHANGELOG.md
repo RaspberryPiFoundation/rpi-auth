@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v2.0.0]
+
 ### Added
 - Added dummy route for `/auth/rpi` to add path helper `rpi_auth_login` (#44)
 - Request and routing specs inside the "dummy" testing app (#44)
@@ -67,6 +69,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - callback, logout and failure routes to handle auth
 
 [Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v1.4.0...HEAD
+[v2.0.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v2.0.0
 [v1.4.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.4.0
 [v1.3.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.3.0
 [v1.2.1]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v1.2.1

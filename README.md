@@ -102,8 +102,6 @@ There is also a helper for the logout route:
 link_to 'Log out', rpi_auth_logout_path
 ```
 
-### Sin
-
 ### Redirecting users to the "next step"
 
 There are a three possible places the user will end up at following logging in,
@@ -151,6 +149,13 @@ class in `config/application.rb`.
 # See https://api.rubyonrails.org/classes/Rails/Engine.html#class-Rails::Engine-label-Loading+priority
 config.railties_order = [RpiAuth::Engine, :main_app, :all]
 ```
+
+## Upgrading between versions.
+
+This project follows semantic versioning, so upgrades between minor and patch
+versions should not need any code or configuration changes.
+
+For major version upgrades see the [upgrading docs](UPGRADING.md).
 
 ## License
 
