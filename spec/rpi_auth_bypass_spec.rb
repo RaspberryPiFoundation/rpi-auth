@@ -87,7 +87,7 @@ RSpec.describe RpiAuthBypass do
       expect(mock_auth.extra.raw_info.postcode).to eq(RpiAuthBypass::DEFAULT_POSTCODE)
     end
 
-    context 'with info and extra specified' do
+    context 'with info and extra specified' do # rubocop:disable RSpec/MultipleMemoizedHelpers
       let(:uid) { '1d27cca2-fef3-4f79-bc64-b76e93db84a2' }
       let(:name) { 'Robert Flemming' }
       let(:nickname) { 'Bob' }
@@ -101,82 +101,84 @@ RSpec.describe RpiAuthBypass do
       let(:postcode) { '123456' }
 
       let(:info) { { name: name, email: email, username: username, nickname: nickname, image: image } }
-      let(:extra) { { raw_info: {
-        name: name,
-        email: email,
-        username: username,
-        nickname: nickname,
-        roles: roles,
-        avatar: image,
-        profile: profile,
-        country: country,
-        country_code: country_code,
-        postcode: postcode
-      } } }
+      let(:extra) do
+        { raw_info: {
+          name: name,
+          email: email,
+          username: username,
+          nickname: nickname,
+          roles: roles,
+          avatar: image,
+          profile: profile,
+          country: country,
+          country_code: country_code,
+          postcode: postcode
+        } }
+      end
       let(:args) { { uid: uid, info: info, extra: extra } }
 
       it 'has the uid' do
-        expect(subject.uid).to eq(uid)
+        expect(mock_auth.uid).to eq(uid)
       end
 
       it 'has the email from info' do
-        expect(subject.info.email).to eq(email)
+        expect(mock_auth.info.email).to eq(email)
       end
 
       it 'has the username from info' do
-        expect(subject.info.username).to eq(username)
+        expect(mock_auth.info.username).to eq(username)
       end
 
       it 'has the name from info' do
-        expect(subject.info.name).to eq(name)
+        expect(mock_auth.info.name).to eq(name)
       end
 
       it 'has the nickname from info' do
-        expect(subject.info.nickname).to eq(nickname)
+        expect(mock_auth.info.nickname).to eq(nickname)
       end
 
       it 'has the image from info' do
-        expect(subject.info.image).to eq(image)
+        expect(mock_auth.info.image).to eq(image)
       end
 
       it 'has the email from extra' do
-        expect(subject.extra.raw_info.email).to eq(email)
+        expect(mock_auth.extra.raw_info.email).to eq(email)
       end
 
       it 'has the username from extra' do
-        expect(subject.extra.raw_info.username).to eq(username)
+        expect(mock_auth.extra.raw_info.username).to eq(username)
       end
 
       it 'has the name from extra' do
-        expect(subject.extra.raw_info.name).to eq(name)
+        expect(mock_auth.extra.raw_info.name).to eq(name)
       end
 
       it 'has the nickname from extra' do
-        expect(subject.extra.raw_info.nickname).to eq(nickname)
+        expect(mock_auth.extra.raw_info.nickname).to eq(nickname)
       end
 
       it 'has the roles from extra' do
-        expect(subject.extra.raw_info.roles).to eq(roles)
+        expect(mock_auth.extra.raw_info.roles).to eq(roles)
       end
 
       it 'has the avatar from extra' do
-        expect(subject.extra.raw_info.avatar).to eq(image)
+        expect(mock_auth.extra.raw_info.avatar).to eq(image)
       end
 
       it 'has the profile from extra' do
-        expect(subject.extra.raw_info.profile).to eq(profile)
+        expect(mock_auth.extra.raw_info.profile).to eq(profile)
       end
 
       it 'has the country from extra' do
-        expect(subject.extra.raw_info.country).to eq(country)
+        expect(mock_auth.extra.raw_info.country).to eq(country)
       end
 
       it 'has the country_code from extra' do
-        expect(subject.extra.raw_info.country_code).to eq(country_code)
+        expect(mock_auth.extra.raw_info.country_code).to eq(country_code)
       end
 
       it 'has the postcode from extra' do
-        expect(subject.extra.raw_info.postcode).to eq(postcode)
+        expect(mock_auth.extra.raw_info.postcode).to eq(postcode)
       end
     end
   end

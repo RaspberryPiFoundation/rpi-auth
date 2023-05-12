@@ -51,6 +51,7 @@ RSpec.describe RpiAuth::Configuration do
 
     context 'when auth_url is set' do
       let(:expected_url) { auth_url }
+
       before { configuration.auth_url = auth_url }
 
       it_behaves_like 'sets up the token url defaults'
