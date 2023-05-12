@@ -9,7 +9,6 @@ RSpec.describe RpiAuthBypass do
     # Alter logger to hide log messages.
     level = OmniAuth.config.logger.level
     OmniAuth.config.logger.level = Logger::WARN
-    OmniAuth.config.test_mode = false
 
     example.run
 
@@ -21,7 +20,6 @@ RSpec.describe RpiAuthBypass do
     subject(:call) { OmniAuth.config.enable_rpi_auth_bypass }
 
     it 'sets test_mode to true' do
-      pp OmniAuth.config.test_mode
       expect { call }.to change { OmniAuth.config.test_mode }.from(false).to(true)
     end
 
