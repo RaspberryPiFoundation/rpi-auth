@@ -14,13 +14,13 @@ module RpiAuth
     end
 
     initializer 'RpiAuth.bypass_auth' do
-      return unless RpiAuth.configuration
+      next unless RpiAuth.configuration
 
       RpiAuth.configuration.enable_auth_bypass
     end
 
     initializer 'RpiAuth.add_middleware' do |app|
-      return unless RpiAuth.configuration
+      next unless RpiAuth.configuration
 
       app.middleware.use OmniAuth::Builder do
         provider(
