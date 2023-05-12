@@ -9,16 +9,6 @@ module RpiAuth
 
     using ::RpiAuthBypass
 
-    initializer 'RpiAuth.set_logger' do
-      OmniAuth.config.logger = Rails.logger
-    end
-
-    initializer 'RpiAuth.bypass_auth' do
-      next unless RpiAuth.configuration
-
-      RpiAuth.configuration.enable_auth_bypass
-    end
-
     initializer 'RpiAuth.add_middleware' do |app|
       next unless RpiAuth.configuration
 
@@ -47,6 +37,11 @@ module RpiAuth
 
         OmniAuth.config.on_failure = RpiAuth::AuthController.action(:failure)
       end
+    end
+
+    config.after_initialize do
+      OmniAuth.config.logger = Rails.logger
+      RpiAuth.configuration&.enable_auth_bypass
     end
   end
 end
