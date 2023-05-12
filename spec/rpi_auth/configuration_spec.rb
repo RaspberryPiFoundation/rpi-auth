@@ -14,6 +14,43 @@ RSpec.describe RpiAuth::Configuration do
     expect(configuration.response_type).to eq :code
   end
 
+  it 'sets bypass_auth to false by default' do
+    expect(configuration.bypass_auth).to be_falsey
+  end
+
+  describe '#enable_auth_bypass' do
+    context 'when bypass_auth is true' do
+      before do
+        configuration.bypass_auth = true
+      end
+
+      it 'enables OmniAuth test mode' do
+        expect { configuration.enable_auth_bypass }.to change { OmniAuth.config.test_mode }.from(false).to(true)
+      end
+    end
+
+    context 'when bypass_auth is false' do
+      before do
+        configuration.bypass_auth = false
+      end
+
+      it 'does not enable OmniAuth test mode' do
+        expect { configuration.enable_auth_bypass }.not_to change { OmniAuth.config.test_mode }.from(false)
+      end
+    end
+  end
+
+  describe 'disable_auth_bypass' do
+    before do
+      configuration.bypass_auth = true
+      configuration.enable_auth_bypass
+    end
+
+    it 'disables OmniAuth test mode' do
+      expect { configuration.disable_auth_bypass }.to change { OmniAuth.config.test_mode }.from(true).to(false)
+    end
+  end
+
   describe '#authorization_endpoint' do
     it 'raises an exception if auth_url is not set' do
       expect { configuration.authorization_endpoint }.to raise_exception(ArgumentError)
