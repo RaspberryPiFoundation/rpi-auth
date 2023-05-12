@@ -1,6 +1,6 @@
 # RpiAuth
 
-A gem to handle authenticating via Hydra for Raspberry Pi Foundation Rails applications.
+A gem to handle OpenID Connect authentication via Hydra for Raspberry Pi Foundation Rails applications.
 
 ## Usage
 
@@ -11,7 +11,7 @@ The Engine includes the [Rails CSRF protection gem](https://github.com/cookpad/o
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v1.3.0'
+gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v2.0.0'
 ```
 
 And then execute:

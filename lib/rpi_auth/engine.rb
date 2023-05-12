@@ -14,7 +14,7 @@ module RpiAuth
     end
 
     initializer 'RpiAuth.bypass_auth' do
-      RpiAuth.configuration.enable_auth_bypass
+      RpiAuth.configuration.enable_auth_bypass if RpiAuth.configuration
     end
 
     initializer 'RpiAuth.add_middleware' do |app|
