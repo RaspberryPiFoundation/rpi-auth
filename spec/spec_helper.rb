@@ -122,7 +122,7 @@ RSpec.configure do |config|
 
   # Reset the RpiAuth config after each test
   config.after do
+    RpiAuth.configuration.disable_auth_bypass
     RpiAuth.configuration = RpiAuth::Configuration.new
-    OmniAuth.config.mock_auth.delete(:rpi)
   end
 end
