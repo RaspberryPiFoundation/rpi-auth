@@ -6,6 +6,10 @@ RSpec.describe RpiAuth::Configuration do
   let(:auth_url) { 'https://auth.com:123/' }
   let(:auth_token_url) { 'https://internal.auth.com:456' }
 
+  it 'sets a default value for brand' do
+    expect(configuration.brand).to eq 'raspberrypi-org'
+  end
+
   it 'sets a default value for client_auth_method' do
     expect(configuration.client_auth_method).to eq :basic
   end

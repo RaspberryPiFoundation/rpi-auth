@@ -48,7 +48,7 @@ RpiAuth.configure do |config|
   config.auth_token_url = ENV.fetch('AUTH_TOKEN_URL', nil)
   config.auth_client_id = ENV.fetch('AUTH_CLIENT_ID', nil)
   config.auth_client_secret = ENV.fetch('AUTH_CLIENT_SECRET', nil)
-  config.brand = 'brand-name'
+  config.brand = 'raspberrypi-org'
   config.host_url = ENV.fetch('HOST_URL', nil)
   config.identity_url = ENV.fetch('IDENTITY_URL', nil)
   config.user_model = 'User'
