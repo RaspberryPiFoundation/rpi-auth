@@ -4,7 +4,7 @@ module RpiAuth
   class Configuration
     using ::RpiAuthBypass
 
-    attr_writer :auth_token_url
+    attr_writer :auth_token_url, :issuer
 
     attr_accessor :auth_client_id,
                   :auth_client_secret,

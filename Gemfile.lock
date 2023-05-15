@@ -163,6 +163,8 @@ GEM
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
     public_suffix (5.0.1)
+    puma (6.2.2)
+      nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.7)
     rack-oauth2 (2.2.0)
@@ -289,6 +291,7 @@ PLATFORMS
 DEPENDENCIES
   listen
   pry-byebug
+  puma
   rails (~> 7.0)
   rpi_auth!
   rspec-rails
