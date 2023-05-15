@@ -8,6 +8,8 @@ RpiAuth.configure do |config|
   config.identity_url = 'http://localhost:3002'
   config.user_model = 'User'
 
+  config.bypass_auth = false
+
   # Profile is running in docker, so we need to set this manually.  This
   # shouldn't be needed elsewhere, unless you're getting errors saying:
   #   Invalid ID token: Issuer does not match

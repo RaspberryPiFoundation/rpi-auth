@@ -13,7 +13,7 @@ module RpiAuth
       OmniAuth.config.logger = Rails.logger
     end
 
-    initializer 'RpiAuth.add_middleware' do |app|
+    initializer 'RpiAuth.add_middleware' do |app| # rubocop:disable Metrics/BlockLength
       next unless RpiAuth.configuration
 
       app.middleware.use OmniAuth::Builder do
@@ -36,18 +36,14 @@ module RpiAuth
             jwks_uri: RpiAuth.configuration.jwks_uri
           },
           extra_authorize_params: { brand: RpiAuth.configuration.brand },
-          allow_authorize_params: [ :login_options ],
+          allow_authorize_params: [:login_options],
           origin_param: 'returnTo'
         )
 
         OmniAuth.config.on_failure = RpiAuth::AuthController.action(:failure)
+
+        RpiAuth.configuration.enable_auth_bypass if RpiAuth.configuration.bypass_auth
       end
-    end
-
-    config.after_initialize do
-      next unless RpiAuth.configuration
-
-      RpiAuth.configuration.enable_auth_bypass
     end
   end
 end

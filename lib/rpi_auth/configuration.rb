@@ -20,7 +20,6 @@ module RpiAuth
                   :user_model
 
     def initialize
-      @brand = 'raspberrypi-org'
       @bypass_auth = false
       @response_type = :code
       @client_auth_method = :basic
