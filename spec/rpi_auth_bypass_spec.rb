@@ -28,156 +28,123 @@ RSpec.describe RpiAuthBypass do
     end
   end
 
+  shared_examples 'a mocked auth object' do
+    let(:raw_info) { extra[:raw_info] }
+
+    it 'has the uid' do
+      expect(mock_auth.uid).to eq(uid)
+    end
+
+    it 'has the email from info' do
+      expect(mock_auth.info.email).to eq(info[:email])
+    end
+
+    it 'has the username from info' do
+      expect(mock_auth.info.username).to eq(info[:username])
+    end
+
+    it 'has the name from info' do
+      expect(mock_auth.info.name).to eq info[:name]
+    end
+
+    it 'has the nickname from info' do
+      expect(mock_auth.info.nickname).to eq info[:nickname]
+    end
+
+    it 'has the image from info' do
+      expect(mock_auth.info.image).to eq info[:image]
+    end
+
+    it 'has the email from raw_info' do
+      expect(mock_auth.extra.raw_info.email).to eq raw_info[:email]
+    end
+
+    it 'has the username from raw_info' do
+      expect(mock_auth.extra.raw_info.username).to eq raw_info[:username]
+    end
+
+    it 'has the name from raw_info' do
+      expect(mock_auth.extra.raw_info.name).to eq raw_info[:name]
+    end
+
+    it 'has the nickname from raw_info' do
+      expect(mock_auth.extra.raw_info.nickname).to eq raw_info[:nickname]
+    end
+
+    it 'has the roles from raw_info' do
+      expect(mock_auth.extra.raw_info.roles).to eq raw_info[:roles]
+    end
+
+    it 'has the sub from raw_info' do
+      expect(mock_auth.extra.raw_info.sub).to eq raw_info[:sub]
+    end
+
+    it 'has the user from raw_info' do
+      expect(mock_auth.extra.raw_info.user).to eq raw_info[:user]
+    end
+
+    it 'has the profile from raw_info' do
+      expect(mock_auth.extra.raw_info.profile).to eq raw_info[:profile]
+    end
+
+    it 'has the country from raw_info' do
+      expect(mock_auth.extra.raw_info.country).to eq raw_info[:country]
+    end
+
+    it 'has the country_code from raw_info' do
+      expect(mock_auth.extra.raw_info.country_code).to eq raw_info[:country_code]
+    end
+
+    it 'has the postcode from raw_info' do
+      expect(mock_auth.extra.raw_info.postcode).to eq raw_info[:postcode]
+    end
+  end
+
   describe 'OmniAuth::Configuration#add_rpi_mock' do
     subject(:mock_auth) { OmniAuth.config.mock_auth[:rpi] }
 
     let(:args) { {} }
+    let(:uid) { RpiAuthBypass::DEFAULT_UID }
+    let(:info) { RpiAuthBypass::DEFAULT_INFO }
+    let(:extra) { RpiAuthBypass::DEFAULT_EXTRA }
 
     before do
       OmniAuth.config.add_rpi_mock(**args)
     end
 
-    it 'has the default uid' do
-      expect(mock_auth.uid).to eq(RpiAuthBypass::DEFAULT_UID)
-    end
+    it_behaves_like 'a mocked auth object'
 
-    it 'has the default email' do
-      expect(mock_auth.info.email).to eq(RpiAuthBypass::DEFAULT_EMAIL)
-    end
-
-    it 'has the default username' do
-      expect(mock_auth.info.username).to eq(RpiAuthBypass::DEFAULT_USERNAME)
-    end
-
-    it 'has the default name' do
-      expect(mock_auth.info.name).to eq(RpiAuthBypass::DEFAULT_NAME)
-    end
-
-    it 'has the default nickname' do
-      expect(mock_auth.info.nickname).to eq(RpiAuthBypass::DEFAULT_NICKNAME)
-    end
-
-    it 'has the default image' do
-      expect(mock_auth.info.image).to eq(RpiAuthBypass::DEFAULT_IMAGE)
-    end
-
-    it 'has the default roles' do
-      expect(mock_auth.extra.raw_info.roles).to eq(RpiAuthBypass::DEFAULT_ROLES)
-    end
-
-    it 'has the default avatar' do
-      expect(mock_auth.extra.raw_info.avatar).to eq(RpiAuthBypass::DEFAULT_IMAGE)
-    end
-
-    it 'has the default profile' do
-      expect(mock_auth.extra.raw_info.profile).to eq(RpiAuthBypass::DEFAULT_PROFILE)
-    end
-
-    it 'has the default country' do
-      expect(mock_auth.extra.raw_info.country).to eq(RpiAuthBypass::DEFAULT_COUNTRY)
-    end
-
-    it 'has the default country code' do
-      expect(mock_auth.extra.raw_info.country_code).to eq(RpiAuthBypass::DEFAULT_COUNTRY_CODE)
-    end
-
-    it 'has the default postcode' do
-      expect(mock_auth.extra.raw_info.postcode).to eq(RpiAuthBypass::DEFAULT_POSTCODE)
-    end
-
-    context 'with info and extra specified' do # rubocop:disable RSpec/MultipleMemoizedHelpers
+    context 'with info and extra specified' do
       let(:uid) { '1d27cca2-fef3-4f79-bc64-b76e93db84a2' }
-      let(:name) { 'Robert Flemming' }
-      let(:nickname) { 'Bob' }
-      let(:email) { 'bob.flemming@example.com' }
-      let(:username) { 'bob.flemming' }
-      let(:roles) { 'gardener' }
-      let(:image) { 'https://my.avatar.com/image/1' }
-      let(:profile) { 'https://my.user.com/profile/1' }
-      let(:country) { 'United States' }
-      let(:country_code) { 'US' }
-      let(:postcode) { '123456' }
 
-      let(:info) { { name: name, email: email, username: username, nickname: nickname, image: image } }
+      let(:info) do
+        {
+          name: 'Robert Flemming',
+          email: 'bob.flemming@example.com',
+          username: 'bob.flemming',
+          nickname: 'Bob',
+          image: 'https://my.avatar.com/image/1'
+        }
+      end
+
       let(:extra) do
         { raw_info: {
-          name: name,
-          email: email,
-          username: username,
-          nickname: nickname,
-          roles: roles,
-          avatar: image,
-          profile: profile,
-          country: country,
-          country_code: country_code,
-          postcode: postcode
+          country: 'US',
+          country_code: 'United States',
+          email: info[:email],
+          name: info[:name],
+          nickname: info[:nickname],
+          postcode: '90210',
+          profile: 'https://my.user.com/profile/1',
+          roles: 'gardener',
+          sub: uid,
+          user: uid,
+          username: info[:username]
         } }
       end
       let(:args) { { uid: uid, info: info, extra: extra } }
 
-      it 'has the uid' do
-        expect(mock_auth.uid).to eq(uid)
-      end
-
-      it 'has the email from info' do
-        expect(mock_auth.info.email).to eq(email)
-      end
-
-      it 'has the username from info' do
-        expect(mock_auth.info.username).to eq(username)
-      end
-
-      it 'has the name from info' do
-        expect(mock_auth.info.name).to eq(name)
-      end
-
-      it 'has the nickname from info' do
-        expect(mock_auth.info.nickname).to eq(nickname)
-      end
-
-      it 'has the image from info' do
-        expect(mock_auth.info.image).to eq(image)
-      end
-
-      it 'has the email from extra' do
-        expect(mock_auth.extra.raw_info.email).to eq(email)
-      end
-
-      it 'has the username from extra' do
-        expect(mock_auth.extra.raw_info.username).to eq(username)
-      end
-
-      it 'has the name from extra' do
-        expect(mock_auth.extra.raw_info.name).to eq(name)
-      end
-
-      it 'has the nickname from extra' do
-        expect(mock_auth.extra.raw_info.nickname).to eq(nickname)
-      end
-
-      it 'has the roles from extra' do
-        expect(mock_auth.extra.raw_info.roles).to eq(roles)
-      end
-
-      it 'has the avatar from extra' do
-        expect(mock_auth.extra.raw_info.avatar).to eq(image)
-      end
-
-      it 'has the profile from extra' do
-        expect(mock_auth.extra.raw_info.profile).to eq(profile)
-      end
-
-      it 'has the country from extra' do
-        expect(mock_auth.extra.raw_info.country).to eq(country)
-      end
-
-      it 'has the country_code from extra' do
-        expect(mock_auth.extra.raw_info.country_code).to eq(country_code)
-      end
-
-      it 'has the postcode from extra' do
-        expect(mock_auth.extra.raw_info.postcode).to eq(postcode)
-      end
+      it_behaves_like 'a mocked auth object'
     end
   end
 end
