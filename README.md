@@ -96,7 +96,13 @@ link_to 'Log in', rpi_auth_login_path, method: :post
 button_to 'Log in', rpi_auth_login_path
 ```
 
-There is also a helper for the logout route:
+There is a helper for the sign-up buttons, which pushes the user through the sign-up flow.
+
+```ruby
+button_to 'Sign up', rpi_auth_signup_path
+```
+
+And there is also a helper for the logout route:
 
 ```ruby
 link_to 'Log out', rpi_auth_logout_path

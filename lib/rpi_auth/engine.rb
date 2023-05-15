@@ -36,6 +36,7 @@ module RpiAuth
             jwks_uri: RpiAuth.configuration.jwks_uri
           },
           extra_authorize_params: { brand: RpiAuth.configuration.brand },
+          allow_authorize_params: [ :login_options ],
           origin_param: 'returnTo'
         )
 
