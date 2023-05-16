@@ -17,7 +17,12 @@ RSpec.describe 'home/show' do
 
     it 'shows the correct log in link' do
       render
-      expect(html.search('a[href="/auth/rpi"]')).not_to be_empty
+      expect(html.search('form[action="/auth/rpi?login_options=v1_signup"]')).not_to be_empty
+    end
+
+    it 'shows the sign up link' do
+      render
+      expect(html.search('form[action="/auth/rpi?login_options=force_signup%2Cv1_signup"]')).not_to be_empty
     end
   end
 
