@@ -21,12 +21,13 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.7.7'
 
+  spec.add_dependency 'omniauth_openid_connect', '~> 0.7.1'
   spec.add_dependency 'omniauth-rails_csrf_protection', '~> 1.0.0'
-  spec.add_dependency 'omniauth-rpi', '~> 1.4.0'
   spec.add_dependency 'rails', '>= 6.1.4'
 
   spec.add_development_dependency 'listen'
   spec.add_development_dependency 'pry-byebug'
+  spec.add_development_dependency 'puma'
   spec.add_development_dependency 'rspec_junit_formatter'
   spec.add_development_dependency 'rspec-rails'
   spec.add_development_dependency 'rubocop'

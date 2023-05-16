@@ -120,9 +120,9 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 
-  # Reset the RpiAuth config after each test
-  config.after do
+  # Reset the RpiAuth config before each test
+  config.before do
+    RpiAuth.configuration.disable_auth_bypass
     RpiAuth.configuration = RpiAuth::Configuration.new
-    OmniAuth.config.mock_auth.delete(:rpi)
   end
 end

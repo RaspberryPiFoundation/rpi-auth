@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'omniauth-rpi'
+require 'omniauth_openid_connect'
+require 'rpi_auth_bypass'
 
 module RpiAuth
   class Engine < ::Rails::Engine
@@ -12,28 +13,36 @@ module RpiAuth
       OmniAuth.config.logger = Rails.logger
     end
 
-    initializer 'RpiAuth.bypass_auth' do
-      RpiAuth.configuration.enable_auth_bypass
-    end
+    initializer 'RpiAuth.add_middleware' do |app| # rubocop:disable Metrics/BlockLength
+      next unless RpiAuth.configuration
 
-    initializer 'RpiAuth.add_middleware' do |app|
       app.middleware.use OmniAuth::Builder do
         provider(
-          OmniAuth::Strategies::Rpi,
-          RpiAuth.configuration.auth_client_id,
-          RpiAuth.configuration.auth_client_secret,
+          :openid_connect,
+          name: :rpi,
+          issuer: RpiAuth.configuration.issuer,
           scope: RpiAuth.configuration.scope,
           callback_path: '/rpi_auth/auth/callback',
+          response_type: RpiAuth.configuration.response_type,
+          client_auth_method: RpiAuth.configuration.client_auth_method,
           client_options: {
-            site: RpiAuth.configuration.auth_url,
-            authorize_url: "#{RpiAuth.configuration.auth_url}/oauth2/auth",
-            token_url: "#{RpiAuth.configuration.auth_token_url || RpiAuth.configuration.auth_url}/oauth2/token"
+            identifier: RpiAuth.configuration.auth_client_id,
+            secret: RpiAuth.configuration.auth_client_secret,
+            scheme: RpiAuth.configuration.token_endpoint.scheme,
+            host: RpiAuth.configuration.token_endpoint.host,
+            port: RpiAuth.configuration.token_endpoint.port,
+            authorization_endpoint: RpiAuth.configuration.authorization_endpoint,
+            token_endpoint: RpiAuth.configuration.token_endpoint,
+            jwks_uri: RpiAuth.configuration.jwks_uri
           },
-          authorize_params: { brand: RpiAuth.configuration.brand },
+          extra_authorize_params: { brand: RpiAuth.configuration.brand },
+          allow_authorize_params: [:login_options],
           origin_param: 'returnTo'
         )
 
         OmniAuth.config.on_failure = RpiAuth::AuthController.action(:failure)
+
+        RpiAuth.configuration.enable_auth_bypass if RpiAuth.configuration.bypass_auth
       end
     end
   end

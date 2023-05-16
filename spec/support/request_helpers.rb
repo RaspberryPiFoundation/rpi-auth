@@ -2,6 +2,7 @@
 
 module RequestHelpers
   def stub_auth_for(user)
+    OmniAuth.config.test_mode = true
     OmniAuth.config.add_mock(:rpi, uid: user.user_id, extra: { raw_info: user.serializable_hash(except: :id) })
   end
 

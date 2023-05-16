@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced usage of [omniauth-rpi](https://github.com/RaspberryPiFoundation/omniauth-rpi/) strategy with [omniauth_openid_connect](https://github.com/omniauth/omniauth_openid_connect/) (#51)
+
 ## [v2.0.0]
 
 ### Added

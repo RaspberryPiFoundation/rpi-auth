@@ -5,8 +5,10 @@
     Logged in as <%= current_user.user_id %>
     <%= link_to 'Log out', rpi_auth_logout_path, class: 'button' %>
   <% else %>
-    <%= link_to 'Log in', rpi_auth_login_path, method: :post %>
-
-    <%= link_to 'Log in GET', rpi_auth_login_path %>
+    <%= button_to 'Log in', rpi_auth_login_path, method: :post %>
+    <br />
+    <%= link_to 'Log in GET', rpi_auth_login_path %> (should 404)
+    <br />
+    <%= button_to 'Sign up', rpi_auth_signup_path, method: :post %>
   <% end %>
 </p>

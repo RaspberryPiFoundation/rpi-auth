@@ -1,6 +1,6 @@
 # RpiAuth
 
-A gem to handle authenticating via Hydra for Raspberry Pi Foundation Rails applications.
+A gem to handle OpenID Connect authentication via Hydra for Raspberry Pi Foundation Rails applications.
 
 ## Usage
 
@@ -11,7 +11,7 @@ The Engine includes the [Rails CSRF protection gem](https://github.com/cookpad/o
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v1.3.0'
+gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v2.0.0'
 ```
 
 And then execute:
@@ -48,7 +48,7 @@ RpiAuth.configure do |config|
   config.auth_token_url = ENV.fetch('AUTH_TOKEN_URL', nil)
   config.auth_client_id = ENV.fetch('AUTH_CLIENT_ID', nil)
   config.auth_client_secret = ENV.fetch('AUTH_CLIENT_SECRET', nil)
-  config.brand = 'brand-name'
+  config.brand = 'raspberrypi-org'
   config.host_url = ENV.fetch('HOST_URL', nil)
   config.identity_url = ENV.fetch('IDENTITY_URL', nil)
   config.user_model = 'User'
@@ -96,7 +96,13 @@ link_to 'Log in', rpi_auth_login_path, method: :post
 button_to 'Log in', rpi_auth_login_path
 ```
 
-There is also a helper for the logout route:
+There is a helper for the sign-up buttons, which pushes the user through the sign-up flow.
+
+```ruby
+button_to 'Sign up', rpi_auth_signup_path
+```
+
+And there is also a helper for the logout route:
 
 ```ruby
 link_to 'Log out', rpi_auth_logout_path

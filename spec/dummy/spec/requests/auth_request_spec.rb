@@ -26,7 +26,8 @@ RSpec.describe 'Authentication' do
     RpiAuth.configuration.bypass_auth = bypass_auth
     # This would normally be in the initializer, but because we're toggling the
     # option on or off, we need to explicitly call it here.
-    RpiAuth.configuration.enable_auth_bypass if bypass_auth
+    RpiAuth.configuration.enable_auth_bypass
+    OmniAuth.config.test_mode = true
   end
 
   describe 'GET /rpi_auth/logout' do
@@ -49,7 +50,7 @@ RSpec.describe 'Authentication' do
         post '/auth/rpi'
         follow_redirect!
 
-        expect(session['current_user']['user_id']).to be 'b6301f34-b970-4d4f-8314-f877bad8b150'
+        expect(session['current_user']['user_id']).to eq RpiAuthBypass::DEFAULT_UID
         previous_id = session.id
 
         get '/rpi_auth/logout'
@@ -105,7 +106,7 @@ RSpec.describe 'Authentication' do
         expect(response).to redirect_to('/')
         follow_redirect!
 
-        expect(session['current_user']['user_id']).to eq 'b6301f34-b970-4d4f-8314-f877bad8b150'
+        expect(session['current_user']['user_id']).to eq RpiAuthBypass::DEFAULT_UID
       end
     end
 
