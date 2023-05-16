@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    rpi_auth (2.0.0)
+    rpi_auth (3.0.0)
       omniauth-rails_csrf_protection (~> 1.0.0)
       omniauth_openid_connect (~> 0.7.1)
       rails (>= 6.1.4)
@@ -153,6 +153,8 @@ GEM
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
     public_suffix (5.0.1)
+    puma (6.2.2)
+      nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.4)
     rack-oauth2 (2.2.0)
@@ -286,6 +288,7 @@ PLATFORMS
 DEPENDENCIES
   listen
   pry-byebug
+  puma
   rails (~> 6.1)
   rpi_auth!
   rspec-rails
