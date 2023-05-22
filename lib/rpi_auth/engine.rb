@@ -33,7 +33,8 @@ module RpiAuth
             port: RpiAuth.configuration.token_endpoint.port,
             authorization_endpoint: RpiAuth.configuration.authorization_endpoint,
             token_endpoint: RpiAuth.configuration.token_endpoint,
-            jwks_uri: RpiAuth.configuration.jwks_uri
+            jwks_uri: RpiAuth.configuration.jwks_uri,
+            redirect_uri: URI.join(RpiAuth.configuration.host_url, '/rpi_auth/auth/callback'),
           },
           extra_authorize_params: { brand: RpiAuth.configuration.brand },
           allow_authorize_params: [:login_options],
