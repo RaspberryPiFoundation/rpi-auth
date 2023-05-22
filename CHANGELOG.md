@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Ensure `redirect_uri` is set in the OpenID Connect configuration
+- Ensure `redirect_uri` is set in the OpenID Connect configuration (#53)
 
 ## [v3.0.0]
 
