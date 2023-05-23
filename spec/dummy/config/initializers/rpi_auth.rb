@@ -13,5 +13,5 @@ RpiAuth.configure do |config|
   # Profile is running in docker, so we need to set this manually.  This
   # shouldn't be needed elsewhere, unless you're getting errors saying:
   #   Invalid ID token: Issuer does not match
-  config.issuer = "http://host.docker.internal:9001/"
+  config.issuer = "http://localhost:9001/"
 end
