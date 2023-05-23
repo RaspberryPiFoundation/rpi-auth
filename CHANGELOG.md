@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Altered default value of the `issuer` to track the `authorization_endpoint` rather than the `token_endpoint` (#54)
+
 ### Fixed
 
 - Ensure `redirect_uri` is set in the OpenID Connect configuration (#53)
