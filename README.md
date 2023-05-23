@@ -38,7 +38,7 @@ RpiAuth.configure do |config|
 end
 ```
 
-The values above will allow you to login using the `gem-dev` client seeded in Hydra provided you run the host application on port `3009`.
+The values above will allow you to login using the `gem-dev` client seeded in Hydra provided you run the host application on port `3009`.  An example configuration can be found [in the dummy app](spec/dummy/config/initializers/rpi_auth.rb).
 
 You will need to change the values to match your application, ideally through ENV vars eg.
 
@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-This provides access to the `current_user` method in controllers and helpers.
+This provides access to the `current_user` method in controllers and helpers.  The dummy app [has an example of this](spec/dummy/app/controllers/application_controller.rb).
 
 Add the `authenticatable` concern to the host application's User model:
 
@@ -76,7 +76,7 @@ class User < ApplicationRecord
 end
 ```
 
-This model needs to be the same one defined in the initializer, an instance will be created on login.
+This model needs to be the same one defined in the initializer, an instance will be created on login.  Again, checkout the [user model in the dummy app](spec/dummy/app/models/user.rb).
 
 To login via Hydra your app needs to send the user to `/auth/rpi` via a POST request:
 
