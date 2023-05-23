@@ -38,7 +38,7 @@ RpiAuth.configure do |config|
 end
 ```
 
-The values above will allow you to login using the `gem-dev` client seeded in Hydra provided you run the host application on port `3009`.
+The values above will allow you to login using the `gem-dev` client seeded in Hydra provided you run the host application on port `3009`.  An example configuration can be found [in the dummy app](spec/dummy/config/initializers/rpi_auth.rb).
 
 You will need to change the values to match your application, ideally through ENV vars eg.
 
@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-This provides access to the `current_user` method in controllers and helpers.
+This provides access to the `current_user` method in controllers and helpers.  The dummy app [has an example of this](spec/dummy/app/controllers/application_controller.rb).
 
 Add the `authenticatable` concern to the host application's User model:
 
@@ -76,7 +76,7 @@ class User < ApplicationRecord
 end
 ```
 
-This model needs to be the same one defined in the initializer, an instance will be created on login.
+This model needs to be the same one defined in the initializer, an instance will be created on login.  Again, checkout the [user model in the dummy app](spec/dummy/app/models/user.rb).
 
 To login via Hydra your app needs to send the user to `/auth/rpi` via a POST request:
 
@@ -155,6 +155,33 @@ class in `config/application.rb`.
 # See https://api.rubyonrails.org/classes/Rails/Engine.html#class-Rails::Engine-label-Loading+priority
 config.railties_order = [RpiAuth::Engine, :main_app, :all]
 ```
+
+## Troubleshooting
+
+Diagnosing issues with OpenID Connect can be tricky, so here are some things to try.
+
+### Setting the token URL in development mode
+
+Typically we run both Profile/Hydra and our applications in Docker.  Both the browser and the application have to communicate with Hydra, and in a docker situation this means using two different hostnames.  The browser can use `localhost`, but inside docker containers `localhost` refers to the container itself, not the machine running Docker.  So the container has to use `docker.host.internal` instead.  As a result, the application needs to have a separate URL to check tokens on.  We configure this as the `auth_token_url`.
+
+Typical local environment variables for development are
+
+```
+AUTH_CLIENT_ID=my-hydra-client-dev
+AUTH_CLIENT_SECRET=1234567890
+AUTH_TOKEN_URL=http://host.docker.internal:9001/
+AUTH_URL=http://localhost:9001     # The URL where Hydra is running
+HOST_URL=http://localhost:3000     # The URL where your app is running
+IDENTITY_URL=http://localhost:3002 # The URL where Profile (Pi Accounts) is running
+```
+
+### Matching the Issuer
+
+When tokens are issued, the OpenID Connect library validates that the token's "issuer" (`iss`) value.  This library assumes that it matches the `auth_url` value, complete with a trailing slash.  If this is not the case, you can set the issuer manually.  It should match the value in either the `docker-compose.yml` in the profile repo, or at `http://localhost:9001/.well-known/openid-configuration` when Hydra is running.
+
+### Discovery
+
+The Omniauth OpenID Connect gem can use discovery to work out the majority of the configuration.  However this does not work in development, as the discovery URL is assumed to be available over HTTPS which is not the case in this scenario.
 
 ## Upgrading between versions.
 

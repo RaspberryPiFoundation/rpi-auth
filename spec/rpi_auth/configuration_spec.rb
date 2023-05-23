@@ -64,14 +64,14 @@ RSpec.describe RpiAuth::Configuration do
       it 'sets the authorization_endpoint correctly' do
         expect(configuration.authorization_endpoint).to eq URI.parse(auth_url).merge('/oauth2/auth')
       end
+
+      it 'sets the issuer' do
+        expect(configuration.issuer).to eq URI.parse(expected_url).merge('/').to_s
+      end
     end
   end
 
   shared_examples 'sets up the token url defaults' do
-    it 'sets the issuer' do
-      expect(configuration.issuer).to eq URI.parse(expected_url).merge('/').to_s
-    end
-
     it 'sets the token_endpoint' do
       expect(configuration.token_endpoint).to eq URI.parse(expected_url).merge('/oauth2/token')
     end
