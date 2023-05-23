@@ -9,17 +9,4 @@ RpiAuth.configure do |config|
   config.user_model = 'User'
 
   config.bypass_auth = false
-
-  # In development, the issuer is set in the docker-compose.yml file in the
-  # Profile repo.  If you see errors like
-  #
-  #  (rpi) Authentication failure! Invalid ID token: Issuer does not match
-  #
-  # then set the issuer here to match the value in the docker-compose file.
-  # When Hydra is running, the issue value can also be viewed at
-  # http://localhost:9001/.well-known/openid-configuration
-  #
-  # In staging/production this shouldn't be an issue, as all the hostnames are
-  # the same.
-  config.issuer = "http://localhost:9001/"
 end

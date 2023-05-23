@@ -46,7 +46,7 @@ module RpiAuth
     end
 
     def issuer
-      @issuer ||= token_endpoint.merge('/').to_s
+      @issuer ||= authorization_endpoint.merge('/').to_s
     end
 
     def jwks_uri
