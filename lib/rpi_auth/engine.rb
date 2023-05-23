@@ -9,6 +9,10 @@ module RpiAuth
 
     using ::RpiAuthBypass
 
+    LOGIN_PATH = '/auth/rpi'
+    CALLBACK_PATH = '/rpi_auth/auth/callback'
+    LOGOUT_PATH = '/rpi_auth/logout'
+
     initializer 'RpiAuth.set_logger' do
       OmniAuth.config.logger = Rails.logger
     end
@@ -22,7 +26,7 @@ module RpiAuth
           name: :rpi,
           issuer: RpiAuth.configuration.issuer,
           scope: RpiAuth.configuration.scope,
-          callback_path: '/rpi_auth/auth/callback',
+          callback_path: CALLBACK_PATH,
           response_type: RpiAuth.configuration.response_type,
           client_auth_method: RpiAuth.configuration.client_auth_method,
           client_options: {
@@ -33,7 +37,8 @@ module RpiAuth
             port: RpiAuth.configuration.token_endpoint.port,
             authorization_endpoint: RpiAuth.configuration.authorization_endpoint,
             token_endpoint: RpiAuth.configuration.token_endpoint,
-            jwks_uri: RpiAuth.configuration.jwks_uri
+            jwks_uri: RpiAuth.configuration.jwks_uri,
+            redirect_uri: URI.join(RpiAuth.configuration.host_url, CALLBACK_PATH)
           },
           extra_authorize_params: { brand: RpiAuth.configuration.brand },
           allow_authorize_params: [:login_options],
