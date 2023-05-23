@@ -158,7 +158,7 @@ config.railties_order = [RpiAuth::Engine, :main_app, :all]
 
 ## Troubleshooting
 
-Diagnosing issues with OpenID Conenct can be tricky, so here are some things to try.
+Diagnosing issues with OpenID Connect can be tricky, so here are some things to try.
 
 ### Setting the token URL in development mode
 
