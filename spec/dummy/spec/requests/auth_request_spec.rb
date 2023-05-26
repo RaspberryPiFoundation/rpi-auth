@@ -17,7 +17,7 @@ RSpec.describe 'Authentication' do
 
   let(:bypass_auth) { false }
   let(:identity_url) { 'https://my.example.com' }
-  let(:host_url) { 'https://example.com' }
+  let(:host_url) { 'https://www.example.com' }
 
   before do
     RpiAuth.configuration.user_model = 'User'
@@ -38,9 +38,33 @@ RSpec.describe 'Authentication' do
 
       get '/rpi_auth/logout'
 
-      expect(response).to redirect_to("#{identity_url}/logout?returnTo=#{host_url}")
+      expect(response).to redirect_to("#{identity_url}/logout?returnTo=#{host_url}/")
       expect(session.id).not_to eq previous_id
       expect(session['current_user']).to be_nil
+    end
+
+    context 'when a returnTo param is given' do
+      let(:return_to) { '/next/page' }
+
+      it 'redirects to the correct URL' do
+        sign_in(user)
+
+        get '/rpi_auth/logout', params: { returnTo: return_to }
+
+        expect(response).to redirect_to("#{identity_url}/logout?returnTo=#{URI.join(host_url, return_to)}")
+      end
+
+      context 'when the returnTo param is on another host' do
+        let(:return_to) { 'https://a.bad.actor.com/bad/page' }
+
+        it 'redirects to the correct URL' do
+          sign_in(user)
+
+          get '/rpi_auth/logout', params: { returnTo: return_to }
+
+          expect(response).to redirect_to("#{identity_url}/logout?returnTo=#{host_url}/")
+        end
+      end
     end
 
     context 'when bypass_auth is set' do
@@ -58,6 +82,18 @@ RSpec.describe 'Authentication' do
         expect(response).to redirect_to('/')
         expect(session.id).not_to eq previous_id
         expect(session['current_user']).to be_nil
+      end
+
+      context 'when a returnTo param is given' do
+        let(:return_to) { '/next/page' }
+
+        it 'redirects to the correct URL' do
+          sign_in(user)
+
+          get '/rpi_auth/logout', params: { returnTo: return_to }
+
+          expect(response).to redirect_to(return_to)
+        end
       end
     end
   end
@@ -144,21 +180,31 @@ RSpec.describe 'Authentication' do
 
       context 'when having visited a page first' do
         it 'redirects back to the original page' do
-          post '/auth/rpi', headers: { Referer: 'http://www.example.com/foo' }
+          post '/auth/rpi', headers: { Referer: 'http://www.example.com/foo#foo' }
           expect(response).to redirect_to('/rpi_auth/auth/callback')
           follow_redirect!
 
-          expect(response).to redirect_to('/foo')
+          expect(response).to redirect_to('/foo#foo')
         end
       end
 
       context 'when returnTo param is set' do
         it 'redirects back to the original page' do
-          post '/auth/rpi', params: { returnTo: 'http://www.example.com/bar' }
+          post '/auth/rpi', params: { returnTo: 'http://www.example.com/bar?q=p#r' }
           expect(response).to redirect_to('/rpi_auth/auth/callback')
           follow_redirect!
 
-          expect(response).to redirect_to('/bar')
+          expect(response).to redirect_to('/bar?q=p#r')
+        end
+      end
+
+      context 'when the returnTo param is on another host' do
+        it 'redirects to the root URL' do
+          post '/auth/rpi', params: { returnTo: 'https://a.bad.actor.com/bad/page' }
+          expect(response).to redirect_to('/rpi_auth/auth/callback')
+          follow_redirect!
+
+          expect(response).to redirect_to('/')
         end
       end
 
