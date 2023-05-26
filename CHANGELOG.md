@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+-  Allow for customisation of returnTo param on log out (#56)
+
 ## [v3.1.0]
 
 ### Changed
