@@ -17,7 +17,7 @@ RSpec.describe 'Authentication' do
 
   let(:bypass_auth) { false }
   let(:identity_url) { 'https://my.example.com' }
-  # We need to make sure we match the hostname Rails uses in test requests 
+  # We need to make sure we match the hostname Rails uses in test requests
   # here, otherwise `returnTo` redirects will fail after login/logout.
   let(:host_url) { 'https://www.example.com' }
 
