@@ -139,6 +139,16 @@ meaning (most) users will end up back on the page where they started the auth fl
 
 Finally, if none of these things are set, we end up back at the application root.
 
+#### Redirecting when logging out
+
+It is also possible to send users to pages within your app when logging out.  Just set the `returnTo` parameter again.
+
+```ruby
+link_to 'Log out', rpi_auth_logout_path, params: { returnTo: '/thanks-dude' }
+```
+
+This has to be a relative URL, i.e. it has to start with a slash.  This is to ensure there's no open redirect.
+
 ### Globbed/catch-all routes
 
 If your app has a catch-all route at the end of the routing table, you must
