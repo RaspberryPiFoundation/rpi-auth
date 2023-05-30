@@ -16,8 +16,7 @@ module RpiAuth
       auth = request.env['omniauth.auth']
       self.current_user = RpiAuth.user_model.from_omniauth(auth)
 
-      redirect_to RpiAuth.configuration.success_redirect.presence ||
-                  ensure_relative_url(request.env['omniauth.origin'])
+      redirect_to ensure_relative_url(login_redirect_path)
     end
 
     def destroy
@@ -42,6 +41,14 @@ module RpiAuth
     end
 
     private
+
+    def login_redirect_path
+      if RpiAuth.configuration.success_redirect.is_a?(Proc)
+        instance_exec(&RpiAuth.configuration.success_redirect)&.to_s
+      else
+        RpiAuth.configuration.success_redirect || request.env['omniauth.origin']
+      end
+    end
 
     def ensure_relative_url(url)
       url = URI.parse(url)
