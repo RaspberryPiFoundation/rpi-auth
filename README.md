@@ -155,7 +155,7 @@ You can use variables and methods here that are available in the [RpiAuth::AuthC
 * `current_user` -- the current logged in user.
 * `request.env['omniauth.origin']` (the original `returnTo` value)
 
-**Beware** here be dragons! 🐉 You might get difficult-to-diagnose bugs using this technique.  The Proc in your configuration may be tricky to test, so keep it simple.
+**Beware** here be dragons! 🐉 You might get difficult-to-diagnose bugs using this technique.  The Proc in your configuration may be tricky to test, so keep it simple.  If your Proc raises an exception, the URL returned will default to `/` and there should be a warning in the Rails log saying what happened.
 
 When using this, you will find that Rails needs to be restarted when you change the proc, as the configuration block is only evaluated on start-up.
 
