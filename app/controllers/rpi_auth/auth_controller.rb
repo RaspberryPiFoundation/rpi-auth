@@ -43,10 +43,15 @@ module RpiAuth
     private
 
     def login_redirect_path
-      if RpiAuth.configuration.success_redirect.is_a?(Proc)
+      unless RpiAuth.configuration.success_redirect.is_a?(Proc)
+        return RpiAuth.configuration.success_redirect || request.env['omniauth.origin']
+      end
+
+      begin
         instance_exec(&RpiAuth.configuration.success_redirect)&.to_s
-      else
-        RpiAuth.configuration.success_redirect || request.env['omniauth.origin']
+      rescue StandardError => e
+        Rails.logger.warn("Caught #{e} while processing success_redirect proc.")
+        '/'
       end
     end
 

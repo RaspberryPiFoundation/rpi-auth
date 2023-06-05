@@ -256,6 +256,34 @@ RSpec.describe 'Authentication' do
             expect(response).to redirect_to("/bar/extra?#{{ email: user.email }.to_query}")
           end
         end
+
+        context 'when the proc raises an exception' do # rubocop:disable RSpec/NestedGroups
+          # We use `current_user` and `request.env` here as they're available
+          # in the context of the controller.  We use `let!` to make sure the
+          # proc is defined straightaway, rather than later, when `request` and
+          # `current_user` might be in scope.
+          let!(:redirect_proc) do # rubocop:disable RSpec/LetSetup
+            -> { raise ArgumentError }
+          end
+
+          it 'redirects back to the root page' do
+            post '/auth/rpi', params: { returnTo: 'http://www.example.com/bar' }
+            expect(response).to redirect_to('/rpi_auth/auth/callback')
+            follow_redirect!
+
+            expect(response).to redirect_to('/')
+          end
+
+          it 'logs a warning error' do
+            allow(Rails.logger).to receive(:warn).with(any_args).and_call_original
+
+            post '/auth/rpi', params: { returnTo: 'http://www.example.com/bar' }
+            expect(response).to redirect_to('/rpi_auth/auth/callback')
+            follow_redirect!
+
+            expect(Rails.logger).to have_received(:warn)
+          end
+        end
       end
     end
   end
