@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rpi_auth (3.1.0)
+    rpi_auth (3.2.0)
       omniauth-rails_csrf_protection (~> 1.0.0)
       omniauth_openid_connect (~> 0.7.1)
       rails (>= 6.1.4)
@@ -86,7 +86,7 @@ GEM
     diff-lcs (1.5.0)
     docile (1.4.0)
     erubi (1.11.0)
-    faraday (2.7.4)
+    faraday (2.7.5)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-follow_redirects (0.3.0)
