@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Allow for customisation of returnTo param on log out (#56)
-- Allow `success_redirect` to be configured as a block that is executed in the context of the AuthController.
+- Allow `success_redirect` to be configured as a block that is executed in the context of the AuthController (#57)
 
 ## [v3.1.0]
 
