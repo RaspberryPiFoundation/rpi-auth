@@ -33,7 +33,7 @@ RpiAuth.configure do |config|
   config.identity_url = 'http://localhost:3002'        # The url for the profile instance being used for auth
   config.user_model = 'User'                           # The name of the user model in the host app being used, use the name as a string, not the model itself
   config.scope = 'openid email profile force-consent'  # The required OIDC scopes
-  config.success_redirect = '/'                        # After succesful login the route the user should be redirected to; this will override redirecting the user back to where they were when they started the log in / sign up flow (via `omniauth.origin`), so should be used rarely / with caution
+  config.success_redirect = '/'                        # After succesful login the route the user should be redirected to; this will override redirecting the user back to where they were when they started the log in / sign up flow (via `omniauth.origin`), so should be used rarely / with caution.  This can be a string or a proc, which is exectuted in the context of the RpiAuth::AuthController.
   config.bypass_auth = false                           # Should auth be bypassed and a default user logged in
 end
 ```
@@ -113,7 +113,7 @@ link_to 'Log out', rpi_auth_logout_path
 There are a three possible places the user will end up at following logging in,
 in the following order:
 
-1. The `success_redirect` URL.
+1. The `success_redirect` URL or proc.
 2. The specified `returnTo` URL.
 3. The page the user was on (if the Referer header is sent in).
 4. The root path of the application.
@@ -138,6 +138,26 @@ header](https://github.com/omniauth/omniauth/blob/d2fd0fc80b0342046484b99102fa00
 meaning (most) users will end up back on the page where they started the auth flow (this is often the most preferable situation).
 
 Finally, if none of these things are set, we end up back at the application root.
+
+#### Advanced customisation of the login redirect
+
+On occasion you may wish to heavily customise the way the login redirect is handled.  For example, you may wish to redirect to something a bit more dynamic than either the static `success_redirect` or original HTTP referer/`returnTo` parameter.
+
+Fear not! You can set `success_redirect` to a Proc in the configuration, which will then be called in the context of the request.
+
+```ruby
+config.success_redirect = -> { request.env['omniauth.origin'] + "?cache_bust=#{Time.now.to_i}&username=#{current_user.nickname}" }
+```
+
+will redirect the user to there `/referer/url?cache_bust=1231231231`, if they started the login process from `/referer/url` page.  The proc can return a string or a nil.  In the case of a nil, the user will be redirected to the `returnTo` parameter.  The return value will be checked to make sure it is local to the app.  You cannot redirect to other URLs/hosts with this technique.
+
+You can use variables and methods here that are available in the [RpiAuth::AuthController](app/controllers/rpi_auth/auth_controller.rb), i.e. things like
+* `current_user` -- the current logged in user.
+* `request.env['omniauth.origin']` (the original `returnTo` value)
+
+**Beware** here be dragons! 🐉 You might get difficult-to-diagnose bugs using this technique.  The Proc in your configuration may be tricky to test, so keep it simple.  If your Proc raises an exception, the URL returned will default to `/` and there should be a warning in the Rails log saying what happened.
+
+When using this, you will find that Rails needs to be restarted when you change the proc, as the configuration block is only evaluated on start-up.
 
 #### Redirecting when logging out
 

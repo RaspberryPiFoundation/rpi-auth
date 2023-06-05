@@ -8,5 +8,7 @@ RpiAuth.configure do |config|
   config.identity_url = 'http://localhost:3002'
   config.user_model = 'User'
 
+  # Redurect to the next URL
+  config.success_redirect = -> { "#{request.env['omniauth.origin']}?#{{ email: current_user.email }.to_query}" }
   config.bypass_auth = false
 end
