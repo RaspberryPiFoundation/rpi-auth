@@ -54,14 +54,14 @@ RSpec.describe DummyUser, type: :model do
 
     it 'returns a user with the correct attributes' do
       expect(omniauth_user).to be_a described_class
-      expect(omniauth_user.user_id).to eq('testuserid')
-      expect(omniauth_user.name).to eq('Bodkin Van Horn')
-      expect(omniauth_user.nickname).to eq('Hoos-Foos')
-      expect(omniauth_user.email).to eq('test@example.com')
-      expect(omniauth_user.country).to eq('Zimbabwe')
-      expect(omniauth_user.country_code).to eq('ZW')
-      expect(omniauth_user.picture).to eq('https://placecage.com/100/100')
-      expect(omniauth_user.profile).to eq('https://my.raspberry.pi/profile/edit')
+      expect(omniauth_user).to have_attributes(user_id: 'testuserid',
+                                               name: 'Bodkin Van Horn',
+                                               nickname: 'Hoos-Foos',
+                                               email: 'test@example.com',
+                                               country: 'Zimbabwe',
+                                               country_code: 'ZW',
+                                               picture: 'https://placecage.com/100/100',
+                                               profile: 'https://my.raspberry.pi/profile/edit')
     end
 
     context 'with unusual keys in info' do
