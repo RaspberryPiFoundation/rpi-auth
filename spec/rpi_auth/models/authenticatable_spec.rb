@@ -10,6 +10,7 @@ RSpec.describe DummyUser, type: :model do
   subject { described_class.new }
 
   it { is_expected.to respond_to(:user_id) }
+  it { is_expected.to respond_to(:country) }
   it { is_expected.to respond_to(:country_code) }
   it { is_expected.to respond_to(:email) }
   it { is_expected.to respond_to(:name) }
@@ -32,6 +33,7 @@ RSpec.describe DummyUser, type: :model do
         email: 'test@example.com',
         name: 'Bodkin Van Horn',
         nickname: 'Hoos-Foos',
+        country: 'Zimbabwe',
         country_code: 'ZW',
         picture: 'https://placecage.com/100/100',
         profile: 'https://my.raspberry.pi/profile/edit'
@@ -56,6 +58,7 @@ RSpec.describe DummyUser, type: :model do
       expect(omniauth_user.name).to eq('Bodkin Van Horn')
       expect(omniauth_user.nickname).to eq('Hoos-Foos')
       expect(omniauth_user.email).to eq('test@example.com')
+      expect(omniauth_user.country).to eq('Zimbabwe')
       expect(omniauth_user.country_code).to eq('ZW')
       expect(omniauth_user.picture).to eq('https://placecage.com/100/100')
       expect(omniauth_user.profile).to eq('https://my.raspberry.pi/profile/edit')

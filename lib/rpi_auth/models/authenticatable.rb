@@ -6,6 +6,7 @@ module RpiAuth
       extend ActiveSupport::Concern
 
       PROFILE_KEYS = %w[
+        country
         country_code
         email
         email_verified
