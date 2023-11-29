@@ -54,12 +54,9 @@ RSpec.describe DummyUser, type: :model do
 
     it 'returns a user with the correct attributes' do
       expect(omniauth_user).to be_a described_class
-      expect(omniauth_user).to have_attributes(user_id: 'testuserid',
-                                               name: 'Bodkin Van Horn',
-                                               nickname: 'Hoos-Foos',
-                                               email: 'test@example.com',
-                                               country: 'Zimbabwe',
-                                               country_code: 'ZW',
+      expect(omniauth_user).to have_attributes(user_id: 'testuserid', name: 'Bodkin Van Horn',
+                                               nickname: 'Hoos-Foos', email: 'test@example.com',
+                                               country: 'Zimbabwe', country_code: 'ZW',
                                                picture: 'https://placecage.com/100/100',
                                                profile: 'https://my.raspberry.pi/profile/edit')
     end
