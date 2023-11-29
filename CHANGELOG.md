@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v3.3.0]
+
 ### Added
 
 - Add country attribute to `Authenticable` (#60)
@@ -95,7 +97,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rails model concern to allow host app to add auth behaviour to a model
 - callback, logout and failure routes to handle auth
 
-[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v3.2.0...HEAD
+[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v3.3.0...HEAD
+[v3.3.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.3.0
 [v3.2.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.2.0
 [v3.1.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.1.0
 [v3.0.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.0.0
