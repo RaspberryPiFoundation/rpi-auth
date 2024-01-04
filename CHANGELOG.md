@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v3.4.0]
+
+- Removes `v1_signup` param as it is no longer required (https://github.com/RaspberryPiFoundation/profile/pull/1512)
+
 ## [v3.3.0]
 
 ### Added
