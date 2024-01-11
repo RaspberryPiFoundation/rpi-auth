@@ -183,11 +183,11 @@ RSpec.describe 'Authentication' do
       end
 
       context 'when session_keys_to_persist is set' do
-      let(:session_keys_to_persist) { 'foo bar' }
+        let(:session_keys_to_persist) { 'foo bar' }
 
         it 'persists provided session keys on login' do
           get '/' # create the session
-          
+
           session[:foo] = 'bar'
           previous_foo = session[:foo]
           puts "Initial session #{session.to_hash} \n\n"

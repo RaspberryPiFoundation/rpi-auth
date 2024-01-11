@@ -24,7 +24,7 @@ module RpiAuth
           session[key] = old_session[key]
         end
       end
-      
+
       auth = request.env['omniauth.auth']
       self.current_user = RpiAuth.user_model.from_omniauth(auth)
 
