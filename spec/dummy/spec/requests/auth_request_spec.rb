@@ -186,14 +186,11 @@ RSpec.describe 'Authentication' do
         let(:session_keys_to_persist) { 'foo bar' }
 
         it 'persists provided session keys on login' do
-          get '/' # create the session
+          post '/auth/rpi'
 
           session[:foo] = 'bar'
           previous_foo = session[:foo]
           puts "Initial session #{session.to_hash} \n\n"
-
-          post '/auth/rpi'
-          puts "/auth/rpi session #{session.to_hash} \n\n"
 
           expect(response).to redirect_to('/rpi_auth/auth/callback')
           follow_redirect!
