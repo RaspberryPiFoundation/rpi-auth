@@ -13,7 +13,6 @@ module RpiAuth
       # this, and certain data needs to be persisted, then the client should
       # pass the keys via config.session_keys_to_persist
       old_session = session.to_hash
-      puts "Old / pre-reset_session session: #{old_session} \n\n"
 
       reset_session
 

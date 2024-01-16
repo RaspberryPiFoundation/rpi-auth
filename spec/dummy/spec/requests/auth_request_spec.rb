@@ -183,18 +183,15 @@ RSpec.describe 'Authentication' do
       end
 
       context 'when session_keys_to_persist is set' do
-        let(:session_keys_to_persist) { 'foo bar' }
+        let(:session_keys_to_persist) { 'foo' }
 
         it 'persists provided session keys on login' do
           set_session(foo: 'bar')
           post '/auth/rpi'
           previous_foo = session[:foo]
-          puts "Initial session #{session.to_hash} \n\n"
 
           expect(response).to redirect_to('/rpi_auth/auth/callback')
           follow_redirect!
-
-          puts "/rpi_auth/auth/callback session: #{session.to_hash} \n\n"
 
           expect(session[:foo]).to eq previous_foo
         end
