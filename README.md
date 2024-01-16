@@ -229,7 +229,9 @@ The gem is available as open source under the terms of the [MIT License](https:/
 Run:
 
 ```bash
-$ bundle
+# Set the version of rails we want to follow
+export BUNDLE_GEMFILE=gemfiles/rails_7.0.gemfile
+bundle install
 ```
 
 from the root directory. This will also install the gems required by the dummy application found at `spec/dummy`.
@@ -260,16 +262,18 @@ Ensure to update `lib/rpi_auth/version.rb` when publishing a new version.
 ### Testing
 
 ```bash
-$ bundle exec rspec
+$ bundle exec --gemfile gemfiles/rails_7.0.gemfile rspec
 ```
 
 #### Testing with different versions of Rails
 
-This Gem should work with Rails 6.1+, but the `Gemfile.lock` is tracking Rails 7 at the moment. To test Rails 6.1, you'll want to use `gemfiles/rails_6.1.gemfile` as your gemfile, and then run rspec using that.
+This Gem should work with Rails 6.1+. To test Rails 6.1, you'll want to use `gemfiles/rails_6.1.gemfile` as your gemfile, and then run rspec using that.
 
 ```
-bundle install --gemfile gemfiles/rails_6.1.gemfile
-bundle exec --gemfile gemfiles/rails_6.1.gemfile rspec
+# Set the version of rails we want to follow
+export BUNDLE_GEMFILE=gemfiles/rails_6.1.gemfile
+bundle install
+bundle exec rspec
 ```
 
 ## Releasing
