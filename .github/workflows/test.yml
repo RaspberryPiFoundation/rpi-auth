@@ -62,3 +62,5 @@ jobs:
         with:
           message: |
             * GitHub Actions [run \#${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            Test coverage: ${{ steps.coverage.outputs.value }}%
