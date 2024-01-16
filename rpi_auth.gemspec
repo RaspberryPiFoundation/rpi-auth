@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.metadata['rubygems_mfa_required'] = 'true'
 
   spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
-
+  # test
   spec.required_ruby_version = '>= 2.7.7'
 
   spec.add_dependency 'omniauth_openid_connect', '~> 0.7.1'
