@@ -186,9 +186,8 @@ RSpec.describe 'Authentication' do
         let(:session_keys_to_persist) { 'foo bar' }
 
         it 'persists provided session keys on login' do
+          set_session(foo: 'bar')
           post '/auth/rpi'
-
-          session[:foo] = 'bar'
           previous_foo = session[:foo]
           puts "Initial session #{session.to_hash} \n\n"
 
