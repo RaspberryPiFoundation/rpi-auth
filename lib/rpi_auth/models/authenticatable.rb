@@ -11,7 +11,6 @@ module RpiAuth
       end
 
       PROFILE_KEYS = %w[
-        country
         country_code
         email
         name

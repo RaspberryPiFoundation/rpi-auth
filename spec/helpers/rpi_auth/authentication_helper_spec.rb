@@ -16,8 +16,7 @@ RSpec.describe RpiAuth::AuthenticationHelper do
 
     context 'when session contains user info' do
       let(:user_info) do
-        { 'country' => 'United Kingdom',
-          'country_code' => 'GB',
+        { 'country_code' => 'GB',
           'email' => 'john.doe@example.com',
           'name' => 'John Doe',
           'nickname' => 'John',
