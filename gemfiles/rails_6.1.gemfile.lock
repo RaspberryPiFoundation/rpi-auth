@@ -312,7 +312,7 @@ DEPENDENCIES
   listen
   pry-byebug
   puma
-  rails (~> 6.1)
+  rails (~> 6.1.0)
   rpi_auth!
   rspec-rails
   rspec_junit_formatter

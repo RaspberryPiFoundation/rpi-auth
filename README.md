@@ -262,7 +262,7 @@ Ensure to update `lib/rpi_auth/version.rb` when publishing a new version.
 ### Testing
 
 ```bash
-$ bundle exec --gemfile gemfiles/rails_7.0.gemfile rspec
+$ bundle exec rspec
 ```
 
 #### Testing with different versions of Rails
