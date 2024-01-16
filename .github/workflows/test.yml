@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: code-coverage-report-ruby_${{ matrix.ruby-version }}-${{ matrix.gemfile }}
-        path: ${{ github-workspace }}/coverage/
+        path: ${{ github.workspace }}/coverage/
 
   post_coverage:
     runs-on: ubuntu-latest
