@@ -1,5 +1,5 @@
 PATH
-  remote: ..
+  remote: .
   specs:
     rpi_auth (3.4.0)
       omniauth-rails_csrf_protection (~> 1.0.0)
