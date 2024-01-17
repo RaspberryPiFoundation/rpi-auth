@@ -1,0 +1,66 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
+# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+
+name: Test
+on:
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['2.7', '3.1', '3.2']
+        gemfile: [ rails_6.1, rails_7.0, rails_7.1 ]
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Run tests
+      run: bundle exec rspec
+
+    - name: Archive coverage
+      if: ${{ success() || failure() }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-coverage-report-ruby_${{ matrix.ruby-version }}-${{ matrix.gemfile }}
+        path: ${{ github.workspace }}/coverage/
+
+  post_coverage:
+    runs-on: ubuntu-latest
+    needs: test
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: code-coverage-report-ruby_3.2-rails_7.1
+          path: coverage/
+
+      - name: Install JQ
+        run: sudo apt-get install -y jq
+
+      - name: Determine coverage
+        id: coverage
+        run: |
+          # Check to see if coverage is under `result.line` or under `result.covered_percent` (older versions)
+          coverage=$(jq -r 'if .result.line then .result.line else .result.covered_percent end' < coverage/.last_run.json)
+          [ "${coverage}" = "null" ] && coverage="** Failed to determine coverage **"
+          echo value="${coverage}" >> "$GITHUB_OUTPUT"
+
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            * GitHub Actions [run \#${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+
+            Test coverage: ${{ steps.coverage.outputs.value }}%
