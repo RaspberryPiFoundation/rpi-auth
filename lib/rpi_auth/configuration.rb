@@ -11,6 +11,7 @@ module RpiAuth
                   :host_url,
                   :identity_url,
                   :scope,
+                  :session_keys_to_persist,
                   :success_redirect,
                   :user_model
 

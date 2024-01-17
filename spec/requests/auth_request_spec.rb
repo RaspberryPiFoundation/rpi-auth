@@ -20,9 +20,11 @@ RSpec.describe 'Authentication' do
   end
   let(:bypass_oauth) { '' }
   let(:identity_url) { 'https://my.fakepi.com' }
+  let(:session_keys_to_persist) {}
   let(:host_url) { 'https://fakepi.com' }
 
   before do
+    RpiAuth.configuration.session_keys_to_persist = session_keys_to_persist
     RpiAuth.configuration.user_model = 'DummyUser'
   end
 
@@ -128,6 +130,21 @@ RSpec.describe 'Authentication' do
         follow_redirect!
 
         expect(session.id).not_to eq previous_id
+      end
+
+      context 'when session_keys_to_persist is set' do
+        let(:session_keys_to_persist) { 'foo' }
+
+        it 'persists provided session keys on login' do
+          set_session(foo: 'bar')
+          post '/auth/rpi'
+          previous_foo = session[:foo]
+
+          expect(response).to redirect_to('/rpi_auth/auth/callback')
+          follow_redirect!
+
+          expect(session[:foo]).to eq previous_foo
+        end
       end
     end
   end

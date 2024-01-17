@@ -6,6 +6,7 @@ if Rails.env.development?
     config.brand = 'codeclub'
     config.host_url = 'http://localhost:3009'
     config.identity_url = 'http://localhost:3002'
+    config.session_keys_to_persist = 'foo bar'
     config.user_model = 'User'
     config.bypass_auth = false
   end

@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- Adds `session_keys_to_persist` config option to allow for specific session keys to be persisted across logins (since logging in will reset the session: https://guides.rubyonrails.org/security.html#session-fixation-countermeasures)
+
 ## [v1.4.0]
 
 ### Added
