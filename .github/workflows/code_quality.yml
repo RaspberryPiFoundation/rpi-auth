@@ -1,10 +1,6 @@
 name: 'Code quality'
 on:
   workflow_call:
-    inputs:
-      docker_image:
-        type: string
-        required: true
 
 defaults:
   run:
@@ -21,11 +17,6 @@ jobs:
 
   rubocop:
     runs-on: ubuntu-latest
-    container:
-      image:  ${{ inputs.docker_image }}
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.github_token }}
     steps:
       - name: Inspecting with Rubocop
         run: rubocop
