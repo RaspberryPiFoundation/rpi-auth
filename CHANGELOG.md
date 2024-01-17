@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.4.2]
+
+v1.4.1 was reverted, so we're skipping to v1.4.2 for clarity.
+
 - Adds `session_keys_to_persist` config option to allow for specific session keys to be persisted across logins (since logging in will reset the session: https://guides.rubyonrails.org/security.html#session-fixation-countermeasures)
 
 ## [v1.4.0]
