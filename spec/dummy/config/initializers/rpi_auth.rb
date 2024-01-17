@@ -6,7 +6,7 @@ RpiAuth.configure do |config|
   config.brand = 'codeclub'
   config.host_url = 'http://localhost:3009'
   config.identity_url = 'http://localhost:3002'
-  config.session_keys_to_persist = %w[foo bar]
+  config.session_keys_to_persist = 'foo bar'
   config.user_model = 'User'
 
   # Redurect to the next URL
