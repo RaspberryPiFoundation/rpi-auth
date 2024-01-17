@@ -1,0 +1,31 @@
+name: 'Code quality'
+on:
+  workflow_call:
+    inputs:
+      docker_image:
+        type: string
+        required: true
+
+defaults:
+  run:
+    working-directory: /app
+
+jobs:
+  code_quality:
+    runs-on: ubuntu-latest
+    needs:
+      - rubocop
+    steps:
+      - run: echo "All code quality checks complete."
+        working-directory: '/'
+
+  rubocop:
+    runs-on: ubuntu-latest
+    container:
+      image:  ${{ inputs.docker_image }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+    steps:
+      - name: Inspecting with Rubocop
+        run: rubocop
