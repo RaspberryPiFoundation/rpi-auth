@@ -33,6 +33,7 @@ RpiAuth.configure do |config|
   config.identity_url = 'http://localhost:3002'        # The url for the profile instance being used for auth
   config.user_model = 'User'                           # The name of the user model in the host app being used, use the name as a string, not the model itself
   config.scope = 'openid email profile force-consent'  # The required OIDC scopes
+  config.session_keys_to_persist = 'foo bar'           # Optional: any session keys to persist across sessions (as the session is reset upon log in)
   config.success_redirect = '/'                        # After succesful login the route the user should be redirected to; this will override redirecting the user back to where they were when they started the log in / sign up flow (via `omniauth.origin`), so should be used rarely / with caution.  This can be a string or a proc, which is executed in the context of the RpiAuth::AuthController.
   config.bypass_auth = false                           # Should auth be bypassed and a default user logged in
 end
@@ -130,7 +131,7 @@ registration form, then you should supply a parameter called `returnTo` which
 is then used to redirect after log in/sign up are successful.
 
 ```ruby
-button_to 'Log in to start registraion', rpi_auth_login_path, params: { returnTo: '/registration_form' }
+button_to 'Log in to start registration', rpi_auth_login_path, params: { returnTo: '/registration_form' }
 ```
 
 If this parameter is missing [Omniauth uses the HTTP Referer

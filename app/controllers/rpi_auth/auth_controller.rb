@@ -10,8 +10,19 @@ module RpiAuth
 
     def callback
       # Prevent session fixation. If the session has been initialized before
-      # this, and we need to keep the data, then we should copy values over.
+      # this, and certain data needs to be persisted, then the client should
+      # pass the keys via config.session_keys_to_persist
+      old_session = session.to_hash
+
       reset_session
+
+      keys_to_persist = RpiAuth.configuration.session_keys_to_persist
+
+      unless keys_to_persist.nil? || keys_to_persist.empty?
+        keys_to_persist.split.each do |key|
+          session[key] = old_session[key]
+        end
+      end
 
       auth = request.env['omniauth.auth']
       self.current_user = RpiAuth.user_model.from_omniauth(auth)

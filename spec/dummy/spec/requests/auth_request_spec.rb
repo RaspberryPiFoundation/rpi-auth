@@ -17,6 +17,7 @@ RSpec.describe 'Authentication' do
 
   let(:bypass_auth) { false }
   let(:identity_url) { 'https://my.example.com' }
+  let(:session_keys_to_persist) {}
   # We need to make sure we match the hostname Rails uses in test requests
   # here, otherwise `returnTo` redirects will fail after login/logout.
   let(:host_url) { 'https://www.example.com' }
@@ -29,6 +30,7 @@ RSpec.describe 'Authentication' do
     # This would normally be in the initializer, but because we're toggling the
     # option on or off, we need to explicitly call it here.
     RpiAuth.configuration.enable_auth_bypass
+    RpiAuth.configuration.session_keys_to_persist = session_keys_to_persist
     OmniAuth.config.test_mode = true
   end
 
@@ -178,6 +180,21 @@ RSpec.describe 'Authentication' do
         follow_redirect!
 
         expect(session.id).not_to eq previous_id
+      end
+
+      context 'when session_keys_to_persist is set' do
+        let(:session_keys_to_persist) { 'foo' }
+
+        it 'persists provided session keys on login' do
+          set_session(foo: 'bar')
+          post '/auth/rpi'
+          previous_foo = session[:foo]
+
+          expect(response).to redirect_to('/rpi_auth/auth/callback')
+          follow_redirect!
+
+          expect(session[:foo]).to eq previous_foo
+        end
       end
 
       context 'when having visited a page first' do
