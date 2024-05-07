@@ -18,7 +18,10 @@ module RpiAuth
                   :scope,
                   :session_keys_to_persist,
                   :success_redirect,
-                  :user_model
+                  :user_model,
+                  :profile_api_class,
+                  :profile_api_host,
+                  :profile_api_scheme
 
     def initialize
       @bypass_auth = false
