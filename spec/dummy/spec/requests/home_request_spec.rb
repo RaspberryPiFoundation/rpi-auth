@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe 'Homepage' do
+RSpec.describe 'RpiAuth Test page' do
   let(:user) do
     User.new(user_id: '3ed9b57a-1eb9-42e1-ae54-9a11c930f035')
   end
