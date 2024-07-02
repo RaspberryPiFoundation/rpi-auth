@@ -10,10 +10,10 @@ module RpiAuth
     layout false
 
     def show
-      head :not_found if Rails.env.production?
-
       render locals: { login_params: login_params, logout_params: logout_params }
     end
+
+    private
 
     def login_params
       params.permit(:returnTo)

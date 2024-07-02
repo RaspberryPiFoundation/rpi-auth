@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'omniauth-rails_csrf_protection', '~> 1.0.0'
   spec.add_dependency 'rails', '>= 6.1.4'
 
+  spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'listen'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'puma'

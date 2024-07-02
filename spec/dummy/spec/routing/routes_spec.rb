@@ -24,4 +24,28 @@ RSpec.describe 'Authentication routing' do
 
     it { is_expected.to route_to({ controller: 'rpi_auth/auth', action: 'callback' }) }
   end
+
+  describe 'test login page' do
+    subject { { get: '/rpi_auth/test' } }
+
+    let(:enable_test_path) { true }
+
+    before do
+      stub_const('RpiAuth::Engine::ENABLE_TEST_PATH', enable_test_path)
+      Rails.application.reload_routes!
+    end
+
+    after do
+      stub_const('RpiAuth::Engine::ENABLE_TEST_PATH', true)
+      Rails.application.reload_routes!
+    end
+
+    it { is_expected.to route_to({ controller: 'rpi_auth/test', action: 'show' }) }
+
+    context 'when test path is disabled' do
+      let(:enable_test_path) { false }
+
+      it { is_expected.not_to be_routable }
+    end
+  end
 end

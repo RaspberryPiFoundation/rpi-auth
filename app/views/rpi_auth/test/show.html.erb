@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" dir="ltr">
   <head>
-    <%= stylesheet_link_tag 'https://static.raspberrypi.org/styles/design-system-core/branches/main/design-system-core.css' %>
+    <%= stylesheet_link_tag 'https://static.raspberrypi.org/styles/design-system-core/releases/v1.1.0/design-system-core.css' %>
     <%= csp_meta_tag %>
   </head>
   <body>
@@ -14,7 +14,7 @@
       <p>Log in with your Raspberry Pi account</p>
       <%= button_to 'Log in', rpi_auth_login_path, params: login_params, class: "rpf-button" %>
       <p>Sign up for a Raspberry Pi account</p>
-      <%= button_to 'Log in', rpi_auth_signup_path, params: login_params, class: "rpf-button" %>
+      <%= button_to 'Sign up', rpi_auth_signup_path, params: login_params, class: "rpf-button" %>
     <% end %>
     </div>
   </body>

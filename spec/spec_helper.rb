@@ -10,6 +10,7 @@ require 'pry-byebug'
 
 require_relative './support/omniauth'
 require_relative './support/request_helpers'
+require 'rpi_auth/spec_helpers'
 
 ENV['RAILS_ENV'] = 'test'
 
@@ -37,7 +38,11 @@ require 'rspec/rails'
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
+
   config.include RequestHelpers, type: :request
+  config.include RpiAuth::SpecHelpers, type: :request
+  config.include RpiAuth::SpecHelpers, type: :system
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -119,6 +124,10 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
+
+  config.before(type: :system) do |_example|
+    driven_by :rack_test
+  end
 
   # Reset the RpiAuth config before each test
   config.before do
