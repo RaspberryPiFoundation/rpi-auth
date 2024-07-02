@@ -33,7 +33,6 @@ module RpiAuth
       else
         post '/auth/rpi'
         follow_redirect!
-        follow_redirect!
       end
     end
   end
