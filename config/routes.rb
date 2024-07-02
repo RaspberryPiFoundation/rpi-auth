@@ -12,5 +12,5 @@ Rails.application.routes.draw do
 
   # This route can be used in testing to log in, avoiding the need to interact
   # with shadow root in the RPF global nav.
-  get RpiAuth::Engine::TEST_PATH, to: 'rpi_auth/test#show', as: 'rpi_auth_test' unless Rails.env.production?
+  get RpiAuth::Engine::TEST_PATH, to: 'rpi_auth/test#show', as: 'rpi_auth_test' if RpiAuth::Engine::ENABLE_TEST_PATH
 end
