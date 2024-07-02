@@ -49,7 +49,7 @@ RSpec.describe 'Login flow' do
 
   describe 'Logging out' do
     before do
-      sign_in(user: user)
+      log_in(user: user)
     end
 
     it do

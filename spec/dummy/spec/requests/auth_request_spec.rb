@@ -36,7 +36,7 @@ RSpec.describe 'Authentication' do
 
   describe 'GET /rpi_auth/logout' do
     it 'clears the current session and redirects to profile' do
-      sign_in(user: user)
+      log_in(user: user)
       expect(session['current_user']).not_to be_nil
       previous_id = session.id
 
@@ -51,7 +51,7 @@ RSpec.describe 'Authentication' do
       let(:return_to) { '/next/page' }
 
       it 'redirects to the correct URL' do
-        sign_in(user: user)
+        log_in(user: user)
 
         get '/rpi_auth/logout', params: { returnTo: return_to }
 
@@ -62,7 +62,7 @@ RSpec.describe 'Authentication' do
         let(:return_to) { 'https://a.bad.actor.com/bad/page' }
 
         it 'redirects to the correct URL' do
-          sign_in(user: user)
+          log_in(user: user)
 
           get '/rpi_auth/logout', params: { returnTo: return_to }
 
@@ -92,7 +92,7 @@ RSpec.describe 'Authentication' do
         let(:return_to) { '/next/page' }
 
         it 'redirects to the correct URL' do
-          sign_in(user: user)
+          log_in(user: user)
 
           get '/rpi_auth/logout', params: { returnTo: return_to }
 

@@ -194,7 +194,7 @@ There are some standardised test helpers in `RpiAuth::SpecHelpers` that can be u
 * `stub_auth_for(user:)` enables the Omniauth test mode, and makes sure any auth requests succeed, returning this user.
 * `log_in(user:)` goes through the log-in process for that user, either using Capybara-style `click_on` methods, or POST'ing directly to the auth endpoint.
 
-There is also a page at `/rpi_auth/test` that has log-in and sign-up buttons.
+There is also a page at `/rpi_auth/test` that has log-in and sign-up buttons which can be navigated to as part of the test suite to avoid having to render pages, or navigate into the shadow roots.
 
 ## Troubleshooting
 
