@@ -1,0 +1,11 @@
+name: 'Code quality'
+on:
+  workflow_call
+
+jobs:
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspecting with Rubocop
+        run: rubocop
+
