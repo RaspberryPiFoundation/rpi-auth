@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <%= stylesheet_link_tag 'https://static.raspberrypi.org/styles/design-system-core/releases/v1.1.0/design-system-core.css' %>
+    <%= csp_meta_tag %>
+  </head>
+  <body>
+    <div class='login-box'>
+    <% if current_user.present? %>
+      <p>Log out of your Raspberry Pi account</p>
+      <p>Logged in as <%= current_user.user_id %></p>
+      <%= link_to 'Log out', rpi_auth_logout_path(params: logout_params), class: "rpf-button" %>
+    <% else %>
+      <p>Log in with your Raspberry Pi account</p>
+      <%= button_to 'Log in', rpi_auth_login_path, params: login_params, class: "rpf-button" %>
+      <p>Sign up for a Raspberry Pi account</p>
+      <%= button_to 'Sign up', rpi_auth_signup_path, params: login_params, class: "rpf-button" %>
+    <% end %>
+    </div>
+  </body>
+</html>

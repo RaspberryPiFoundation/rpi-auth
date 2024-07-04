@@ -187,6 +187,22 @@ class in `config/application.rb`.
 config.railties_order = [RpiAuth::Engine, :main_app, :all]
 ```
 
+## Test helpers and routes
+
+There are some standardised test helpers in `RpiAuth::SpecHelpers` that can be used when testing.
+
+* `stub_auth_for(user:)` enables the Omniauth test mode, and makes sure any auth requests succeed, returning this user.
+* `log_in(user:)` goes through the log-in process for that user, either using Capybara-style `click_on` methods, or POST'ing directly to the auth endpoint.
+
+There is also a page at `/rpi_auth/test` that has log-in and sign-up buttons which can be navigated to as part of the test suite to avoid having to render pages, or navigate into the shadow roots.
+
+To user these helpers you should add this to your `spec/rails_helper.rb`, inside the `RSpec.configure do |config|` block.
+
+```ruby
+  config.include RpiAuth::SpecHelpers, type: :request
+  config.include RpiAuth::SpecHelpers, type: :system
+```
+
 ## Troubleshooting
 
 Diagnosing issues with OpenID Connect can be tricky, so here are some things to try.

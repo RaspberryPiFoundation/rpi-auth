@@ -12,6 +12,9 @@ module RpiAuth
     LOGIN_PATH = '/auth/rpi'
     CALLBACK_PATH = '/rpi_auth/auth/callback'
     LOGOUT_PATH = '/rpi_auth/logout'
+    TEST_PATH = '/rpi_auth/test'
+
+    ENABLE_TEST_PATH = Rails.env.development? || Rails.env.test?
 
     initializer 'RpiAuth.set_logger' do
       OmniAuth.config.logger = Rails.logger

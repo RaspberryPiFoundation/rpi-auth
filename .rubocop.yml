@@ -10,10 +10,13 @@ inherit_mode:
     - Exclude
 
 AllCops:
+  NewCops: enable
   TargetRubyVersion: 2.7
   Exclude:
     - 'spec/dummy/config/**/*'
     - 'spec/dummy/app/**/*'
     - 'spec/dummy/bin/**/*'
     - 'vendor/**/*'
+    - 'gemfiles/vendor/**/*'
     - 'bin/rails'
+
