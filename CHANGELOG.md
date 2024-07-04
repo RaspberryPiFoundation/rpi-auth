@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+* Workflow to automatically lint, check the changelog, and build & publish the gem (#73)
+
 ## [v3.6.0]
 
 ### Added
