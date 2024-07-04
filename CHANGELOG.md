@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Test controller/view to allow apps to log in without having to interact with the RPF Global Nav component. (#70)
 
+### Removed
+- Support for Ruby 2.7, 3.0.
+
 ## [v3.5.0]
 
 ### Added
