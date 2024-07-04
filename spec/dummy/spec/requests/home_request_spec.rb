@@ -22,7 +22,7 @@ RSpec.describe 'RpiAuth Test page' do
 
     context 'when logged in' do
       before do
-        log_in(user: user)
+        log_in(user:)
       end
 
       it 'displays the user ID' do
