@@ -20,7 +20,7 @@ jobs:
         bundler-cache: true
 
     - name: Build gem
-      run: rake build
+      run: bundle exec rake build
 
     - name: Archive coverage
       if: success()

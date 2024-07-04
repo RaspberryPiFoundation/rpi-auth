@@ -1,11 +1,18 @@
 name: 'Code quality'
 on:
-  workflow_call
+  workflow_call: {}
 
 jobs:
   rubocop:
+    name: Rubocop
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
       - name: Inspecting with Rubocop
-        run: rubocop
+        run: bundle exec rubocop
 
