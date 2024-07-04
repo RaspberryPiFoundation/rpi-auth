@@ -34,7 +34,7 @@ RSpec.describe 'Login flow' do
 
   describe 'logging in' do
     before do
-      stub_auth_for(user: user)
+      stub_auth_for(user:)
     end
 
     it do
@@ -49,7 +49,7 @@ RSpec.describe 'Login flow' do
 
   describe 'Logging out' do
     before do
-      log_in(user: user)
+      log_in(user:)
     end
 
     it do

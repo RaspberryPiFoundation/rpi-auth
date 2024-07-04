@@ -142,7 +142,7 @@ RSpec.describe RpiAuthBypass do
           username: info[:username]
         } }
       end
-      let(:args) { { uid: uid, info: info, extra: extra } }
+      let(:args) { { uid:, info:, extra: } }
 
       it_behaves_like 'a mocked auth object'
     end

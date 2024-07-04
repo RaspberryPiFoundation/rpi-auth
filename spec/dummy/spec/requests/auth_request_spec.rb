@@ -36,7 +36,7 @@ RSpec.describe 'Authentication' do
 
   describe 'GET /rpi_auth/logout' do
     it 'clears the current session and redirects to profile' do
-      log_in(user: user)
+      log_in(user:)
       expect(session['current_user']).not_to be_nil
       previous_id = session.id
 
@@ -51,7 +51,7 @@ RSpec.describe 'Authentication' do
       let(:return_to) { '/next/page' }
 
       it 'redirects to the correct URL' do
-        log_in(user: user)
+        log_in(user:)
 
         get '/rpi_auth/logout', params: { returnTo: return_to }
 
@@ -62,7 +62,7 @@ RSpec.describe 'Authentication' do
         let(:return_to) { 'https://a.bad.actor.com/bad/page' }
 
         it 'redirects to the correct URL' do
-          log_in(user: user)
+          log_in(user:)
 
           get '/rpi_auth/logout', params: { returnTo: return_to }
 
@@ -92,7 +92,7 @@ RSpec.describe 'Authentication' do
         let(:return_to) { '/next/page' }
 
         it 'redirects to the correct URL' do
-          log_in(user: user)
+          log_in(user:)
 
           get '/rpi_auth/logout', params: { returnTo: return_to }
 
@@ -152,7 +152,7 @@ RSpec.describe 'Authentication' do
 
     describe 'On successful authentication' do
       before do
-        stub_auth_for(user: user)
+        stub_auth_for(user:)
       end
 
       it 'sets the user in the session and redirects to root path' do
@@ -256,7 +256,7 @@ RSpec.describe 'Authentication' do
           expect(response).to redirect_to('/')
         end
 
-        context 'when the proc resolves to something other than nil' do # rubocop:disable RSpec/NestedGroups
+        context 'when the proc resolves to something other than nil' do
           # We use `current_user` and `request.env` here as they're available
           # in the context of the controller.  We use `let!` to make sure the
           # proc is defined straightaway, rather than later, when `request` and
@@ -274,7 +274,7 @@ RSpec.describe 'Authentication' do
           end
         end
 
-        context 'when the proc raises an exception' do # rubocop:disable RSpec/NestedGroups
+        context 'when the proc raises an exception' do
           # We use `current_user` and `request.env` here as they're available
           # in the context of the controller.  We use `let!` to make sure the
           # proc is defined straightaway, rather than later, when `request` and

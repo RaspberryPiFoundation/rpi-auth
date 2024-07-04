@@ -10,7 +10,7 @@ module RpiAuth
     layout false
 
     def show
-      render locals: { login_params: login_params, logout_params: logout_params }
+      render locals: { login_params:, logout_params: }
     end
 
     private
