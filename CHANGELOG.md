@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Test controller/view to allow apps to log in without having to interact with the RPF Global Nav component. (#70)
+
 ## [v3.5.0]
 
 ### Added
