@@ -10,7 +10,8 @@ jobs:
     permissions:
       contents: read
       packages: read
-
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/rails_6.1.gemfile
     steps:
     - uses: actions/checkout@v3
 
