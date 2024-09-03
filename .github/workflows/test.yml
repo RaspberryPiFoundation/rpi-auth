@@ -43,7 +43,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: code-coverage-report-ruby_3.2-rails_7.1
           path: coverage/
