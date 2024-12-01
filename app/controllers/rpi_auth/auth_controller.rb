@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'rpi_auth/controllers/current_user'
+require 'rpi_auth/controllers/profile_api_client'
 
 module RpiAuth
   class AuthController < ActionController::Base
     include RpiAuth::Controllers::CurrentUser
+    include RpiAuth::Controllers::ProfileApiClient
 
     protect_from_forgery with: :null_session
 
@@ -25,6 +27,31 @@ module RpiAuth
       end
 
       auth = request.env['omniauth.auth']
+      puts '******************'
+      puts auth
+      puts '******************'
+      # puts RpiAuth.openapi_client
+      # puts '******************'
+
+      if RpiAuth.configuration.profile_api_class
+        # OpenapiClient.configure do |config|
+        #   # Configure OAuth2 access token for authorization: oidc
+        #   config.access_token = auth.credentials.token
+        #   config.scheme = 'http'
+        #   config.host = 'host.docker.internal:3002'
+        #   # Configure a proc to get access tokens in lieu of the static access_token configuration
+        #   # config.access_token_getter = -> { 'YOUR TOKEN GETTER PROC' } 
+        # end
+        
+        self.profile_api_client_config = {
+          access_token: auth.credentials.token,
+          refresh_token: auth.credentials.refresh_token,
+        }
+        puts '******************'
+        puts self.profile_api_client
+        puts '******************'
+        puts self.profile_api_client.userinfo_get
+      end
       self.current_user = RpiAuth.user_model.from_omniauth(auth)
 
       redirect_to ensure_relative_url(login_redirect_path)
