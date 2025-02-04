@@ -20,7 +20,7 @@ jobs:
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
@@ -32,10 +32,11 @@ jobs:
 
     - name: Archive coverage
       if: ${{ success() || failure() }}
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: code-coverage-report-ruby_${{ matrix.ruby-version }}-${{ matrix.gemfile }}
         path: ${{ github.workspace }}/coverage/
+        include-hidden-files: true
 
   post_coverage:
     runs-on: ubuntu-latest
@@ -43,7 +44,7 @@ jobs:
     permissions:
       pull-requests: write
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: code-coverage-report-ruby_3.2-rails_7.1
           path: coverage/
