@@ -69,10 +69,10 @@ module RpiAuthBypass
                      credentials: RpiAuthBypass::DEFAULT_CREDENTIALS)
       add_mock(:rpi, {
                  provider: :rpi,
-                 uid: uid,
-                 info: info,
-                 extra: extra,
-                 credentials: credentials
+                 uid:,
+                 info:,
+                 extra:,
+                 credentials:
                })
     end
 
