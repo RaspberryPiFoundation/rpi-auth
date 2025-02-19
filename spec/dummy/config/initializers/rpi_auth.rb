@@ -1,4 +1,11 @@
 RpiAuth.configure do |config|
+  config.setup = lambda do |env|
+    request = Rack::Request.new(env)
+
+    if custom_scope = request.params['add-custom-scope']
+      env['omniauth.strategy'].options[:scope] += [custom_scope]
+    end
+  end
   config.auth_url = 'http://localhost:9001'
   config.auth_client_id = 'gem-dev'
   config.auth_client_secret = 'secret'

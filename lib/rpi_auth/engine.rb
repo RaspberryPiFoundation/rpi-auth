@@ -23,10 +23,12 @@ module RpiAuth
     initializer 'RpiAuth.add_middleware' do |app| # rubocop:disable Metrics/BlockLength
       next unless RpiAuth.configuration
 
+      # rubocop:disable Metrics/BlockLength
       app.middleware.use OmniAuth::Builder do
         provider(
           :openid_connect,
           name: :rpi,
+          setup: RpiAuth.configuration.setup,
           issuer: RpiAuth.configuration.issuer,
           scope: RpiAuth.configuration.scope,
           callback_path: CALLBACK_PATH,
@@ -52,6 +54,7 @@ module RpiAuth
 
         RpiAuth.configuration.enable_auth_bypass if RpiAuth.configuration.bypass_auth
       end
+      # rubocop:enable Metrics/BlockLength
     end
   end
 end
