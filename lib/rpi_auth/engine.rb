@@ -26,6 +26,13 @@ module RpiAuth
       app.middleware.use OmniAuth::Builder do
         provider(
           :openid_connect,
+          setup: lambda do |env|
+            request = Rack::Request.new(env)
+
+            if request.session['rpi_auth.login_type'] == 'student'
+              env['omniauth.strategy'].options[:scope] += ' allow-u13-login student'
+            end
+          end,
           name: :rpi,
           issuer: RpiAuth.configuration.issuer,
           scope: RpiAuth.configuration.scope,
