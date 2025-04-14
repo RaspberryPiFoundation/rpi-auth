@@ -8,7 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 * Workflow to automatically lint, check the changelog, and build & publish the gem (#73)
+- Support for Ruby 3.3 (#78)
+
+### Fixed
+- Load error when using Rake (#77)
+
+### Removed
+- Support for Ruby 2.7 (#78)
 
 ## [v3.6.0]
 
