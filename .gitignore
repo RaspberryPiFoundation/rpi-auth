@@ -15,5 +15,7 @@ examples.txt
 /coverage/
 /spec/dummy/log/test.log
 /vendor/
+/gemfiles/vendor/
+/gemfiles/.bundle/
 /spec/dummy/tmp/
 /spec/dummy/vendor/
