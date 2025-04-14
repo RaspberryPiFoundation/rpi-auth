@@ -182,6 +182,15 @@ RSpec.describe 'Authentication' do
         expect(session.id).not_to eq previous_id
       end
 
+      it 'does not use cached user if session is reset' do
+        post '/auth/rpi'
+        follow_redirect!
+
+        get reset_user_path
+
+        expect(response.body).to include('Log in')
+      end
+
       context 'when session_keys_to_persist is set' do
         let(:session_keys_to_persist) { 'foo' }
 
