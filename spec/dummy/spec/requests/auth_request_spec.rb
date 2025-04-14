@@ -256,7 +256,7 @@ RSpec.describe 'Authentication' do
           expect(response).to redirect_to('/')
         end
 
-        context 'when the proc resolves to something other than nil' do # rubocop:disable RSpec/NestedGroups
+        context 'when the proc resolves to something other than nil' do
           # We use `current_user` and `request.env` here as they're available
           # in the context of the controller.  We use `let!` to make sure the
           # proc is defined straightaway, rather than later, when `request` and
@@ -274,7 +274,7 @@ RSpec.describe 'Authentication' do
           end
         end
 
-        context 'when the proc raises an exception' do # rubocop:disable RSpec/NestedGroups
+        context 'when the proc raises an exception' do
           # We use `current_user` and `request.env` here as they're available
           # in the context of the controller.  We use `let!` to make sure the
           # proc is defined straightaway, rather than later, when `request` and
