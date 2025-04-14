@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Support for Ruby 3.3 (#78)
+
+### Fixed
+- Load error when using Rake (#77)
+
+### Removed
+- Support for Ruby 2.7 (#78)
+
 ## [v3.6.0]
 
 ### Added
