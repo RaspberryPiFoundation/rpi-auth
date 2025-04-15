@@ -2,14 +2,19 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - '**'
+    tags:
+      - '**'
 
 jobs:
   test:
     if: github.ref_type == 'branch' && github.ref_name != 'main'
     uses: ./.github/workflows/test.yml
-  # code_quality:
-  #   if: github.ref_type == 'branch' && github.ref_name != 'main'
-  #   uses: ./.github/workflows/code_quality.yml
+
+  code_quality:
+    if: github.ref_type == 'branch' && github.ref_name != 'main'
+    uses: ./.github/workflows/code_quality.yml
+
+  build_publish:
+    uses: ./.github/workflows/build_publish.yml
