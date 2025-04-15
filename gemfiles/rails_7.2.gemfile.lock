@@ -1,7 +1,7 @@
 PATH
   remote: ..
   specs:
-    rpi_auth (3.6.0)
+    rpi_auth (4.0.0)
       omniauth-rails_csrf_protection (~> 1.0.0)
       omniauth_openid_connect (~> 0.7.1)
       rails (>= 6.1.4)

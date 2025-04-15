@@ -9,11 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Workflow to automatically lint, check the changelog, and build & publish the gem (#73)
+### Fixed
+- Reinstated static code analysis checks in CI (#73)
+
+### Removed
+
+## [v4.0.0]
+
+### Added
 - Support for Ruby 3.3 (#78)
 
 ### Fixed
 - Load error when using Rake (#77)
+- Don't use cached user if session has been reset (#79)
 
 ### Removed
 - Support for Ruby 2.7 (#78)
@@ -125,7 +133,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rails model concern to allow host app to add auth behaviour to a model
 - callback, logout and failure routes to handle auth
 
-[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v3.6.0...HEAD
+[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.0.0...HEAD
+[v4.0.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.0.0
 [v3.6.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.6.0
 [v3.5.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.5.0
 [v3.4.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.4.0
