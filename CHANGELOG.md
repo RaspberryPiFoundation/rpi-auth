@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Load error when using Rake (#77)
+- Don't use cached user if session has been reset (#79)
 
 ### Removed
 - Support for Ruby 2.7 (#78)
