@@ -10,6 +10,7 @@ require 'pry-byebug'
 
 require_relative 'support/omniauth'
 require_relative 'support/request_helpers'
+require_relative 'support/webmock'
 require 'rpi_auth/spec_helpers'
 
 ENV['RAILS_ENV'] = 'test'
