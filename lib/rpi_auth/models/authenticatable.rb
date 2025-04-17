@@ -23,11 +23,11 @@ module RpiAuth
         include ActiveModel::Serialization
 
         attr_accessor :user_id, *PROFILE_KEYS
+      end
 
-        # Allow serialization
-        def attributes
-          (['user_id'] + PROFILE_KEYS).index_with { |_k| nil }
-        end
+      # Allow serialization
+      def attributes
+        (['user_id'] + PROFILE_KEYS).index_with { |_k| nil }
       end
 
       class_methods do
