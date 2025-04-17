@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Add access token-related functionality including auto-refresh (#83)
 
 ### Fixed
 - Fix use of `User#expires_at` in `SpecHelpers#stub_auth_for` (#82)
