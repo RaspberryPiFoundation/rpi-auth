@@ -187,6 +187,29 @@ class in `config/application.rb`.
 config.railties_order = [RpiAuth::Engine, :main_app, :all]
 ```
 
+### Obtaining an access token for user
+
+This optional behaviour is useful if your Rails app (which is using this gem)
+needs to use a RPF API which required authentication via an OAuth2 access
+token.
+
+Include the `RpiAuth::Models::WithTokens` concern (which depends on the
+`RpiAuth::Models::Authenticatable` concern) into your user model in order to
+add `access_token`, `refresh_token` & `expires_at` attributes. These methods
+are automatically populated by `RpiAuth::AuthController#callback` via the
+`RpiAuth::Models::WithTokens.from_omniauth` method.
+
+This also relies on the following:
+- `RpiAuth.configuration.scope` including the "offline" scope in the Rails app
+  which is using the `rpi_auth` gem.
+- In the `profile` app `hydra_client` config for the Rails app, `grant_types`
+  must include "refresh_token" and `scope` must include "offline".
+
+Include the `RpiAuth::Controllers::AutoRefreshingToken` concern (which depends
+on the `RpiAuth::Controllers::CurrentUser` concern) into your controller so
+that when the user's access token expires, a new one is obtained using the
+user's refresh token.
+
 ## Test helpers and routes
 
 There are some standardised test helpers in `RpiAuth::SpecHelpers` that can be used when testing.
