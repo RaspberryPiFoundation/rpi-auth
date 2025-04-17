@@ -5,7 +5,7 @@ module RpiAuth
     # This sets up the OmniAuth mock for the given user.  It assumes the User
     # model has an `:user_id` method which returns the users ID, but this can
     # be changed by setting the `id_param` option.
-    def stub_auth_for(user:, id_param: :user_id) # rubocop:disable Metrics/AbcSize
+    def stub_auth_for(user:, id_param: :user_id)
       expires_at = user.respond_to?(:expires_at) && user.expires_at
       expires_in = expires_at.present? ? expires_at.to_i - Time.zone.now.to_i : 3600
       token = user.respond_to?(:access_token) ? user.access_token : SecureRandom.hex(16)
