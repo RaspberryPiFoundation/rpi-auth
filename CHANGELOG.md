@@ -8,12 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Fixed
+
+### Removed
+
+## [v4.1.0]
+
+### Added
 - Add access token-related functionality including auto-refresh (#83)
 
 ### Fixed
 - Fix use of `User#expires_at` in `SpecHelpers#stub_auth_for` (#82)
-
-### Removed
 
 ## [v4.0.0]
 
@@ -134,7 +140,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rails model concern to allow host app to add auth behaviour to a model
 - callback, logout and failure routes to handle auth
 
-[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.0.0...HEAD
+[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.1.0...HEAD
+[v4.1.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.1.0
 [v4.0.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.0.0
 [v3.6.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.6.0
 [v3.5.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.5.0
