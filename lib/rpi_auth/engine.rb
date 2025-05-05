@@ -27,6 +27,7 @@ module RpiAuth
         provider(
           :openid_connect,
           name: :rpi,
+          setup: RpiAuth.configuration.setup,
           issuer: RpiAuth.configuration.issuer,
           scope: RpiAuth.configuration.scope,
           callback_path: CALLBACK_PATH,
