@@ -4,6 +4,7 @@ require 'rpi_auth/version'
 require 'rpi_auth/engine'
 require 'rpi_auth/configuration'
 require 'rpi_auth/models/authenticatable'
+require 'rpi_auth/models/with_tokens'
 require 'omniauth/rails_csrf_protection'
 
 module RpiAuth
