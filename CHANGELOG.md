@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [v4.1.1]
+
+### Fixed
+
+- Fix requiring of oauth2 to avoid `NoMethodError: undefined method 'config' for module OAuth2` (#86)
+
 ## [v4.1.0]
 
 ### Added
@@ -140,7 +146,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rails model concern to allow host app to add auth behaviour to a model
 - callback, logout and failure routes to handle auth
 
-[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.1.0...HEAD
+[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.1.1...HEAD
+[v4.1.1]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.1.1
 [v4.1.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.1.0
 [v4.0.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.0.0
 [v3.6.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.6.0
