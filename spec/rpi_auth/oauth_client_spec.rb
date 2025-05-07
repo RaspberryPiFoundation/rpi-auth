@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require 'oauth2'
 
 RSpec.describe RpiAuth::OauthClient do
   include ActiveSupport::Testing::TimeHelpers

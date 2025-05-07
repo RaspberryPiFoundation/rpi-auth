@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require 'oauth2/client'
-require 'oauth2/access_token'
+require 'oauth2'
 
 module RpiAuth
   class OauthClient

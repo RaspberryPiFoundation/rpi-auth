@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'oauth2/error'
+require 'oauth2'
 
 module RpiAuth
   module Controllers

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-require 'oauth2/error'
+require 'oauth2'
 
 RSpec.describe 'Refreshing the auth token', type: :request do
   include ActiveSupport::Testing::TimeHelpers
