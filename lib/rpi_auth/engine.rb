@@ -23,38 +23,37 @@ module RpiAuth
     initializer 'RpiAuth.add_middleware' do |app| # rubocop:disable Metrics/BlockLength
       next unless RpiAuth.configuration
 
-      # rubocop:disable Metrics/BlockLength
+      openid_connect_options = {
+        name: :rpi,
+        setup: RpiAuth.configuration.setup,
+        issuer: RpiAuth.configuration.issuer,
+        scope: RpiAuth.configuration.scope,
+        callback_path: CALLBACK_PATH,
+        response_type: RpiAuth.configuration.response_type,
+        client_auth_method: RpiAuth.configuration.client_auth_method,
+        client_options: {
+          identifier: RpiAuth.configuration.auth_client_id,
+          secret: RpiAuth.configuration.auth_client_secret,
+          scheme: RpiAuth.configuration.token_endpoint.scheme,
+          host: RpiAuth.configuration.token_endpoint.host,
+          port: RpiAuth.configuration.token_endpoint.port,
+          authorization_endpoint: RpiAuth.configuration.authorization_endpoint,
+          token_endpoint: RpiAuth.configuration.token_endpoint,
+          jwks_uri: RpiAuth.configuration.jwks_uri,
+          redirect_uri: URI.join(RpiAuth.configuration.host_url, CALLBACK_PATH)
+        },
+        extra_authorize_params: { brand: RpiAuth.configuration.brand },
+        allow_authorize_params: [:login_options],
+        origin_param: 'returnTo'
+      }
+
       app.middleware.use OmniAuth::Builder do
-        provider(
-          :openid_connect,
-          name: :rpi,
-          setup: RpiAuth.configuration.setup,
-          issuer: RpiAuth.configuration.issuer,
-          scope: RpiAuth.configuration.scope,
-          callback_path: CALLBACK_PATH,
-          response_type: RpiAuth.configuration.response_type,
-          client_auth_method: RpiAuth.configuration.client_auth_method,
-          client_options: {
-            identifier: RpiAuth.configuration.auth_client_id,
-            secret: RpiAuth.configuration.auth_client_secret,
-            scheme: RpiAuth.configuration.token_endpoint.scheme,
-            host: RpiAuth.configuration.token_endpoint.host,
-            port: RpiAuth.configuration.token_endpoint.port,
-            authorization_endpoint: RpiAuth.configuration.authorization_endpoint,
-            token_endpoint: RpiAuth.configuration.token_endpoint,
-            jwks_uri: RpiAuth.configuration.jwks_uri,
-            redirect_uri: URI.join(RpiAuth.configuration.host_url, CALLBACK_PATH)
-          },
-          extra_authorize_params: { brand: RpiAuth.configuration.brand },
-          allow_authorize_params: [:login_options],
-          origin_param: 'returnTo'
-        )
+        provider(:openid_connect, openid_connect_options)
 
         OmniAuth.config.on_failure = RpiAuth::AuthController.action(:failure)
 
         RpiAuth.configuration.enable_auth_bypass if RpiAuth.configuration.bypass_auth
       end
-      # rubocop:enable Metrics/BlockLength
     end
   end
 end
