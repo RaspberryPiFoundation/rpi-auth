@@ -2,13 +2,15 @@
 
 require 'spec_helper'
 
-class DummyUser
-  include RpiAuth::Models::Authenticatable
-  include RpiAuth::Models::AccountTypes
-end
+RSpec.describe RpiAuth::Models::AccountTypes, type: :model do
+  subject(:user) { user_class.new(user_id:) }
 
-RSpec.describe DummyUser, type: :model do
-  subject(:user) { described_class.new(user_id:) }
+  let(:user_class) do
+    Class.new(User) do
+      include RpiAuth::Models::Authenticatable
+      include RpiAuth::Models::AccountTypes
+    end
+  end
 
   describe '#student_account?' do
     context "when user_id has the 'student:' prefix" do

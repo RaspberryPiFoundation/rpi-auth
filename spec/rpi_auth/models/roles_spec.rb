@@ -2,13 +2,15 @@
 
 require 'spec_helper'
 
-class DummyUser
-  include RpiAuth::Models::Authenticatable
-  include RpiAuth::Models::Roles
-end
+RSpec.describe RpiAuth::Models::Roles, type: :model do
+  subject(:user) { user_class.new(roles:) }
 
-RSpec.describe DummyUser, type: :model do
-  subject(:user) { described_class.new(roles:) }
+  let(:user_class) do
+    Class.new(User) do
+      include RpiAuth::Models::Authenticatable
+      include RpiAuth::Models::Roles
+    end
+  end
 
   describe '#parsed_roles' do
     context 'when roles is set to comma-separated string' do
