@@ -2,15 +2,17 @@
 
 require 'spec_helper'
 
-class DummyUser
-  include RpiAuth::Models::Authenticatable
-  include RpiAuth::Models::WithTokens
-end
-
-RSpec.describe DummyUser, type: :model do
+RSpec.describe RpiAuth::Models::WithTokens, type: :model do
   include ActiveSupport::Testing::TimeHelpers
 
-  subject(:user) { described_class.new }
+  subject(:user) { user_class.new }
+
+  let(:user_class) do
+    Class.new(User) do
+      include RpiAuth::Models::Authenticatable
+      include RpiAuth::Models::WithTokens
+    end
+  end
 
   it { is_expected.to respond_to(:access_token) }
   it { is_expected.to respond_to(:refresh_token) }
@@ -33,9 +35,9 @@ RSpec.describe DummyUser, type: :model do
   end
 
   describe '#from_omniauth' do
-    subject(:user) { described_class.from_omniauth(auth) }
+    subject(:user) { user_class.from_omniauth(auth) }
 
-    let(:omniauth_user) { described_class.new }
+    let(:omniauth_user) { user_class.new }
     let(:info) { omniauth_user.serializable_hash }
     let(:credentials) { { token: SecureRandom.base64(12), refresh_token: SecureRandom.base64(12), expires_in: rand(60..240) } }
 
@@ -52,7 +54,7 @@ RSpec.describe DummyUser, type: :model do
       )
     end
 
-    it { is_expected.to be_a described_class }
+    it { is_expected.to be_a user_class }
 
     it 'sets the access_token' do
       expect(user.access_token).to eq credentials[:token]
@@ -79,13 +81,13 @@ RSpec.describe DummyUser, type: :model do
     context 'with unusual keys in info' do
       let(:info) { { foo: :bar, flibble: :woo } }
 
-      it { is_expected.to be_a described_class }
+      it { is_expected.to be_a user_class }
     end
 
     context 'with no info' do
       let(:info) { nil }
 
-      it { is_expected.to be_a described_class }
+      it { is_expected.to be_a user_class }
     end
 
     context 'with no auth set' do
