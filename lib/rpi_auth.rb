@@ -6,6 +6,7 @@ require 'rpi_auth/configuration'
 require 'rpi_auth/models/authenticatable'
 require 'rpi_auth/models/with_tokens'
 require 'rpi_auth/models/roles'
+require 'rpi_auth/models/account_types'
 require 'omniauth/rails_csrf_protection'
 
 module RpiAuth
