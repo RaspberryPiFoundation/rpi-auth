@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [v4.2.0]
+
+### Added
+
+- Allow OmniAuth setup phase to be configured (#76)
+- Add `RpiAuth::Models::Roles#parsed_roles` (extracted from experience-cs) (#87)
+- Add `RpiAuth::Models::AccountTypes#student_account?` (extracted from experience-cs) (#87)
+
 ## [v4.1.1]
 
 ### Fixed
@@ -146,7 +154,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rails model concern to allow host app to add auth behaviour to a model
 - callback, logout and failure routes to handle auth
 
-[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.1.1...HEAD
+[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.2.0...HEAD
+[v4.2.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.2.0
 [v4.1.1]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.1.1
 [v4.1.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.1.0
 [v4.0.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.0.0
