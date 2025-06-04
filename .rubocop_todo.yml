@@ -45,3 +45,4 @@ RSpec/SpecFilePathFormat:
   Exclude:
     - "spec/rpi_auth/models/authenticatable_spec.rb"
     - "spec/rpi_auth/models/with_tokens_spec.rb"
+    - "spec/rpi_auth/models/roles_spec.rb"
