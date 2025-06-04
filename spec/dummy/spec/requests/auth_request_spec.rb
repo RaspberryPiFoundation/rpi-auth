@@ -312,5 +312,35 @@ RSpec.describe 'Authentication' do
         end
       end
     end
+
+    describe 'and toggling the scope at runtime' do
+      let(:custom_scope) { 'custom-scope' }
+
+      before do
+        OmniAuth.config.test_mode = false
+      end
+
+      it 'does not append a custom scope' do
+        post '/auth/rpi'
+
+        scopes = extract_scopes_from_redirect_location(response)
+
+        expect(scopes).not_to include(custom_scope)
+      end
+
+      it 'appends a custom scope' do
+        post "/auth/rpi?add-custom-scope=#{custom_scope}"
+
+        scopes = extract_scopes_from_redirect_location(response)
+
+        expect(scopes).to include(custom_scope)
+      end
+
+      def extract_scopes_from_redirect_location(response)
+        location = response.headers['location']
+        params = CGI.parse(URI.parse(location).query)
+        params['scope'].first.split
+      end
+    end
   end
 end
