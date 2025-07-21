@@ -63,15 +63,15 @@ RSpec.describe 'Refreshing the auth token', type: :request do
       log_in(user:)
     end
 
-    context 'when the access token has not expired' do
-      let(:expires_at) { 10.seconds.from_now }
+    context 'when the access token is valid for at least another 60 seconds' do
+      let(:expires_at) { 60.seconds.from_now }
 
       it_behaves_like 'the user is logged in'
       it_behaves_like 'there is no attempt to renew the token'
     end
 
-    context 'when the access token has expired' do
-      let(:expires_at) { 10.seconds.ago }
+    context 'when the access token expires in the next 60 seconds' do
+      let(:expires_at) { 59.seconds.from_now }
 
       before do
         allow(stub_oauth_client).to receive(:refresh_credentials).with(any_args).and_return({ access_token: 'foo',
