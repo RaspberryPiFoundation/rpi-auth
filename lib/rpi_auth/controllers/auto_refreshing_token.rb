@@ -24,8 +24,19 @@ module RpiAuth
 
         current_user.refresh_credentials!
         self.current_user = current_user
-      rescue OAuth2::Error, ArgumentError
+      rescue OAuth2::Error, ArgumentError => e
+        on_token_refresh_error(e)
+      end
+
+      def on_token_refresh_error(error)
         reset_session
+        if on_token_refresh_error_callback.respond_to?(:call)
+          on_token_refresh_error_callback.call(error)
+        end
+      end
+
+      def on_token_refresh_error_callback
+        RpiAuth.configuration.on_token_refresh_error_callback
       end
     end
   end

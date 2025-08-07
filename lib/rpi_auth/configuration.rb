@@ -19,7 +19,8 @@ module RpiAuth
                   :session_keys_to_persist,
                   :success_redirect,
                   :user_model,
-                  :setup
+                  :setup,
+                  :on_token_refresh_error_callback
 
     def initialize
       @bypass_auth = false

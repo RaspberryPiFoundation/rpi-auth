@@ -83,12 +83,28 @@ RSpec.describe 'Refreshing the auth token', type: :request do
       it_behaves_like 'there is an attempt to renew the token'
 
       context 'when an OAuth error is raised' do
+        let(:oauth_error) { OAuth2::Error.new('blargh') }
         before do
-          allow(stub_oauth_client).to receive(:refresh_credentials).with(any_args).and_raise(OAuth2::Error.new('blargh'))
+          allow(stub_oauth_client).to receive(:refresh_credentials).with(any_args).and_raise(oauth_error)
         end
 
         it_behaves_like 'the user is logged out'
         it_behaves_like 'there is an attempt to renew the token'
+
+        context 'when an on_token_refresh_error callback is provided' do
+          let(:on_token_refresh_error_callback) { spy(:on_token_refresh_error) }
+          before do
+            RpiAuth.configuration.on_token_refresh_error_callback = on_token_refresh_error_callback
+          end
+
+          it_behaves_like 'the user is logged out'
+          it_behaves_like 'there is an attempt to renew the token'
+
+          it 'calls the callback' do
+            request
+            expect(on_token_refresh_error_callback).to have_received(:call).with(oauth_error)
+          end
+        end
       end
     end
   end
