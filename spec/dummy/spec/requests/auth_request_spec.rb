@@ -2,6 +2,11 @@
 
 require 'spec_helper'
 
+class Foo
+  cattr_accessor :successful_logins
+  self.successful_logins = []
+end
+
 RSpec.describe 'Authentication' do
   let(:user) do
     User.new(
@@ -308,6 +313,42 @@ RSpec.describe 'Authentication' do
             follow_redirect!
 
             expect(Rails.logger).to have_received(:warn)
+          end
+        end
+      end
+
+      context 'when on_login_success is set as a proc in config' do
+        before do
+          allow(Rails.logger).to receive(:warn).and_call_original
+
+          RpiAuth.configuration.on_login_success = lambda do
+            Rails.logger.warn "Successful login: #{current_user.user_id}"
+          end
+        end
+
+        it 'calls the proc making the current user available' do
+          post '/auth/rpi'
+          follow_redirect!
+
+          expect(Rails.logger).to have_received(:warn).with(
+            "Successful login: #{user.user_id}"
+          )
+        end
+
+        context 'when the proc raises an exception' do
+          before do
+            RpiAuth.configuration.on_login_success = lambda do
+              raise 'boom!'
+            end
+          end
+
+          it 'logs a warning error' do
+            post '/auth/rpi'
+            follow_redirect!
+
+            expect(Rails.logger).to have_received(:warn).with(
+              'Caught boom! while processing on_login_success proc.'
+            )
           end
         end
       end

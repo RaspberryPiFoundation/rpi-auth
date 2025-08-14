@@ -170,6 +170,10 @@ link_to 'Log out', rpi_auth_logout_path, params: { returnTo: '/thanks-dude' }
 
 This has to be a relative URL, i.e. it has to start with a slash.  This is to ensure there's no open redirect.
 
+### Callback on successful login
+
+If the RpiAuth configuration option `on_login_success` is set to a `Proc`, this will be called in the context of the `RpiAuth::AuthController#callback` action, i.e. `current_user` will be available. This is intended to allow apps to record successful logins.
+
 ### Globbed/catch-all routes
 
 If your app has a catch-all route at the end of the routing table, you must
