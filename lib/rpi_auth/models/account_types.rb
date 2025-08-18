@@ -10,7 +10,9 @@ module RpiAuth
       include Authenticatable
 
       def student_account?
-        user_id =~ /^#{STUDENT_PREFIX}/o
+        return false if user_id.blank?
+
+        user_id.start_with?(STUDENT_PREFIX)
       end
     end
   end
