@@ -110,4 +110,8 @@ RSpec.describe RpiAuth::Configuration do
       it_behaves_like 'sets up the token url defaults'
     end
   end
+
+  it 'sets on_login_success to nil by default' do
+    expect(configuration.on_login_success).to be_nil
+  end
 end
