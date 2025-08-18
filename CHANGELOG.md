@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Return boolean from `AccountTypes#student_account?` (#91)
+
 ### Removed
 
 ## [v4.2.1]
