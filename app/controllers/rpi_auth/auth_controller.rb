@@ -27,6 +27,8 @@ module RpiAuth
       auth = request.env['omniauth.auth']
       self.current_user = RpiAuth.user_model.from_omniauth(auth)
 
+      run_login_success_callback
+
       redirect_to ensure_relative_url(login_redirect_path)
     end
 
@@ -52,6 +54,16 @@ module RpiAuth
     end
 
     private
+
+    def run_login_success_callback
+      return unless RpiAuth.configuration.on_login_success.is_a?(Proc)
+
+      begin
+        instance_exec(&RpiAuth.configuration.on_login_success)
+      rescue StandardError => e
+        Rails.logger.warn("Caught #{e} while processing on_login_success proc.")
+      end
+    end
 
     def login_redirect_path
       unless RpiAuth.configuration.success_redirect.is_a?(Proc)

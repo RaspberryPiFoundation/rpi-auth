@@ -170,6 +170,10 @@ link_to 'Log out', rpi_auth_logout_path, params: { returnTo: '/thanks-dude' }
 
 This has to be a relative URL, i.e. it has to start with a slash.  This is to ensure there's no open redirect.
 
+### Callback on successful login
+
+If the RpiAuth configuration option `on_login_success` is set to a `Proc`, this will be called in the context of the `RpiAuth::AuthController#callback` action, i.e. `current_user` will be available. This is intended to allow apps to record successful logins.
+
 ### Globbed/catch-all routes
 
 If your app has a catch-all route at the end of the routing table, you must
@@ -186,6 +190,29 @@ class in `config/application.rb`.
 # See https://api.rubyonrails.org/classes/Rails/Engine.html#class-Rails::Engine-label-Loading+priority
 config.railties_order = [RpiAuth::Engine, :main_app, :all]
 ```
+
+### Obtaining an access token for user
+
+This optional behaviour is useful if your Rails app (which is using this gem)
+needs to use a RPF API which required authentication via an OAuth2 access
+token.
+
+Include the `RpiAuth::Models::WithTokens` concern (which depends on the
+`RpiAuth::Models::Authenticatable` concern) into your user model in order to
+add `access_token`, `refresh_token` & `expires_at` attributes. These methods
+are automatically populated by `RpiAuth::AuthController#callback` via the
+`RpiAuth::Models::WithTokens.from_omniauth` method.
+
+This also relies on the following:
+- `RpiAuth.configuration.scope` including the "offline" scope in the Rails app
+  which is using the `rpi_auth` gem.
+- In the `profile` app `hydra_client` config for the Rails app, `grant_types`
+  must include "refresh_token" and `scope` must include "offline".
+
+Include the `RpiAuth::Controllers::AutoRefreshingToken` concern (which depends
+on the `RpiAuth::Controllers::CurrentUser` concern) into your controller so
+that when the user's access token expires, a new one is obtained using the
+user's refresh token.
 
 ## Test helpers and routes
 

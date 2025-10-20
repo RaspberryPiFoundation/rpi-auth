@@ -14,6 +14,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [v4.3.0]
+
+### Added
+
+- Add optional `on_login_success` callback (#90)
+
+### Fixed
+
+- Return boolean from `AccountTypes#student_account?` (#91)
+
+### Removed
+
+## [v4.2.1]
+
+### Fixed
+
+- Refresh access tokens before expiry (#89)
+
+## [v4.2.0]
+
+### Added
+
+- Allow OmniAuth setup phase to be configured (#76)
+- Add `RpiAuth::Models::Roles#parsed_roles` (extracted from experience-cs) (#87)
+- Add `RpiAuth::Models::AccountTypes#student_account?` (extracted from experience-cs) (#87)
+
+## [v4.1.1]
+
+### Fixed
+
+- Fix requiring of oauth2 to avoid `NoMethodError: undefined method 'config' for module OAuth2` (#86)
+
+## [v4.1.0]
+
+### Added
+- Add access token-related functionality including auto-refresh (#83)
+
+### Fixed
+- Fix use of `User#expires_at` in `SpecHelpers#stub_auth_for` (#82)
+
 ## [v4.0.0]
 
 ### Added
@@ -133,7 +173,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rails model concern to allow host app to add auth behaviour to a model
 - callback, logout and failure routes to handle auth
 
-[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.0.0...HEAD
+[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.3.0...HEAD
+[v4.3.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.3.0
+[v4.2.1]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.2.1
+[v4.2.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.2.0
+[v4.1.1]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.1.1
+[v4.1.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.1.0
 [v4.0.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.0.0
 [v3.6.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.6.0
 [v3.5.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v3.5.0
