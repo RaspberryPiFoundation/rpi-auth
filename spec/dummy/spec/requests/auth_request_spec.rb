@@ -2,6 +2,11 @@
 
 require 'spec_helper'
 
+class Foo
+  cattr_accessor :successful_logins
+  self.successful_logins = []
+end
+
 RSpec.describe 'Authentication' do
   let(:user) do
     User.new(
@@ -310,6 +315,72 @@ RSpec.describe 'Authentication' do
             expect(Rails.logger).to have_received(:warn)
           end
         end
+      end
+
+      context 'when on_login_success is set as a proc in config' do
+        before do
+          allow(Rails.logger).to receive(:warn).and_call_original
+
+          RpiAuth.configuration.on_login_success = lambda do
+            Rails.logger.warn "Successful login: #{current_user.user_id}"
+          end
+        end
+
+        it 'calls the proc making the current user available' do
+          post '/auth/rpi'
+          follow_redirect!
+
+          expect(Rails.logger).to have_received(:warn).with(
+            "Successful login: #{user.user_id}"
+          )
+        end
+
+        context 'when the proc raises an exception' do
+          before do
+            RpiAuth.configuration.on_login_success = lambda do
+              raise 'boom!'
+            end
+          end
+
+          it 'logs a warning error' do
+            post '/auth/rpi'
+            follow_redirect!
+
+            expect(Rails.logger).to have_received(:warn).with(
+              'Caught boom! while processing on_login_success proc.'
+            )
+          end
+        end
+      end
+    end
+
+    describe 'and toggling the scope at runtime' do
+      let(:custom_scope) { 'custom-scope' }
+
+      before do
+        OmniAuth.config.test_mode = false
+      end
+
+      it 'does not append a custom scope' do
+        post '/auth/rpi'
+
+        scopes = extract_scopes_from_redirect_location(response)
+
+        expect(scopes).not_to include(custom_scope)
+      end
+
+      it 'appends a custom scope' do
+        post "/auth/rpi?add-custom-scope=#{custom_scope}"
+
+        scopes = extract_scopes_from_redirect_location(response)
+
+        expect(scopes).to include(custom_scope)
+      end
+
+      def extract_scopes_from_redirect_location(response)
+        location = response.headers['location']
+        params = CGI.parse(URI.parse(location).query)
+        params['scope'].first.split
       end
     end
   end

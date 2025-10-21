@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-require 'oauth2/error'
+require 'oauth2'
 
 module RpiAuth
   module Controllers
     module AutoRefreshingToken
+      REFRESH_WINDOW_IN_SECONDS = 60
+
       extend ActiveSupport::Concern
 
       include CurrentUser
@@ -18,7 +20,7 @@ module RpiAuth
       def refresh_credentials_if_needed
         return unless current_user
 
-        return if Time.now.to_i < current_user.expires_at
+        return if Time.now.to_i + REFRESH_WINDOW_IN_SECONDS <= current_user.expires_at
 
         current_user.refresh_credentials!
         self.current_user = current_user
