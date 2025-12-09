@@ -53,7 +53,66 @@ module RpiAuth
       redirect_to '/'
     end
 
+    def frontchannel_logout
+      # Front-channel logout: The identity provider redirects the user's browser here
+      # in an iframe with 'iss' and 'sid' parameters if the Hydra client has been configured to do so.
+      # Since this is a user request, we have their session cookie and can reset the session directly.
+
+      validation_error = validate_frontchannel_logout
+      return head :bad_request if validation_error
+
+      # All validations passed - reset the session
+      reset_session
+      head :ok
+    end
+
     private
+
+    def validate_frontchannel_logout
+      error = check_iframe || check_issuer || check_sid_param || check_current_user || check_sid_match
+      log_validation_error(error) if error
+      error
+    end
+
+    def request_in_iframe?
+      request.headers['Sec-Fetch-Dest'] == 'iframe'
+    end
+
+    def check_iframe
+      return 'request not in iframe' unless request_in_iframe?
+
+      nil
+    end
+
+    def check_issuer
+      iss = params[:iss]
+      return 'issuer mismatch or missing' unless iss && RpiAuth.configuration.issuer.chomp('/') == iss.chomp('/')
+
+      nil
+    end
+
+    def check_sid_param
+      return 'sid parameter missing' unless params[:sid].present?
+
+      nil
+    end
+
+    def check_current_user
+      return 'no current user' unless current_user
+      return 'current user has no sid (old session), rejecting for security' if current_user.sid.nil?
+
+      nil
+    end
+
+    def check_sid_match
+      return nil if current_user.sid == params[:sid]
+
+      "sid mismatch (expected: #{current_user.sid}, got: #{params[:sid]})"
+    end
+
+    def log_validation_error(message)
+      Rails.logger.warn("Front-channel logout: #{message}")
+    end
 
     def run_login_success_callback
       return unless RpiAuth.configuration.on_login_success.is_a?(Proc)

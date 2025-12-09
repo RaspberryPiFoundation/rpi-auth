@@ -12,6 +12,7 @@ module RpiAuth
     LOGIN_PATH = '/auth/rpi'
     CALLBACK_PATH = '/rpi_auth/auth/callback'
     LOGOUT_PATH = '/rpi_auth/logout'
+    FRONTCHANNEL_LOGOUT_PATH = '/rpi_auth/frontchannel_logout'
     TEST_PATH = '/rpi_auth/test'
 
     ENABLE_TEST_PATH = Rails.env.development? || Rails.env.test?

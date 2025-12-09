@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get RpiAuth::Engine::CALLBACK_PATH, to: 'rpi_auth/auth#callback', as: 'rpi_auth_callback'
   get RpiAuth::Engine::LOGOUT_PATH, to: 'rpi_auth/auth#destroy', as: 'rpi_auth_logout'
+  get RpiAuth::Engine::FRONTCHANNEL_LOGOUT_PATH, to: 'rpi_auth/auth#frontchannel_logout',
+                                                 as: 'rpi_auth_frontchannel_logout'
 
   # This route can be used in testing to log in, avoiding the need to interact
   # with shadow root in the RPF global nav.
