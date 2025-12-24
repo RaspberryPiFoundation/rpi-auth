@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+- Ruby 3.1 and Rails 6.1 support (#96)
+
+## [v4.4.0]
+
 ### Added
 - Rails 8 testing support (#80)
 
@@ -14,7 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reinstated static code analysis checks in CI (#73)
 
 ### Removed
-- Ruby 3.1 and Rails 6.1 support (#96)
 
 ## [v4.3.0]
 
@@ -175,7 +179,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rails model concern to allow host app to add auth behaviour to a model
 - callback, logout and failure routes to handle auth
 
-[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.3.0...HEAD
+[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.4.0...HEAD
+[v4.4.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.4.0
 [v4.3.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.3.0
 [v4.2.1]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.2.1
 [v4.2.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.2.0
