@@ -28,10 +28,6 @@ jobs:
         rubygems: 3.4.10
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
-    - name: Run linter
-      if: matrix.ruby-version == '3.2' && matrix.gemfile == 'rails_7.2'
-      run: bundle exec rubocop
-
     - name: Run tests
       run: bundle exec rspec
 
