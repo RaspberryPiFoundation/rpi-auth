@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reinstated static code analysis checks in CI (#73)
 
 ### Removed
+- Ruby 3.1 and Rails 6.1 support (#96)
 
 ## [v4.3.0]
 
