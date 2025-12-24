@@ -100,16 +100,15 @@ GEM
     email_validator (2.2.4)
       activemodel
     erubi (1.13.1)
-    faraday (2.14.0)
+    faraday (2.13.4)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-follow_redirects (0.4.0)
+    faraday-follow_redirects (0.3.0)
       faraday (>= 1, < 3)
-    faraday-net_http (3.4.2)
-      net-http (~> 0.5)
-    ffi (1.17.1-arm64-darwin)
-    ffi (1.17.1-x86_64-linux-gnu)
+    faraday-net_http (3.4.1)
+      net-http (>= 0.5.0)
+    ffi (1.17.1)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.2)
@@ -144,11 +143,12 @@ GEM
     matrix (0.4.2)
     method_source (1.1.0)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.8)
     minitest (5.25.5)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
-    net-http (0.9.1)
-      uri (>= 0.11.1)
+    net-http (0.6.0)
+      uri
     net-imap (0.5.6)
       date
       net-protocol
@@ -159,21 +159,19 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.7-arm64-darwin)
+    nokogiri (1.18.7)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.18.7-x86_64-linux-gnu)
-      racc (~> 1.4)
-    oauth2 (2.0.18)
+    oauth2 (2.0.12)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
       logger (~> 1.2)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0, >= 2.0.3)
-      version_gem (~> 1.1, >= 1.1.9)
-    omniauth (2.1.4)
+      version_gem (>= 1.1.8, < 3)
+    omniauth (2.1.3)
       hashie (>= 3.4.6)
-      logger
       rack (>= 2.2.3)
       rack-protection
     omniauth-rails_csrf_protection (1.0.2)
@@ -211,7 +209,7 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (2.2.13)
-    rack-oauth2 (2.3.0)
+    rack-oauth2 (2.2.1)
       activesupport
       attr_required
       faraday (~> 2.0)
@@ -333,11 +331,11 @@ GEM
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
-    uri (1.1.1)
+    uri (1.0.3)
     validate_url (1.0.15)
       activemodel (>= 3.0.0)
       public_suffix
-    version_gem (1.1.9)
+    version_gem (1.1.8)
     webfinger (2.1.3)
       activesupport
       faraday (~> 2.0)
@@ -355,8 +353,7 @@ GEM
     zeitwerk (2.6.18)
 
 PLATFORMS
-  arm64-darwin-24
-  x86_64-linux
+  ruby
 
 DEPENDENCIES
   capybara
@@ -375,4 +372,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.7.2
+   2.3.27
