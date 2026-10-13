@@ -11,7 +11,7 @@ inherit_mode:
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 3.4
   Exclude:
     - 'spec/dummy/config/**/*'
     - 'spec/dummy/app/**/*'
