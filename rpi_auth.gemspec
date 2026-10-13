@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'oauth2'
   spec.add_dependency 'omniauth_openid_connect'
   spec.add_dependency 'omniauth-rails_csrf_protection'
-  spec.add_dependency 'rails', '>= 7.0', '< 9.0'
+  spec.add_dependency 'rails', '>= 7.2', '< 9.0'
 
   spec.add_development_dependency 'capybara'
   spec.add_development_dependency 'cgi'
