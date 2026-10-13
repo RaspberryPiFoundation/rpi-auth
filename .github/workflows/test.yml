@@ -47,7 +47,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: code-coverage-report-ruby_3.2-rails_7.1
+          name: code-coverage-report-ruby_4.0-rails_8.1
           path: coverage/
 
       - name: Install JQ
