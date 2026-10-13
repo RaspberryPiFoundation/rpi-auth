@@ -20,6 +20,6 @@ module RpiAuth
   end
 
   def self.user_model
-    self.configuration.user_model.constantize
+    configuration.user_model.constantize
   end
 end

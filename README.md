@@ -311,11 +311,11 @@ $ bundle exec rspec
 
 #### Testing with different versions of Rails
 
-This Gem should work with Rails 6.1+. To test Rails 6.1, you'll want to use `gemfiles/rails_6.1.gemfile` as your gemfile, and then run rspec using that.
+This Gem should work with Rails 7.2+. To test Rails 7.2, you'll want to use `gemfiles/rails_7.2.gemfile` as your gemfile, and then run rspec using that.
 
 ```
 # Set the version of rails we want to follow
-export BUNDLE_GEMFILE=gemfiles/rails_6.1.gemfile
+export BUNDLE_GEMFILE=gemfiles/rails_7.2.gemfile
 bundle install
 bundle exec rspec
 ```

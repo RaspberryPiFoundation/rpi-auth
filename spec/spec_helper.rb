@@ -3,10 +3,8 @@
 require 'simplecov'
 SimpleCov.start do
   enable_coverage :branch
-  add_filter '/spec/'
+  skip '/spec/'
 end
-
-require 'pry-byebug'
 
 require_relative 'support/omniauth'
 require_relative 'support/request_helpers'

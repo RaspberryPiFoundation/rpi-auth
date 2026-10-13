@@ -275,7 +275,7 @@ RSpec.describe 'Authentication' do
           # in the context of the controller.  We use `let!` to make sure the
           # proc is defined straightaway, rather than later, when `request` and
           # `current_user` might be in scope.
-          let!(:redirect_proc) do # rubocop:disable RSpec/LetSetup
+          let!(:redirect_proc) do
             -> { "#{request.env['omniauth.origin']}/extra?#{{ email: current_user.email }.to_query}" }
           end
 
@@ -293,7 +293,7 @@ RSpec.describe 'Authentication' do
           # in the context of the controller.  We use `let!` to make sure the
           # proc is defined straightaway, rather than later, when `request` and
           # `current_user` might be in scope.
-          let!(:redirect_proc) do # rubocop:disable RSpec/LetSetup
+          let!(:redirect_proc) do
             -> { raise ArgumentError }
           end
 
