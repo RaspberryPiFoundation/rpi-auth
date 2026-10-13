@@ -6,8 +6,6 @@ SimpleCov.start do
   skip '/spec/'
 end
 
-require 'pry-byebug'
-
 require_relative 'support/omniauth'
 require_relative 'support/request_helpers'
 require_relative 'support/webmock'
