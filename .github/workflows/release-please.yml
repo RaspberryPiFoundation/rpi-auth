@@ -1,0 +1,82 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  release-please:
+    name: Release Please
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+      pr_branch: ${{ steps.release.outputs.pr && fromJSON(steps.release.outputs.pr).headBranchName || '' }}
+    steps:
+      - uses: googleapis/release-please-action@v5
+        id: release
+
+  # release-please bumps lib/rpi_auth/version.rb but does not fully update the
+  # lockfiles (it misses the CHECKSUMS entry and the Appraisal gemfiles), which
+  # makes `bundle install` fail in frozen mode. Re-lock them on the release PR.
+  update-lockfiles:
+    name: Update lockfiles on release PR
+    needs: release-please
+    if: needs.release-please.outputs.pr_branch != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-please.outputs.pr_branch }}
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+
+      - name: Re-lock gemfiles
+        run: |
+          bundle lock
+          for gemfile in gemfiles/*.gemfile; do
+            BUNDLE_GEMFILE="${gemfile}" bundle lock
+          done
+
+      - name: Commit and push lockfiles
+        run: |
+          if git diff --quiet -- Gemfile.lock gemfiles/; then
+            echo "Lockfiles already up to date"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Gemfile.lock gemfiles/*.gemfile.lock
+          git commit -m "chore: update lockfiles for release"
+          git push
+
+      # Pushes made with GITHUB_TOKEN don't trigger CI, so the required status
+      # checks would never report on the release PR. Dispatch CI explicitly so
+      # it runs against the final head commit of the release branch.
+      - name: Run CI on release PR
+        run: gh workflow run ci.yml --repo "${{ github.repository }}" --ref "${BRANCH}"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ needs.release-please.outputs.pr_branch }}
+
+  build_publish:
+    name: Build and publish
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    permissions:
+      contents: read
+      packages: write
+    uses: ./.github/workflows/build_publish.yml
+    with:
+      ref: ${{ needs.release-please.outputs.tag_name }}
+      publish: true
