@@ -10,9 +10,11 @@ The Engine includes the [Rails CSRF protection gem](https://github.com/cookpad/o
 
 Add this line to your application's Gemfile:
 
+<!-- x-release-please-start-version -->
 ```ruby
-gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v3.2.0'
+gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v4.5.0'
 ```
+<!-- x-release-please-end -->
 
 And then execute:
 
@@ -300,8 +302,6 @@ If running Hydra locally you will need to configure a new client with the follow
 
 There is a seed in the Profile repo to set this client up correctly, running the v1 setup tasks will create this client
 
-Ensure to update `lib/rpi_auth/version.rb` when publishing a new version.
-
 ### Testing
 
 ```bash
@@ -324,17 +324,27 @@ After changing `Appraisals` or the gemspec dependencies, regenerate the gemfiles
 
 ## Releasing
 
-Ensure that the version number has been updated in: https://github.com/RaspberryPiFoundation/rpi-auth/blob/main/lib/rpi_auth/version.rb
+Releases are managed by [release-please](https://github.com/googleapis/release-please).
 
-Ensure that the changelog has been updated in: https://github.com/RaspberryPiFoundation/rpi-auth/blob/main/CHANGELOG.md
+PR titles must follow [Conventional Commits](https://www.conventionalcommits.org/).
+When a PR is squash-merged, its title becomes the commit message on `main`, and
+release-please uses these messages to choose the next version and write the
+changelog:
 
-Create and push a new tag from `main`:
+* `fix:`, `perf:` and `revert:` produce a patch release.
+* `feat:` produces a minor release.
+* `feat!:`, `fix!:`, or a `BREAKING CHANGE:` footer in the PR description, produces a major release.
+* Other types, such as `chore:`, `ci:`, `docs:`, `test:` and `refactor:`, do not produce a release and are left out of the changelog.
 
-```
-git tag v1.2.2
-git push --tags
-```
+Do not edit `CHANGELOG.md` or `lib/rpi_auth/version.rb` by hand.
 
-Create a new release at: https://github.com/RaspberryPiFoundation/rpi-auth/releases/new
+When a PR that produces a release is merged into `main`, release-please opens
+or updates a release PR. The release PR updates the version number, the
+changelog, the lockfiles and the version in the installation example above, and
+CI runs against it. To release, review and
+merge the release PR. release-please then tags the merge commit (for example
+`v4.6.0`) and creates a GitHub release, and the gem is built and published to
+GitHub Packages.
 
-Select the newly created tag, the target should be `main`, and the release name should be the same as the tag name eg. `v1.2.2`. Enter a short description of the release (generally best to copy / paste the changelog entry).
+To release a specific version, add a `Release-As: x.y.z` footer to the
+description of a PR before squash-merging it.

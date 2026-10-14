@@ -6,6 +6,9 @@ on:
       - '**'
     tags:
       - '**'
+  # Allows the release-please workflow to run CI on the release PR branch:
+  # pushes made with GITHUB_TOKEN do not trigger workflows, but dispatches do.
+  workflow_dispatch: {}
 
 jobs:
   test:
