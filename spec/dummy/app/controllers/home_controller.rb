@@ -3,7 +3,6 @@ class HomeController < ApplicationController
   end
 
   def reset_user
-    current_user
     reset_session
     render :show
   end

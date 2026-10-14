@@ -9,7 +9,6 @@ RSpec.describe 'Refreshing the auth token', type: :request do
 
   subject(:request) { get root_path }
 
-  let(:logged_in_text) { 'Log out' }
   let(:stub_oauth_client) { instance_double(RpiAuth::OauthClient) }
 
   before do
@@ -40,14 +39,14 @@ RSpec.describe 'Refreshing the auth token', type: :request do
   shared_examples 'the user is logged in' do
     it do
       request
-      expect(response.body).to include(logged_in_text)
+      expect(response.body).to include('Logged in as')
     end
   end
 
   shared_examples 'the user is logged out' do
     it do
       request
-      expect(response.body).not_to include(logged_in_text)
+      expect(response.body).to include('Logged out')
     end
   end
 
