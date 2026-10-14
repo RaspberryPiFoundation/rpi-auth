@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+From v4.6.0 onwards this file is maintained by
+[release-please](https://github.com/googleapis/release-please). Do not edit it
+by hand; see the "Releasing" section of the README.
 
 ## [v4.5.0]
 
@@ -184,7 +186,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rails model concern to allow host app to add auth behaviour to a model
 - callback, logout and failure routes to handle auth
 
-[Unreleased]: https://github.com/RaspberryPiFoundation/rpi-auth/compare/v4.5.0...HEAD
 [v4.5.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.5.0
 [v4.4.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.4.0
 [v4.3.0]: https://github.com/RaspberryPiFoundation/rpi-auth/releases/tag/v4.3.0

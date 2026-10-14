@@ -324,17 +324,24 @@ After changing `Appraisals` or the gemspec dependencies, regenerate the gemfiles
 
 ## Releasing
 
-Ensure that the version number has been updated in: https://github.com/RaspberryPiFoundation/rpi-auth/blob/main/lib/rpi_auth/version.rb
+Releases are managed by [release-please](https://github.com/googleapis/release-please).
 
-Ensure that the changelog has been updated in: https://github.com/RaspberryPiFoundation/rpi-auth/blob/main/CHANGELOG.md
+PR titles must follow [Conventional Commits](https://www.conventionalcommits.org/),
+because the squash-merge commit message is used to pick the next version and
+build the changelog:
 
-Create and push a new tag from `main`:
+* `fix: ...` produces a patch release.
+* `feat: ...` produces a minor release.
+* `feat!: ...`, or a `BREAKING CHANGE:` footer in the commit body, produces a major release.
+* Other types such as `chore:`, `ci:`, `docs:`, `test:` and `refactor:` do not trigger a release on their own.
 
-```
-git tag v1.2.2
-git push --tags
-```
+Do not edit `CHANGELOG.md` or `lib/rpi_auth/version.rb` by hand.
 
-Create a new release at: https://github.com/RaspberryPiFoundation/rpi-auth/releases/new
+When releasable commits land on `main`, release-please opens or updates a
+release PR. That PR bumps the version, updates the changelog and lockfiles. To
+release, review and merge the release PR. release-please then tags the merge
+commit (e.g. `v1.2.3`), creates a GitHub release, and the gem is built and
+published to GitHub Packages.
 
-Select the newly created tag, the target should be `main`, and the release name should be the same as the tag name eg. `v1.2.2`. Enter a short description of the release (generally best to copy / paste the changelog entry).
+To force a particular version, add a `Release-As: x.y.z` footer to a commit
+message on `main`.

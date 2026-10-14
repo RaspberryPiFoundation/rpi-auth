@@ -1,0 +1,25 @@
+name: PR title
+
+# release-please builds the changelog and picks the next version from
+# Conventional Commit messages, so PR titles (which become the squash-merge
+# commit message) must follow https://www.conventionalcommits.org/
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+
+permissions:
+  pull-requests: read
+
+jobs:
+  conventional-title:
+    name: Conventional PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
