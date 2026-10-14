@@ -17,6 +17,6 @@ AllCops:
     - 'spec/dummy/app/**/*'
     - 'spec/dummy/bin/**/*'
     - 'vendor/**/*'
-    - 'gemfiles/vendor/**/*'
+    - 'gemfiles/**/*'
     - 'bin/rails'
 

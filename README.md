@@ -273,9 +273,8 @@ The gem is available as open source under the terms of the [MIT License](https:/
 Run:
 
 ```bash
-# Set the version of rails we want to follow
-export BUNDLE_GEMFILE=gemfiles/rails_7.0.gemfile
 bundle install
+bundle exec appraisal install
 ```
 
 from the root directory. This will also install the gems required by the dummy application found at `spec/dummy`.
@@ -311,14 +310,17 @@ $ bundle exec rspec
 
 #### Testing with different versions of Rails
 
-This Gem should work with Rails 7.2+. To test Rails 7.2, you'll want to use `gemfiles/rails_7.2.gemfile` as your gemfile, and then run rspec using that.
+This Gem should work with Rails 7.2+. The supported Rails versions are defined in `Appraisals`, and the gemfiles in `gemfiles/` are generated from it using [Appraisal](https://github.com/thoughtbot/appraisal).
 
+```bash
+# Run the specs against every supported version of Rails
+bundle exec appraisal rspec
+
+# Run the specs against a single version of Rails
+bundle exec appraisal rails-8.1 rspec
 ```
-# Set the version of rails we want to follow
-export BUNDLE_GEMFILE=gemfiles/rails_7.2.gemfile
-bundle install
-bundle exec rspec
-```
+
+After changing `Appraisals` or the gemspec dependencies, regenerate the gemfiles and their lockfiles with `bundle exec appraisal install`, and commit the result.
 
 ## Releasing
 
