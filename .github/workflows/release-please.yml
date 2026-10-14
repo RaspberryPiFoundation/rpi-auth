@@ -32,6 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -58,6 +59,15 @@ jobs:
           git add Gemfile.lock gemfiles/*.gemfile.lock
           git commit -m "chore: update lockfiles for release"
           git push
+
+      # Pushes made with GITHUB_TOKEN don't trigger CI, so the required status
+      # checks would never report on the release PR. Dispatch CI explicitly so
+      # it runs against the final head commit of the release branch.
+      - name: Run CI on release PR
+        run: gh workflow run ci.yml --repo "${{ github.repository }}" --ref "${BRANCH}"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ needs.release-please.outputs.pr_branch }}
 
   build_publish:
     name: Build and publish
