@@ -300,8 +300,6 @@ If running Hydra locally you will need to configure a new client with the follow
 
 There is a seed in the Profile repo to set this client up correctly, running the v1 setup tasks will create this client
 
-Ensure to update `lib/rpi_auth/version.rb` when publishing a new version.
-
 ### Testing
 
 ```bash
@@ -326,22 +324,24 @@ After changing `Appraisals` or the gemspec dependencies, regenerate the gemfiles
 
 Releases are managed by [release-please](https://github.com/googleapis/release-please).
 
-PR titles must follow [Conventional Commits](https://www.conventionalcommits.org/),
-because the squash-merge commit message is used to pick the next version and
-build the changelog:
+PR titles must follow [Conventional Commits](https://www.conventionalcommits.org/).
+When a PR is squash-merged, its title becomes the commit message on `main`, and
+release-please uses these messages to choose the next version and write the
+changelog:
 
-* `fix: ...` produces a patch release.
-* `feat: ...` produces a minor release.
-* `feat!: ...`, or a `BREAKING CHANGE:` footer in the commit body, produces a major release.
-* Other types such as `chore:`, `ci:`, `docs:`, `test:` and `refactor:` do not trigger a release on their own.
+* `fix:`, `perf:` and `revert:` produce a patch release.
+* `feat:` produces a minor release.
+* `feat!:`, `fix!:`, or a `BREAKING CHANGE:` footer in the PR description, produces a major release.
+* Other types, such as `chore:`, `ci:`, `docs:`, `test:` and `refactor:`, do not produce a release and are left out of the changelog.
 
 Do not edit `CHANGELOG.md` or `lib/rpi_auth/version.rb` by hand.
 
-When releasable commits land on `main`, release-please opens or updates a
-release PR. That PR bumps the version, updates the changelog and lockfiles. To
-release, review and merge the release PR. release-please then tags the merge
-commit (e.g. `v1.2.3`), creates a GitHub release, and the gem is built and
-published to GitHub Packages.
+When a PR that produces a release is merged into `main`, release-please opens
+or updates a release PR. The release PR updates the version number, the
+changelog and the lockfiles, and CI runs against it. To release, review and
+merge the release PR. release-please then tags the merge commit (for example
+`v4.6.0`) and creates a GitHub release, and the gem is built and published to
+GitHub Packages.
 
-To force a particular version, add a `Release-As: x.y.z` footer to a commit
-message on `main`.
+To release a specific version, add a `Release-As: x.y.z` footer to the
+description of a PR before squash-merging it.
