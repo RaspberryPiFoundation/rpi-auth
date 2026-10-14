@@ -2,7 +2,5 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.1.0'
-
 # Specify your gem's dependencies in rpi_auth.gemspec.
-gemspec path: '../'
+gemspec

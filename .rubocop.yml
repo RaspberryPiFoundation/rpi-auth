@@ -11,12 +11,12 @@ inherit_mode:
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.1
+  TargetRubyVersion: 3.3
   Exclude:
     - 'spec/dummy/config/**/*'
     - 'spec/dummy/app/**/*'
     - 'spec/dummy/bin/**/*'
     - 'vendor/**/*'
-    - 'gemfiles/vendor/**/*'
+    - 'gemfiles/**/*'
     - 'bin/rails'
 
