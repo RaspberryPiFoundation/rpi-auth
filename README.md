@@ -10,9 +10,11 @@ The Engine includes the [Rails CSRF protection gem](https://github.com/cookpad/o
 
 Add this line to your application's Gemfile:
 
+<!-- x-release-please-start-version -->
 ```ruby
-gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v3.2.0'
+gem 'rpi_auth', git: 'https://github.com/RaspberryPiFoundation/rpi-auth.git', tag: 'v4.5.0'
 ```
+<!-- x-release-please-end -->
 
 And then execute:
 
@@ -338,7 +340,8 @@ Do not edit `CHANGELOG.md` or `lib/rpi_auth/version.rb` by hand.
 
 When a PR that produces a release is merged into `main`, release-please opens
 or updates a release PR. The release PR updates the version number, the
-changelog and the lockfiles, and CI runs against it. To release, review and
+changelog, the lockfiles and the version in the installation example above, and
+CI runs against it. To release, review and
 merge the release PR. release-please then tags the merge commit (for example
 `v4.6.0`) and creates a GitHub release, and the gem is built and published to
 GitHub Packages.
