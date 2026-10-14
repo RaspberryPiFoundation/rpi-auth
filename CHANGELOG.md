@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Use Appraisal to manage the Rails test gemfiles (#96)
+- Use Appraisal to manage the Rails test gemfiles (#101)
 
 ### Removed
 - Ruby < 3.3 and Rails < 7.2 support (#96)
